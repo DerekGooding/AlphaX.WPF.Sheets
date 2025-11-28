@@ -1,16 +1,9 @@
 ﻿namespace AlphaX.CalcEngine.Evaluator;
 
-public class CalcError
+public class CalcError(string msg, string err)
 {
-    public string Message { get; private set; }
-    public string Error { get; private set; }
-
-    public CalcError(string msg, string err)
-    {
-        Message = msg;
-        Error = err;
-    }
-
+    public string Message { get; private set; } = msg;
+    public string Error { get; private set; } = err;
 }
 
 public class ValueError: CalcError

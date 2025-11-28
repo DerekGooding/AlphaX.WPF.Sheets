@@ -2,16 +2,10 @@
 
 namespace AlphaX.CalcEngine.Parsers.Utility;
 
-internal class ManyParser : Parser
+internal class ManyParser(Parser parser, int minCount = 0) : Parser
 {
-    private Parser _parser;
-    private int _minCount;
-
-    public ManyParser(Parser parser, int minCount = 0)
-    {
-        _parser = parser;
-        _minCount = minCount;
-    }
+    private Parser _parser = parser;
+    private int _minCount = minCount;
 
     public override ParserState Parse(ParserState state)
     {
@@ -20,12 +14,12 @@ internal class ManyParser : Parser
             return state;
         }
 
-        List<ParserResult> results = new List<ParserResult>();
+        List<ParserResult> results = [];
         var nextState = state;
 
         while (!nextState.IsError)
         {
-            nextState = this._parser.Parse(nextState);
+            nextState = _parser.Parse(nextState);
             if (!nextState.IsError)
             {
                 results.Add(nextState.Result);
@@ -33,39 +27,23 @@ internal class ManyParser : Parser
             }
         }
 
-        if (results.Count < _minCount)
-        {
-            return UpdateError(state, new ParserError($"expected {_minCount} counts, but got {results.Count} counts"));
-        }
-        else
-        {
-            return UpdateResult(state, new ArrayResult(results.ToArray()));
-        }
+        return results.Count < _minCount
+            ? UpdateError(state, new ParserError($"expected {_minCount} counts, but got {results.Count} counts"))
+            : UpdateResult(state, new ArrayResult(results.ToArray()));
     }
 
 }
 
-internal class ManyOneParser : ManyParser
+internal class ManyOneParser(Parser parser) : ManyParser(parser, 1)
 {
-    public ManyOneParser(Parser parser): base(parser, 1)
-    {
-
-    }
 }
 
-internal class ManySeptParser : Parser
+internal class ManySeptParser(Parser parser, Parser septBy, int minCount = -1) : Parser
 {
-    private Parser Parser { get; set; }
-    private Parser SeptByParser { get; set; }
+    private Parser Parser { get; set; } = parser;
+    private Parser SeptByParser { get; set; } = septBy;
 
-    private int MinCount;
-
-    public ManySeptParser(Parser parser, Parser septBy, int minCount = -1)
-    {
-        Parser = parser;
-        SeptByParser = septBy;
-        MinCount = minCount;
-    }
+    private int MinCount = minCount;
 
     public override ParserState Parse(ParserState state)
     {
@@ -74,45 +52,33 @@ internal class ManySeptParser : Parser
             return state;
         }
 
-        List<ParserResult> results = new List<ParserResult>();
+        List<ParserResult> results = [];
         var nextState = state;
 
         while (!nextState.IsError)
         {
-            nextState = this.Parser.Parse(nextState);
+            nextState = Parser.Parse(nextState);
             if (!nextState.IsError)
             {
                 results.Add(nextState.Result);
                 state = nextState;
             }
 
-            nextState = this.SeptByParser.Parse(nextState);
+            nextState = SeptByParser.Parse(nextState);
         }
 
-        if (results.Count < MinCount)
-        {
-            return UpdateError(state, new ParserError($"expected {MinCount} counts, but got {results.Count} counts"));
-        }
-        else
-        {
-            return UpdateResult(state, new ArrayResult(results.ToArray()));
-        }
+        return results.Count < MinCount
+            ? UpdateError(state, new ParserError($"expected {MinCount} counts, but got {results.Count} counts"))
+            : UpdateResult(state, new ArrayResult(results.ToArray()));
 
     }
 }
 
-internal class ManyMaxParser : Parser
+internal class ManyMaxParser(Parser parser, int minCount = 0, int maxCount = 1) : Parser
 {
-    private Parser _parser;
-    private int _minCount;
-    private int _maxCount;
-
-    public ManyMaxParser(Parser parser, int minCount = 0, int maxCount = 1)
-    {
-        _parser = parser;
-        _minCount = minCount;
-        _maxCount = maxCount;
-    }
+    private Parser _parser = parser;
+    private int _minCount = minCount;
+    private int _maxCount = maxCount;
 
     public override ParserState Parse(ParserState state)
     {
@@ -121,12 +87,12 @@ internal class ManyMaxParser : Parser
             return state;
         }
 
-        List<ParserResult> results = new List<ParserResult>();
+        List<ParserResult> results = [];
         var nextState = state;
 
         while (!nextState.IsError)
         {
-            nextState = this._parser.Parse(nextState);
+            nextState = _parser.Parse(nextState);
             if (!nextState.IsError)
             {
                 results.Add(nextState.Result);
@@ -134,30 +100,18 @@ internal class ManyMaxParser : Parser
             }
         }
 
-        if (results.Count < _minCount)
-        {
-            return UpdateError(state, new ParserError($"expected min {_minCount} counts, but got {results.Count} counts"));
-        }
-        else if (results.Count > _maxCount)
-        {
-            return UpdateError(state, new ParserError($"expected max {_minCount} counts, but got {results.Count} counts"));
-        }
-        else
-        {
-            return UpdateResult(state, new ArrayResult(results.ToArray()));
-        }
+        return results.Count < _minCount
+            ? UpdateError(state, new ParserError($"expected min {_minCount} counts, but got {results.Count} counts"))
+            : results.Count > _maxCount
+                ? UpdateError(state, new ParserError($"expected max {_minCount} counts, but got {results.Count} counts"))
+                : UpdateResult(state, new ArrayResult(results.ToArray()));
     }
 
 }
 
-internal class ManyOccuranceParser : Parser
+internal class ManyOccuranceParser(Parser parser) : Parser
 {
-    private Parser Parser { get; set; }
-
-    public ManyOccuranceParser(Parser parser)
-    {
-        Parser = parser;
-    }
+    private Parser Parser { get; set; } = parser;
 
     public override ParserState Parse(ParserState state)
     {
@@ -166,12 +120,12 @@ internal class ManyOccuranceParser : Parser
             return state;
         }
 
-        List<ParserResult> results = new List<ParserResult>();
+        List<ParserResult> results = [];
         
 
         while (state.Index < state.InputString.Length)
         {
-            var nextState = this.Parser.Parse(state);
+            var nextState = Parser.Parse(state);
             if (nextState.IsError)
             {
                 state = state.Clone();

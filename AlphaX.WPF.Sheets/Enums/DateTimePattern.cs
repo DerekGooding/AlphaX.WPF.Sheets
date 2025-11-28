@@ -1,9 +1,8 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Enums;
+
+public enum DateTimePattern
 {
-    public enum DateTimePattern
-    {
-        ShortDate,
-        LongDate,
-        Custom
-    }
+    ShortDate,
+    LongDate,
+    Custom
 }

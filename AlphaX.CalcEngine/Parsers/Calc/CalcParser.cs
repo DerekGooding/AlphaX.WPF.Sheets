@@ -8,16 +8,13 @@ internal class CalcParser
     // operator priority
     private Dictionary<string, int> _operatorPriority;
 
-    public CalcParser()
-    {
-        _operatorPriority = new Dictionary<string, int>()
+    public CalcParser() => _operatorPriority = new Dictionary<string, int>()
         {
             { ParserTokens.Plus, 2 },
             { ParserTokens.Minus, 2 },
             { ParserTokens.Multiply, 3 },
             { ParserTokens.Divide, 3 }
         };
-    }
 
     // run parser and return the evaluated calc chain
     public CalcParserResult Run(string equation)
@@ -74,12 +71,7 @@ internal class CalcParser
             }
         }
 
-        if (pendingNodes.Count > 0)
-        {
-            throw new Exception(ExceptionMessages.InvalidOperandsCount);
-        }
-
-        return root;
+        return pendingNodes.Count > 0 ? throw new Exception(ExceptionMessages.InvalidOperandsCount) : root;
     }
 
     // convert CalcParseResult array to prefix form

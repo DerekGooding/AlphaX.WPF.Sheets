@@ -6,8 +6,8 @@ public class CountFormula : Formula
 {
     public CountFormula() : base("COUNT")
     {
-        this.MinArgs = 0;
-        this.MaxArgs = int.MaxValue;
+        MinArgs = 0;
+        MaxArgs = int.MaxValue;
     }
 
     public override CalcValue Calculate(params CalcValue[] values)
@@ -53,8 +53,5 @@ public class CountFormula : Formula
         };
     }
 
-    public override string GetDescription()
-    {
-        return "Counts the number of cells in a range that contains numbers";
-    }
+    public override string GetDescription() => "Counts the number of cells in a range that contains numbers";
 }

@@ -2,22 +2,12 @@
 
 public class ParserResult { }
 
-class StringResult : ParserResult
+class StringResult(string value) : ParserResult
 {
-    public string Value { get; set; } = "";
-
-    public StringResult(string value)
-    {
-        Value = value;
-    }
+    public string Value { get; set; } = value;
 }
 
-class ArrayResult : ParserResult
+class ArrayResult(ParserResult[] value) : ParserResult
 {
-    public ParserResult[] Value { get; set; } = new ParserResult[] { };
-
-    public ArrayResult(ParserResult[] value)
-    {
-        Value = value;
-    }
+    public ParserResult[] Value { get; set; } = value;
 }

@@ -1,10 +1,8 @@
-﻿namespace AlphaX.WPF.Sheets.Components
+﻿using System.Windows.Controls;
+
+namespace AlphaX.WPF.Sheets.Components;
+
+public class SuggestionListBox : ListBox
 {
-    public class SuggestionListBox : ListBox
-    {
-        static SuggestionListBox()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(SuggestionListBox), new FrameworkPropertyMetadata(typeof(SuggestionListBox)));
-        }
-    }
+    static SuggestionListBox() => DefaultStyleKeyProperty.OverrideMetadata(typeof(SuggestionListBox), new FrameworkPropertyMetadata(typeof(SuggestionListBox)));
 }

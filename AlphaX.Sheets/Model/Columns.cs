@@ -21,17 +21,11 @@ public class Columns : CollectionBase<Column>, IColumns
         }
     }
 
-    internal Columns(object parent) : base(parent)
-    {
-        _locationMap = new Dictionary<int, double>();
-    }
+    internal Columns(object parent) : base(parent) => _locationMap = [];
 
     /// <summary>
     /// Gets the location of the column.
     /// </summary>
-    /// <param name="index">
-    /// Column index.
-    /// </param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
     internal override double GetLocation(int column, bool recalculate = false)
@@ -104,10 +98,7 @@ public class Columns : CollectionBase<Column>, IColumns
     {
         var col = GetItem(column, false);
 
-        if (col == null)
-            return GetDefaultColumnWidth();
-        
-        return col.Width;
+        return col == null ? GetDefaultColumnWidth() : col.Width;
     }
 
     private int GetDefaultColumnWidth()
@@ -160,15 +151,9 @@ public class Columns : CollectionBase<Column>, IColumns
         _locationMap = null;
     }
 
-    public override void InsertBelow(int index)
-    {
-        InsertBelow(index, 1);
-    }
+    public override void InsertBelow(int index) => InsertBelow(index, 1);
 
-    public override void Add()
-    {
-        Add(1);
-    }
+    public override void Add() => Add(1);
 
     public override void InsertBelow(int index, int count)
     {
@@ -195,13 +180,7 @@ public class Columns : CollectionBase<Column>, IColumns
         }
     }
 
-    public override void Remove(int index)
-    {
-        throw new NotImplementedException();
-    }
+    public override void Remove(int index) => throw new NotImplementedException();
 
-    public override void Remove(int index, int count)
-    {
-        throw new NotImplementedException();
-    }
+    public override void Remove(int index, int count) => throw new NotImplementedException();
 }

@@ -1,8 +1,7 @@
-﻿namespace AlphaX.WPF.Sheets.Rendering
+﻿namespace AlphaX.WPF.Sheets.Rendering;
+
+internal class RenderInfo
 {
-    internal class RenderInfo
-    {
-        public bool PartialRender { get; set; }
-        public Geometry ViewPortGeometry { get; set; }
-    }
+    public bool PartialRender { get; set; }
+    public Geometry ViewPortGeometry { get; set; }
 }

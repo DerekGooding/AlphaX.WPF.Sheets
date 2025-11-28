@@ -26,7 +26,7 @@ public class WorkSheetDataStore : IDisposable
 
     private void InitializeUnboundDataStore()
     {
-        _unboundValues = new Dictionary<Cell, object>();
+        _unboundValues = [];
         IsValid = true;
     }
 
@@ -57,10 +57,7 @@ public class WorkSheetDataStore : IDisposable
         {
             var result = _workSheet.WorkBook.CalcEngine.GetValue(_workSheet.Name, row, column) as CalcValue;
 
-            if (result.Kind == CalcValueKind.Error)
-                return (result.Value as CalcError).Error;
-
-            return result.Value;
+            return result.Kind == CalcValueKind.Error ? (result.Value as CalcError).Error : result.Value;
         }
         else if (IsValid && ActualDataSource != null && row <= _collection.Count - 1)
         {

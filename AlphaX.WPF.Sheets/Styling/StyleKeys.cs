@@ -1,10 +1,9 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Styling;
+
+internal static class StyleKeys
 {
-    internal static class StyleKeys
-    {
-        public static string DefaultRowHeaderStyleKey => "Default_Row_Header_Style";
-        public static string DefaultColumnHeaderStyleKey => "Default_Column_Header_Style";
-        public static string DefaultSheetStyleKey => "Default_Sheet_Style";
-        public static string DefaultTopLeftStyleKey => "Default_TopLeft_Style";
-    }
+    public static string DefaultRowHeaderStyleKey => "Default_Row_Header_Style";
+    public static string DefaultColumnHeaderStyleKey => "Default_Column_Header_Style";
+    public static string DefaultSheetStyleKey => "Default_Sheet_Style";
+    public static string DefaultTopLeftStyleKey => "Default_TopLeft_Style";
 }

@@ -1,17 +1,16 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Data;
+
+internal static class DataUtils
 {
-    internal static class DataUtils
+    public static object ToType(this object value, Type type)
     {
-        public static object ToType(this object value, Type type)
+        try
         {
-            try
-            {
-                return Convert.ChangeType(value, type);
-            }
-            catch
-            {
-                return value;
-            }
+            return Convert.ChangeType(value, type);
+        }
+        catch
+        {
+            return value;
         }
     }
 }

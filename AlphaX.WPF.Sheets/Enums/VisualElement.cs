@@ -1,14 +1,13 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Enums;
+
+public enum VisualElement
 {
-    public enum VisualElement
-    {
-        RowHeader,
-        ColumnHeader,
-        ColumnHeaderResizeBar,
-        RowHeaderResizeBar,
-        Cell,
-        TopLeft,
-        ScrollBar,
-        DragFill
-    }
+    RowHeader,
+    ColumnHeader,
+    ColumnHeaderResizeBar,
+    RowHeaderResizeBar,
+    Cell,
+    TopLeft,
+    ScrollBar,
+    DragFill
 }

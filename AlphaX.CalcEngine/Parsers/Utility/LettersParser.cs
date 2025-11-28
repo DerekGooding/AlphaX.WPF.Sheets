@@ -12,8 +12,5 @@ internal class LettersParser : RegexParser
 
     }
 
-    protected override ParserError InternalErrorMap(ParserState state, ParserError error)
-    {
-        return new ParserError($"Error at index {state.Index}, Expected letters");
-    }
+    protected override ParserError InternalErrorMap(ParserState state, ParserError error) => new($"Error at index {state.Index}, Expected letters");
 }

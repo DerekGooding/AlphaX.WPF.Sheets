@@ -15,10 +15,7 @@ internal class ChoiceParser : Parser
     }
 
     // lazy version
-    public ChoiceParser(Lazy<Parser[]> lazyParserFactory)
-    {
-        _lazyParsers = lazyParserFactory;
-    }
+    public ChoiceParser(Lazy<Parser[]> lazyParserFactory) => _lazyParsers = lazyParserFactory;
 
     public override ParserState Parse(ParserState state)
     {

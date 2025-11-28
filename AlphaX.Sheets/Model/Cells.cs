@@ -8,10 +8,7 @@ namespace AlphaX.Sheets.Model;
 
 public class Cells : ICell
 {
-    static Cells()
-    {
-        _sortComparer = new NaturalSortComparer();
-    }
+    static Cells() => _sortComparer = new NaturalSortComparer();
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private static NaturalSortComparer _sortComparer;
@@ -123,10 +120,7 @@ public class Cells : ICell
         get
         {
             var cell = GetCell(Row, Column, false);
-            if (cell != null)
-                return cell.Formula;
-            else
-                return null;
+            return cell != null ? cell.Formula : null;
         }
         set
         {
@@ -139,10 +133,7 @@ public class Cells : ICell
         get
         {
             var cell = GetCell(Row, Column, false);
-            if (cell != null)
-                return cell.Formatter;
-            else
-                return null;
+            return cell != null ? cell.Formatter : null;
         }
         set
         {
@@ -244,7 +235,7 @@ public class Cells : ICell
         Parent = parent;
         Row = Column = 0;
         _rowCount = _columnCount = -1;
-        _cellStore = new SortedDictionary<int, SortedDictionary<int, Cell>>();
+        _cellStore = [];
     }
 
     internal Cells(Cells parentRange, int row, int column, int rowCount, int columnCount)
@@ -473,7 +464,7 @@ public class Cells : ICell
 
         if (cell != null)
         {
-            _cellStore.Add(toRow, new SortedDictionary<int, Cell>());
+            _cellStore.Add(toRow, []);
             _cellStore[toRow].Add(toColumn, cell);
         }
     }
@@ -503,7 +494,7 @@ public class Cells : ICell
         var cell = new Cell(this);
 
         if (!_cellStore.ContainsKey(row))
-            _cellStore.Add(row, new SortedDictionary<int, Cell>());
+            _cellStore.Add(row, []);
 
         _cellStore[row].Add(column, cell);
         return cell;
@@ -515,10 +506,7 @@ public class Cells : ICell
     /// <param name="row"></param>
     /// <param name="column"></param>
     /// <returns></returns>
-    private bool ContainsCell(int row, int column)
-    {
-        return _cellStore.ContainsKey(row) && _cellStore[row].ContainsKey(column);
-    }
+    private bool ContainsCell(int row, int column) => _cellStore.ContainsKey(row) && _cellStore[row].ContainsKey(column);
 
     /// <summary>
     /// Validates whether the indexes are out of range or not.

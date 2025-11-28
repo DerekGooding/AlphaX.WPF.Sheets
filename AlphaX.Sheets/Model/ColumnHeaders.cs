@@ -13,10 +13,7 @@ public class ColumnHeaders : HeadersBase, IColumnHeaders
             var row = Rows.GetItem(RowCount - 1, false);
             var rowLocation = Rows.GetLocation(RowCount - 1);
 
-            if (row == null)
-                return rowLocation + DefaultRowHeight;
-
-            return rowLocation + row.Height;
+            return row == null ? rowLocation + DefaultRowHeight : rowLocation + row.Height;
         }
     }
 

@@ -1,11 +1,6 @@
 ﻿namespace AlphaX.CalcEngine.Parsers.Base;
 
-internal class ParserError
+internal class ParserError(string message)
 {
-    public string Message { get; set; }
-
-    public ParserError(string message)
-    {
-        Message = message;
-    }
+    public string Message { get; set; } = message;
 }

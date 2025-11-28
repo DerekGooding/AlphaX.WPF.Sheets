@@ -1,36 +1,35 @@
 ﻿using System.Windows;
 
-namespace AlphaXSpreadSamplesExplorer.Samples
+namespace AlphaXSpreadSamplesExplorer.Samples;
+
+/// <summary>
+/// Interaction logic for Sorting.xaml
+/// </summary>
+public partial class Sorting : UserControl
 {
-    /// <summary>
-    /// Interaction logic for Sorting.xaml
-    /// </summary>
-    public partial class Sorting : UserControl
+    public Sorting()
     {
-        public Sorting()
-        {
-            InitializeComponent();
+        InitializeComponent();
 
-            var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
-            worksheet.RowCount = worksheet.ColumnCount = 100;
-            var rnd = new Random();
-            for (int row = 0; row < 100; row++)
-            {
-                for (int col = 0; col < 100; col++)
-                    worksheet.Cells[row, col].Value = rnd.Next(100, 10000);
-            }
-        }
-
-        private void OnSortAscending(object sender, RoutedEventArgs e)
+        var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
+        worksheet.RowCount = worksheet.ColumnCount = 100;
+        var rnd = new Random();
+        for (int row = 0; row < 100; row++)
         {
-            var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
-            worksheet.SortRange(spread.SheetViews.ActiveSheetView.Selection, true);
+            for (int col = 0; col < 100; col++)
+                worksheet.Cells[row, col].Value = rnd.Next(100, 10000);
         }
+    }
 
-        private void OnSortDescending(object sender, RoutedEventArgs e)
-        {
-            var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
-            worksheet.SortRange(spread.SheetViews.ActiveSheetView.Selection, false);
-        }
+    private void OnSortAscending(object sender, RoutedEventArgs e)
+    {
+        var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
+        worksheet.SortRange(spread.SheetViews.ActiveSheetView.Selection, true);
+    }
+
+    private void OnSortDescending(object sender, RoutedEventArgs e)
+    {
+        var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
+        worksheet.SortRange(spread.SheetViews.ActiveSheetView.Selection, false);
     }
 }

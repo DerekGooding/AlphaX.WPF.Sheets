@@ -2,14 +2,9 @@
 
 namespace AlphaX.CalcEngine.Parsers.Utility;
 
-internal class SequenceOfParser : Parser
+internal class SequenceOfParser(Parser[] parsers) : Parser
 {
-    private Parser[] _parsers;
-
-    public SequenceOfParser(Parser[] parsers)
-    {
-        this._parsers = parsers;
-    }
+    private Parser[] _parsers = parsers;
 
     public override ParserState Parse(ParserState state)
     {
@@ -18,7 +13,7 @@ internal class SequenceOfParser : Parser
             return state;
         }
 
-        List<ParserResult> results = new List<ParserResult>();
+        List<ParserResult> results = [];
         var nextState = state;
 
         foreach (var p in _parsers)
@@ -30,7 +25,7 @@ internal class SequenceOfParser : Parser
             }
             else
             {
-                return this.UpdateError(state, nextState.Error);
+                return UpdateError(state, nextState.Error);
             }
         }
 

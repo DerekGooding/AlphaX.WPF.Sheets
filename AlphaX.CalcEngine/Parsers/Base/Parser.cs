@@ -3,10 +3,7 @@
 internal abstract class Parser
 {
     // main parser method
-    public virtual ParserState Parse(ParserState state)
-    {
-        return state.Clone();
-    }
+    public virtual ParserState Parse(ParserState state) => state.Clone();
 
     // initial state provider
     public ParserState Run(string inputString)
@@ -14,37 +11,22 @@ internal abstract class Parser
         var initialState = new ParserState { 
             InputString = inputString
         };
-        return this.Parse(initialState);
+        return Parse(initialState);
     }
 
     // map result to another form
-    public Parser Map(MapDelegate mapFn)
-    {
-        return new MappedParser(this, mapFn);
-    }
+    public Parser Map(MapDelegate mapFn) => new MappedParser(this, mapFn);
 
     // map error to another form
-    public Parser MapError(ErrorMapDelegate errorMapFn)
-    {
-        return new MappedParser(this, null, errorMapFn);
-    }
+    public Parser MapError(ErrorMapDelegate errorMapFn) => new MappedParser(this, null, errorMapFn);
 
     // chain parser result to another parser
-    public Parser Chain(ChainDelegate chainFn)
-    {
-        return new ChainedParser(this, chainFn);
-    }
+    public Parser Chain(ChainDelegate chainFn) => new ChainedParser(this, chainFn);
 
     // override in inherited class to return custom result and error
-    protected virtual ParserResult InternalResultMap(ParserState state, int index, ParserResult result)
-    {
-        return result;
-    }
+    protected virtual ParserResult InternalResultMap(ParserState state, int index, ParserResult result) => result;
 
-    protected virtual ParserError InternalErrorMap(ParserState state, ParserError error)
-    {
-        return error;
-    }
+    protected virtual ParserError InternalErrorMap(ParserState state, ParserError error) => error;
 
     // state modifiers, immutable
     public ParserState UpdateState(ParserState state, int index, ParserResult result)

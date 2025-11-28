@@ -1,7 +1,6 @@
-﻿namespace AlphaX.WPF.Sheets.Rendering
+﻿namespace AlphaX.WPF.Sheets.Rendering;
+
+internal static class RenderingResources
 {
-    internal static class RenderingResources
-    {
-        
-    }
+    
 }

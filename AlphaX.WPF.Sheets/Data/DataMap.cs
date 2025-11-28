@@ -1,26 +1,15 @@
-﻿namespace GrapeCity.WPF.Sheets.Data
+﻿namespace AlphaX.WPF.Sheets.Data;
+
+public class PropertyDataMap(string propertyName) : DataMap
 {
-    public class PropertyDataMap : DataMap
-    {
-        public string PropertyName { get; }
+    public string PropertyName { get; } = propertyName;
+}
 
-        public PropertyDataMap(string propertyName)
-        {
-            PropertyName = propertyName;
-        }
-    }
+public class DataColumnDataMap(string columnName) : DataMap
+{
+    public string ColumnName { get; } = columnName;
+}
 
-    public class DataColumnDataMap : DataMap
-    {
-        public string ColumnName { get; }
-
-        public DataColumnDataMap(string columnName)
-        {
-            ColumnName = columnName;
-        }
-    }
-
-    public abstract class DataMap : IDataMap
-    {
-    }
+public abstract class DataMap : IDataMap
+{
 }

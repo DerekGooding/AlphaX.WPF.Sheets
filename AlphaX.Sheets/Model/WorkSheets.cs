@@ -65,7 +65,7 @@ public class WorkSheets : IWorkSheets
     internal WorkSheets(WorkBook workBook)
     {
         WorkBook = workBook;
-        _sheets = new Dictionary<string, WorkSheet>();
+        _sheets = [];
     }
 
     public WorkSheet AddSheet(string name)
@@ -138,10 +138,7 @@ public class WorkSheets : IWorkSheets
         _activeSheet = null;
     }
 
-    protected virtual void OnActiveSheetChanged(WorkSheet sheet)
-    {
-        ActiveSheetChanged?.Invoke(this, new SheetEventArgs(sheet));
-    }
+    protected virtual void OnActiveSheetChanged(WorkSheet sheet) => ActiveSheetChanged?.Invoke(this, new SheetEventArgs(sheet));
 
     public void Dispose()
     {
@@ -151,13 +148,7 @@ public class WorkSheets : IWorkSheets
         _activeSheet = null;
     }
 
-    public IEnumerator<WorkSheet> GetEnumerator()
-    {
-        return _sheets.Values.GetEnumerator();
-    }
+    public IEnumerator<WorkSheet> GetEnumerator() => _sheets.Values.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

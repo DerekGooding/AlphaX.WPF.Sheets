@@ -17,7 +17,6 @@ public interface IColumns : IEnumerableEx<Column>, IDisposable
     /// <summary>
     /// Gets the column with specific column name.
     /// </summary>
-    /// <param name="columnName"></param>
     /// <returns></returns>
     Column this[string address] { get; }
     /// <summary>

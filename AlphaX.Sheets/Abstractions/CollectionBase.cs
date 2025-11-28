@@ -18,7 +18,7 @@ public abstract class CollectionBase<T> where T : class
     internal CollectionBase(object parent)
     {
         Parent = parent;
-        InternalCollection = new SortedDictionary<int, T>();
+        InternalCollection = [];
     }
 
     internal abstract double GetLocation(int index, bool recalculate = false);
@@ -61,16 +61,7 @@ public abstract class CollectionBase<T> where T : class
     {
         //ValidateIndex(index);
 
-        if (InternalCollection.TryGetValue(index, out T item))
-        {
-            return item;
-        }
-        else if (createIfNotExist)
-        {
-            return AddItemInternal(index);
-        }
-        else
-            return null;
+        return InternalCollection.TryGetValue(index, out T item) ? item : createIfNotExist ? AddItemInternal(index) : null;
     }
 
     /// <summary>

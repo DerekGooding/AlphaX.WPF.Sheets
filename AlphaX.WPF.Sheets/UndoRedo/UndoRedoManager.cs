@@ -1,44 +1,38 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿using AlphaX.WPF.Sheets.UndoRedo.Actions;
+
+namespace AlphaX.WPF.Sheets.UndoRedo;
+
+public class UndoRedoManager(AlphaXSpread spread)
 {
-    public class UndoRedoManager
+    private Stack<SheetAction> _undoStack = new();
+    private Stack<SheetAction> _redoStack = new();
+    private AlphaXSpread _spread = spread;
+
+    public void AddAction(SheetAction action)
     {
-        private Stack<SheetAction> _undoStack;
-        private Stack<SheetAction> _redoStack;
-        private AlphaXSpread _spread;
+        _undoStack.Push(action);
 
-        public UndoRedoManager(AlphaXSpread spread)
-        {
-            _spread = spread;
-            _undoStack = new Stack<SheetAction>();
-            _redoStack = new Stack<SheetAction>();
-        }
+        if(_redoStack.Count > 0)
+            _redoStack.Clear();
+    }
 
-        public void AddAction(SheetAction action)
+    public void Redo()
+    {
+        if (_redoStack.Count > 0)
         {
+            var action = _redoStack.Pop();
+            action.Redo();
             _undoStack.Push(action);
-
-            if(_redoStack.Count > 0)
-                _redoStack.Clear();
         }
+    }
 
-        public void Redo()
+    public void Undo()
+    {
+        if (_undoStack.Count > 0)
         {
-            if (_redoStack.Count > 0)
-            {
-                var action = _redoStack.Pop();
-                action.Redo();
-                _undoStack.Push(action);
-            }
-        }
-
-        public void Undo()
-        {
-            if (_undoStack.Count > 0)
-            {
-                var action = _undoStack.Pop();
-                action.Undo();
-                _redoStack.Push(action);
-            }
+            var action = _undoStack.Pop();
+            action.Undo();
+            _redoStack.Push(action);
         }
     }
 }

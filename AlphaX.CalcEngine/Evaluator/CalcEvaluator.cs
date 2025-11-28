@@ -12,15 +12,12 @@ internal class CalcEvaluator
 
     public CalcEvaluator(IDataProvider dataProvider)
     {
-        _formulas = new Dictionary<string, Formula>();
+        _formulas = [];
         _dataProvider = dataProvider;
         RegisterInbuiltFormulas();
     }
 
-    public CalcValue EvaluateExpressionTree(CalcParserResult root, string defaultSheetName = "")
-    {
-        return EvaluateNode(root, defaultSheetName);
-    }
+    public CalcValue EvaluateExpressionTree(CalcParserResult root, string defaultSheetName = "") => EvaluateNode(root, defaultSheetName);
 
     private CalcValue EvaluateNode(CalcParserResult node, string defaultSheetName = "")
     {
@@ -71,16 +68,13 @@ internal class CalcEvaluator
         // check for string operator
         if (op == CalcOperators.ConcateString)
         {
-            if (leftVal.Kind != CalcValueKind.String || rightVal.Kind != CalcValueKind.String)
+            return leftVal.Kind != CalcValueKind.String || rightVal.Kind != CalcValueKind.String
+            ? new CalcValue()
             {
-                return new CalcValue()
-                {
-                    Kind = CalcValueKind.Error,
-                    Value = new ValueError()
-                };
+                Kind = CalcValueKind.Error,
+                Value = new ValueError()
             }
-
-            return new CalcValue()
+            : new CalcValue()
             {
                 Kind = CalcValueKind.String,
                 Value = (string)leftVal.Value + (string)rightVal.Value,
@@ -140,35 +134,29 @@ internal class CalcEvaluator
                     Value = compLeftVal * compRightVal
                 };
             case CalcOperators.Divide:
-                if(compRightVal == 0)
-                {
-                    return new CalcValue() {
+                return compRightVal == 0
+                    ? new CalcValue() {
                         Kind= CalcValueKind.Error,
                         Value= new DivideByZeroError()
-                    };
-                }else
-                {
-                    return new CalcValue()
+                    }
+                    : new CalcValue()
                     {
                         Kind = CalcValueKind.Float,
                         Value = compLeftVal / compRightVal
                     };
-                }
         }
 
         throw new Exception(ExceptionMessages.UnknownOperator);
     }
 
-    private CalcValue EvaluateCustomName(CalcParserResult varname, string defaultSheetName = "")
-    {
+    private CalcValue EvaluateCustomName(CalcParserResult varname, string defaultSheetName = "") =>
         // currently custom names are not supported, will result in #Name error
         // TODO: update to add support for custom names
-        return new CalcValue()
+        new()
         {
             Kind = CalcValueKind.Error,
             Value = new NameError()
         };
-    }
 
     private CalcValue EvaluateFormula(CalcParserResult formula, string defaultSheetName = "")
     {
@@ -242,10 +230,7 @@ internal class CalcEvaluator
         _formulas.Add(formula.Name.ToUpperInvariant(), formula);
     }
 
-    public IEnumerable<Formula> GetRegisteredFormulas()
-    {
-        return _formulas.Values;
-    }
+    public IEnumerable<Formula> GetRegisteredFormulas() => _formulas.Values;
 
     public void FillDependencies(CalcParserResult node, IList<object> dependencies)
     {

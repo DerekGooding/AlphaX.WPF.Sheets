@@ -14,12 +14,7 @@ public class Cell : ICell
     {
         get
         {
-            if(Parent.Parent is WorkSheet worksheet)
-            {
-                return worksheet.DataStore.GetValue(Row, Column);
-            }
-
-            return _value;
+            return Parent.Parent is WorkSheet worksheet ? worksheet.DataStore.GetValue(Row, Column) : _value;
         }
         set
         {
@@ -50,12 +45,7 @@ public class Cell : ICell
     {
         get
         {
-            if (Parent.Parent is WorkSheet worksheet)
-            {
-                return worksheet.WorkBook.CalcEngine.GetFormula(worksheet.Name, Row, Column);
-            }
-
-            return null;
+            return Parent.Parent is WorkSheet worksheet ? worksheet.WorkBook.CalcEngine.GetFormula(worksheet.Name, Row, Column) : null;
         }
         set
         {

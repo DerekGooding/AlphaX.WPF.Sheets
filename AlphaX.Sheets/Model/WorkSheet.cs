@@ -34,10 +34,7 @@ public class WorkSheet : IWorkSheet
     {
         get
         {
-            if (DataStore.IsValid && DataStore.ActualDataSource != null)
-                return DataStore.ActualDataSource;
-
-            return null;
+            return DataStore.IsValid && DataStore.ActualDataSource != null ? DataStore.ActualDataSource : null;
         }
         set
         {
@@ -66,15 +63,9 @@ public class WorkSheet : IWorkSheet
         FilterProvider = new FilterProvider(this);
     }
 
-    public void SortRange(CellRange range, bool ascending)
-    {
-        Cells[range.TopRow, range.LeftColumn, range.RowCount, range.ColumnCount].Sort(ascending);
-    }
+    public void SortRange(CellRange range, bool ascending) => Cells[range.TopRow, range.LeftColumn, range.RowCount, range.ColumnCount].Sort(ascending);
 
-    public object[,] GetData(CellRange range)
-    {
-        return GetData(range.TopRow, range.LeftColumn, range.RowCount, range.ColumnCount);
-    }
+    public object[,] GetData(CellRange range) => GetData(range.TopRow, range.LeftColumn, range.RowCount, range.ColumnCount);
 
     public object[,] GetData(int row, int column, int rowCount, int columnCount)
     {
@@ -174,11 +165,8 @@ public class WorkSheet : IWorkSheet
         }
     }
 
-    public bool ContainsRange(int row, int column, int rowCount, int columnCount)
-    {
-        return row >= 0 && column >= 0 &&
+    public bool ContainsRange(int row, int column, int rowCount, int columnCount) => row >= 0 && column >= 0 &&
             row < RowCount && column < ColumnCount &&
-            row + rowCount - 1 < RowCount && 
+            row + rowCount - 1 < RowCount &&
             column + columnCount - 1 < ColumnCount;
-    }
 }

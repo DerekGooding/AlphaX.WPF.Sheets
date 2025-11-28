@@ -6,8 +6,8 @@ public class SumFormula : Formula
 {
     public SumFormula() : base("SUM")
     {
-        this.MinArgs = 0;
-        this.MaxArgs = int.MaxValue;
+        MinArgs = 0;
+        MaxArgs = int.MaxValue;
     }
 
     public override CalcValue Calculate(params CalcValue[] values)
@@ -24,10 +24,7 @@ public class SumFormula : Formula
         };
     }
 
-    public override string GetDescription()
-    {
-        return "Adds all the numbers in a range of cells";
-    }
+    public override string GetDescription() => "Adds all the numbers in a range of cells";
 
     private void CalculateInternal(CalcValue calcValue, ref double result)
     {

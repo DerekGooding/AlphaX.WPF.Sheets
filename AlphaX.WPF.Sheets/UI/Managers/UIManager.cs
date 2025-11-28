@@ -1,17 +1,8 @@
-﻿namespace AlphaX.WPF.Sheets.UI.Managers
+﻿namespace AlphaX.WPF.Sheets.UI.Managers;
+
+internal abstract class UIManager(AlphaXSpread spread) : IDisposable
 {
-    internal abstract class UIManager : IDisposable
-    {
-        protected AlphaXSpread Spread { get; private set; }
+    protected AlphaXSpread Spread { get; private set; } = spread;
 
-        public UIManager(AlphaXSpread spread)
-        {
-            Spread = spread;
-        }
-
-        public void Dispose()
-        {
-            Spread = null;
-        }
-    }
+    public void Dispose() => Spread = null;
 }

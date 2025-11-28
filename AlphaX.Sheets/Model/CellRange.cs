@@ -81,52 +81,31 @@ public class CellRange
     /// </summary>
     /// <param name="column"></param>
     /// <returns></returns>
-    public bool ContainsColumn(int column)
-    {
-        return column >= LeftColumn && column <= RightColumn;
-    }
+    public bool ContainsColumn(int column) => column >= LeftColumn && column <= RightColumn;
     /// <summary>
     /// Gets whether this range contains this row.
     /// </summary>
     /// <param name="row"></param>
     /// <returns></returns>
-    public bool ContainsRow(int row)
-    {
-        return row >= TopRow && row <= BottomRow;
-    }
+    public bool ContainsRow(int row) => row >= TopRow && row <= BottomRow;
     /// <summary>
     /// Gets whether this range contains this cell.
     /// </summary>
     /// <param name="row"></param>
     /// <param name="column"></param>
     /// <returns></returns>
-    public bool ContainsCell(int row, int column)
-    {
-        return ContainsColumn(column) && ContainsRow(row);
-    }
+    public bool ContainsCell(int row, int column) => ContainsColumn(column) && ContainsRow(row);
     /// <summary>
     /// Gets whether this range contains the provided range.
     /// </summary>
     /// <param name="range"></param>
     /// <returns></returns>
-    public bool ContainsRange(CellRange range)
-    {
-        return TopRow <= range.TopRow && BottomRow >= range.BottomRow
+    public bool ContainsRange(CellRange range) => TopRow <= range.TopRow && BottomRow >= range.BottomRow
             && LeftColumn <= range.LeftColumn && RightColumn >= range.RightColumn;
-    }
 
-    public bool Intersects(CellRange range)
-    {
-        return TopRow <= range.TopRow || BottomRow >= range.BottomRow
+    public bool Intersects(CellRange range) => TopRow <= range.TopRow || BottomRow >= range.BottomRow
             || LeftColumn <= range.LeftColumn || RightColumn >= range.RightColumn;
-    }
 
-    public override string ToString()
-    {
-        return $"TopRow:{TopRow}, BottomRow:{BottomRow}, LeftColumn:{LeftColumn}, RightColumn:{RightColumn}";
-    }
-    public CellRange Clone()
-    {
-        return new CellRange(TopRow, LeftColumn, RowCount, ColumnCount);
-    }
+    public override string ToString() => $"TopRow:{TopRow}, BottomRow:{BottomRow}, LeftColumn:{LeftColumn}, RightColumn:{RightColumn}";
+    public CellRange Clone() => new(TopRow, LeftColumn, RowCount, ColumnCount);
 }

@@ -8,10 +8,7 @@ internal class BoolValueParser : Parser
 {
     private Regex _regex;
 
-    public BoolValueParser()
-    {
-        _regex = new Regex(ParserRegexes.GetVarParserRegex());
-    }
+    public BoolValueParser() => _regex = new Regex(ParserRegexes.GetVarParserRegex());
 
     public override ParserState Parse(ParserState state)
     {

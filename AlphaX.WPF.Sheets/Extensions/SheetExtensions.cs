@@ -1,7 +1,6 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Extensions;
+
+public static class SheetExtensions
 {
-    public static class SheetExtensions
-    {
-        
-    }
+    
 }

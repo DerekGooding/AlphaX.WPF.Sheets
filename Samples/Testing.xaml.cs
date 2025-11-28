@@ -1,31 +1,31 @@
-﻿using System.Windows;
+﻿using AlphaX.WPF.Sheets.Enums;
+using System.Windows;
 
-namespace AlphaXSpreadSamplesExplorer
+namespace AlphaXSpreadSamplesExplorer;
+
+/// <summary>
+/// Interaction logic for Testing.xaml
+/// </summary>Row
+public partial class Testing : UserControl
 {
-    /// <summary>
-    /// Interaction logic for Testing.xaml
-    /// </summary>Row
-    public partial class Testing : UserControl
+    public Testing()
     {
-        public Testing()
-        {
-            InitializeComponent();
-            spread.MouseDoubleClick += Spread_MouseDoubleClick;
-            var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
-        }
+        InitializeComponent();
+        spread.MouseDoubleClick += Spread_MouseDoubleClick;
+        var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
+    }
 
-        private void Spread_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void Spread_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        var hitTest = spread.HitTest(e.GetPosition(spread));
+        if (hitTest != null && hitTest.Element == VisualElement.ColumnHeader)
         {
-            var hitTest = spread.HitTest(e.GetPosition(spread));
-            if (hitTest != null && hitTest.Element == AlphaX.WPF.Sheets.VisualElement.ColumnHeader)
-            {
-                spread.SheetViews.ActiveSheetView.AutoSizeColumn(hitTest.Column);
-            }
+            spread.SheetViews.ActiveSheetView.AutoSizeColumn(hitTest.Column);
         }
+    }
 
-        private void Testing_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+    private void Testing_Loaded(object sender, RoutedEventArgs e)
+    {
+        
     }
 }

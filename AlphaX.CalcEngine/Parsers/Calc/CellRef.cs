@@ -7,14 +7,8 @@ internal class CellRef
     private string _rangeName;
     public string Name { get
         {
-            if (string.IsNullOrEmpty(SheetName))
-            {
-                return _rangeName;
-            }else
-            {
-                return SheetName + "!" + _rangeName;
-            }
-             
+            return string.IsNullOrEmpty(SheetName) ? _rangeName : SheetName + "!" + _rangeName;
+
         } }
     public int Column { get; }
     public int Row { get; }
@@ -49,31 +43,19 @@ internal class CellRef
     private int GetColumnNumberFromLetter(string letter)
     {
         letter = letter.ToUpperInvariant();
-        if (letter.Length == 1)
-        {
-            return (int)letter[0] - 64;
-        }
-        else
-        {
-            return 26 * GetColumnNumberFromLetter(letter.Substring(0, 1)) + GetColumnNumberFromLetter(letter.Substring(1));
-        }
+        return letter.Length == 1
+            ? (int)letter[0] - 64
+            : 26 * GetColumnNumberFromLetter(letter.Substring(0, 1)) + GetColumnNumberFromLetter(letter.Substring(1));
     }
 
     private string GetColumnLetterFromNumber(int num)
     {
-        if (num < 27)
-        {
-            return ((char)(num+64)).ToString();
-        }
-        else
-        {
-            return GetColumnLetterFromNumber(num / 26) + GetColumnLetterFromNumber(num % 26);
-        }
+        return num < 27 ? ((char)(num+64)).ToString() : GetColumnLetterFromNumber(num / 26) + GetColumnLetterFromNumber(num % 26);
     }
 
     #region equals comparion
 
-    public override bool Equals(object obj) => this.Equals(obj as CellRef);
+    public override bool Equals(object obj) => Equals(obj as CellRef);
 
     public bool Equals(CellRef cRef)
     {
@@ -89,12 +71,7 @@ internal class CellRef
         }
 
         // If run-time types are not exactly the same, return false.
-        if (this.GetType() != cRef.GetType())
-        {
-            return false;
-        }
-
-        return Name == cRef.Name;
+        return GetType() != cRef.GetType() ? false : Name == cRef.Name;
     }
 
     public override int GetHashCode() => (Name).GetHashCode();

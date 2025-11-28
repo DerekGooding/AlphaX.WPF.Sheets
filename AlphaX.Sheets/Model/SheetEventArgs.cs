@@ -1,11 +1,6 @@
 ﻿namespace AlphaX.Sheets.Model;
 
-public class SheetEventArgs : EventArgs
+public class SheetEventArgs(WorkSheet workSheet) : EventArgs
 {
-    public WorkSheet WorkSheet { get; }
-
-    public SheetEventArgs(WorkSheet workSheet)
-    {
-        WorkSheet = workSheet;
-    }
+    public WorkSheet WorkSheet { get; } = workSheet;
 }

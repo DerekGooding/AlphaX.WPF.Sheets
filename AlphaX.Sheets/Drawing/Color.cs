@@ -1,46 +1,23 @@
 ﻿namespace AlphaX.Sheets.Drawing;
 
-public struct Color : IEquatable<Color>
+public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
 {
-    private static Dictionary<KnownColor, Color> _colorsCache;
+    private static readonly Dictionary<KnownColor, Color> _colorsCache;
 
-    static Color()
-    {
-        _colorsCache = new Dictionary<KnownColor, Color>();
-    }
+    static Color() => _colorsCache = [];
 
-    public byte A { get; set; }
-    public byte R { get; set; }
-    public byte G { get; set; }
-    public byte B { get; set; }
+    public byte A { get; set; } = a;
+    public byte R { get; set; } = r;
+    public byte G { get; set; } = g;
+    public byte B { get; set; } = b;
 
-    public Color(byte a, byte r, byte g, byte b)
-    {
-        A = a;
-        R = r;
-        G = g;
-        B = b;
-    }
+    public static Color FromArgb(byte a, byte r, byte g, byte b) => new(a, r, g, b);
 
-    public static Color FromArgb(byte a, byte r, byte g, byte b)
-    {
-        return new Color(a, r, g, b);
-    }
+    public readonly bool Equals(Color color2) => A == color2.A && R == color2.R && G == color2.G && B == color2.B;
 
-    public bool Equals(Color color2)
-    {
-        return this.A == color2.A && this.R == color2.R && this.G == color2.G && this.B == color2.B;
-    }
+    public static bool operator ==(Color color1, Color color2) => color1.Equals(color2);
 
-    public static bool operator ==(Color color1, Color color2)
-    {
-        return color1.Equals(color2);
-    }
-
-    public static bool operator !=(Color color1, Color color2)
-    {
-        return !color1.Equals(color2);
-    }
+    public static bool operator !=(Color color1, Color color2) => !color1.Equals(color2);
 
     #region Colors
     public static Color Transparent

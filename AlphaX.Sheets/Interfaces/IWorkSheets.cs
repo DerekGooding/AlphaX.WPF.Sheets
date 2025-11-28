@@ -73,7 +73,6 @@ public interface IWorkSheets : IEnumerable<WorkSheet>, IDisposable
     /// <summary>
     /// Gets sheet by index.
     /// </summary>
-    /// <param name="sheetName"></param>
     /// <returns></returns>
     WorkSheet GetSheet(int index);
 }

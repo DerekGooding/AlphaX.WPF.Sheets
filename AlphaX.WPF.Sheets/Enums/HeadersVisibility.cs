@@ -1,10 +1,9 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Enums;
+
+public enum HeadersVisibility
 {
-    public enum HeadersVisibility
-    {
-        Row,
-        Column,
-        Both,
-        None
-    }
+    Row,
+    Column,
+    Both,
+    None
 }

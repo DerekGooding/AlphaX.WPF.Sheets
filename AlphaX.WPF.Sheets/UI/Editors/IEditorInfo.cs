@@ -1,10 +1,9 @@
-﻿namespace AlphaX.WPF.Sheets.UI.Editors
+﻿namespace AlphaX.WPF.Sheets.UI.Editors;
+
+public interface IEditorInfo
 {
-    public interface IEditorInfo
-    {
-        int Row { get; set; }
-        int Column { get; set; }
-        IAlphaXSheetView SheetView { get; set; }
-        void SetValue(object value);
-    }
+    int Row { get; set; }
+    int Column { get; set; }
+    IAlphaXSheetView SheetView { get; set; }
+    void SetValue(object value);
 }

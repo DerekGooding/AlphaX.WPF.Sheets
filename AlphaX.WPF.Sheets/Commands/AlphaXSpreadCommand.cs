@@ -1,30 +1,21 @@
 ﻿using System.Windows.Input;
 
-namespace AlphaX.WPF.Sheets.Commands
+namespace AlphaX.WPF.Sheets.Commands;
+
+public class AlphaXSpreadCommand(AlphaXSpread spread) : ICommand
 {
-    public class AlphaXSpreadCommand : ICommand
+    public event EventHandler CanExecuteChanged
     {
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+        add { CommandManager.RequerySuggested += value; }
+        remove { CommandManager.RequerySuggested -= value; }
+    }
 
-        public AlphaXSpread Spread { get; }
+    public AlphaXSpread Spread { get; } = spread;
 
-        public AlphaXSpreadCommand(AlphaXSpread spread)
-        {
-            Spread = spread;
-        }
+    public virtual bool CanExecute(object parameter) => false;
 
-        public virtual bool CanExecute(object parameter)
-        {
-            return false;
-        }
-
-        public virtual void Execute(object parameter)
-        {
-            
-        }
+    public virtual void Execute(object parameter)
+    {
+        
     }
 }

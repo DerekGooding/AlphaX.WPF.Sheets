@@ -2,15 +2,15 @@
 
 namespace AlphaX.CalcEngine.Utils;
 
-internal class DataUtils
+internal static class DataUtils
 {
-    public static CalcValue Transform(object data) {
+    public static CalcValue? Transform(object data) {
         if (data == null)
         {
             return null;
-        }else if(data is CalcValue)
+        }else if(data is CalcValue calcValue)
         {
-            return (CalcValue)data;
+            return calcValue;
         }
         Type type = data.GetType();
         CalcValueKind kind;

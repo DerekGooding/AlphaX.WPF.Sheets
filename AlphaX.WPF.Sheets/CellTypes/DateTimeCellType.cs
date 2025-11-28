@@ -1,28 +1,25 @@
-﻿using AlphaX.WPF.Sheets.UI.Editors;
+﻿using AlphaX.Sheets.Enums;
+using AlphaX.WPF.Sheets.UI.Editors;
 
-namespace AlphaX.WPF.Sheets.CellTypes
+namespace AlphaX.WPF.Sheets.CellTypes;
+
+public class DateTimeCellType : TextCellType
 {
-    public class DateTimeCellType : TextCellType
+    public string Format { get; set; }
+
+    internal override void DrawCell(DrawingContext context, object value, Style style, IFormatter formatter, Rect cellRect, double pixelPerDip)
     {
-        public string Format { get; set; }
+        if (value == null)
+            return;
 
-        internal override void DrawCell(DrawingContext context, object value, Style style, IFormatter formatter, Rect cellRect, double pixelPerDip)
-        {
-            if (value == null)
-                return;
+        if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
+            style.HorizontalAlignment = AlphaXHorizontalAlignment.Right;
 
-            if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
-                style.HorizontalAlignment = AlphaXHorizontalAlignment.Right;
-
-            if (!string.IsNullOrEmpty(Format))
-                base.DrawCell(context, ((DateTime)value).ToString(Format), style, formatter, cellRect, pixelPerDip);
-            else
-                base.DrawCell(context, formatter.Format(value), style, formatter, cellRect, pixelPerDip);
-        }
-
-        public override AlphaXEditorBase GetEditor(Style style)
-        {
-            throw new NotImplementedException();
-        }
+        if (!string.IsNullOrEmpty(Format))
+            base.DrawCell(context, ((DateTime)value).ToString(Format), style, formatter, cellRect, pixelPerDip);
+        else
+            base.DrawCell(context, formatter.Format(value), style, formatter, cellRect, pixelPerDip);
     }
+
+    public override AlphaXEditorBase GetEditor(Style style) => throw new NotImplementedException();
 }

@@ -1,9 +1,8 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.Enums;
+
+public enum SheetScrollMode
 {
-    public enum SheetScrollMode
-    {
-        Pixel,
-        Item,
-        Deferred
-    }
+    Pixel,
+    Item,
+    Deferred
 }

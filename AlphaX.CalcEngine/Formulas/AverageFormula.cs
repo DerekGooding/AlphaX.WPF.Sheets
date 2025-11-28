@@ -6,8 +6,8 @@ public class AverageFormula : Formula
 {
     public AverageFormula() : base("AVERAGE")
     {
-        this.MinArgs = 1;
-        this.MaxArgs = int.MaxValue;
+        MinArgs = 1;
+        MaxArgs = int.MaxValue;
     }
     public override CalcValue Calculate(params CalcValue[] values)
     {
@@ -59,8 +59,5 @@ public class AverageFormula : Formula
         };
     }
 
-    public override string GetDescription()
-    {
-        return "Returns the average (arithmetic mean) of its arguments";
-    }
+    public override string GetDescription() => "Returns the average (arithmetic mean) of its arguments";
 }

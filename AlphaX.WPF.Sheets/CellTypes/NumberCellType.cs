@@ -1,34 +1,34 @@
-﻿using AlphaX.WPF.Sheets.UI.Editors;
+﻿using AlphaX.Sheets.Enums;
+using AlphaX.WPF.Sheets.UI.Editors;
 
-namespace AlphaX.WPF.Sheets.CellTypes
+namespace AlphaX.WPF.Sheets.CellTypes;
+
+public class NumberCellType : TextCellType
 {
-    public class NumberCellType : TextCellType
+    public string Format { get; set; }
+
+    internal override void DrawCell(DrawingContext context, object value, Style style, IFormatter formatter, Rect cellRect, double pixelPerDip)
     {
-        public string Format { get; set; }
+        if (value == null)
+            return;
 
-        internal override void DrawCell(DrawingContext context, object value, Style style, IFormatter formatter, Rect cellRect, double pixelPerDip)
-        {
-            if (value == null)
-                return;
+        if(style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
+            style.HorizontalAlignment = AlphaXHorizontalAlignment.Right;
 
-            if(style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
-                style.HorizontalAlignment = AlphaXHorizontalAlignment.Right;
+        if (!string.IsNullOrEmpty(Format))
+            base.DrawCell(context, string.Format($"{{0:{Format}}}", value), style, formatter, cellRect, pixelPerDip);
+        else
+            base.DrawCell(context, formatter.Format(value), style, formatter, cellRect, pixelPerDip);
+    }
 
-            if (!string.IsNullOrEmpty(Format))
-                base.DrawCell(context, string.Format($"{{0:{Format}}}", value), style, formatter, cellRect, pixelPerDip);
-            else
-                base.DrawCell(context, formatter.Format(value), style, formatter, cellRect, pixelPerDip);
-        }
-
-        /// <inheritdoc/>
-        public override AlphaXEditorBase GetEditor(Style style)
-        {
-            var editor = new AlphaXNumericEditor() { TextAlignment = TextAlignment.Right };
-            editor.FontFamily = style.WpfFontFamily;
-            editor.Foreground = style.Foreground;
-            editor.Background = style.Background;
-            editor.FontSize = style.FontSize;
-            return editor;
-        }
+    /// <inheritdoc/>
+    public override AlphaXEditorBase GetEditor(Style style)
+    {
+        var editor = new AlphaXNumericEditor() { TextAlignment = TextAlignment.Right };
+        editor.FontFamily = style.WpfFontFamily;
+        editor.Foreground = style.Foreground;
+        editor.Background = style.Background;
+        editor.FontSize = style.FontSize;
+        return editor;
     }
 }

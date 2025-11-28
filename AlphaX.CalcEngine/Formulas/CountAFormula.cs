@@ -6,8 +6,8 @@ public class CountAFormula : Formula
 {
     public CountAFormula():base("COUNTA")
     {
-        this.MinArgs = 0;
-        this.MaxArgs = int.MaxValue;
+        MinArgs = 0;
+        MaxArgs = int.MaxValue;
     }
     public override CalcValue Calculate(params CalcValue[] values)
     {
@@ -48,8 +48,5 @@ public class CountAFormula : Formula
         };
     }
 
-    public override string GetDescription()
-    {
-        return "Counts the number of cells in a range that are not empty";
-    }
+    public override string GetDescription() => "Counts the number of cells in a range that are not empty";
 }

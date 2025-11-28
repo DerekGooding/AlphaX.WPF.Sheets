@@ -2,16 +2,11 @@
 
 namespace AlphaX.Sheets.Model;
 
-public class WorkBookDataProvider : IDataProvider, IDisposable
+public class WorkBookDataProvider(WorkBook workBook) : IDataProvider, IDisposable
 {
-    private WorkBook _workBook;
+    private WorkBook _workBook = workBook;
 
     public event ValueChangedEventHandler ValueChanged;
-
-    public WorkBookDataProvider(WorkBook workBook)
-    {
-        _workBook = workBook;
-    }
 
     public object[,] GetRangeValue(string sheetName, int rowIndex, int columnIndex, int rowCount, int columnCount)
     {
@@ -46,19 +41,10 @@ public class WorkBookDataProvider : IDataProvider, IDisposable
     {
         var cell = _workBook.WorkSheets.GetSheet(sheetName).Cells.GetCell(row, column, false);
 
-        if (cell == null)
-            return null;
-
-        return cell.MetaData;
+        return cell == null ? null : cell.MetaData;
     }
 
-    internal void RaiseValueChanged(ValueChangedEventArgs args)
-    {
-        ValueChanged?.Invoke(args);
-    }
+    internal void RaiseValueChanged(ValueChangedEventArgs args) => ValueChanged?.Invoke(args);
 
-    public void Dispose()
-    {
-        _workBook = null;
-    }
+    public void Dispose() => _workBook = null;
 }

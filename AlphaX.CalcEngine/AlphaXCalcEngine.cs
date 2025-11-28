@@ -23,10 +23,7 @@ public class AlphaXCalcEngine : ICalcEngine
         _provider.ValueChanged += _CellValueChanged;
     }
 
-    private void _CellValueChanged(ValueChangedEventArgs args)
-    {
-        _UpdateDependents(args.SheetName, args.Row, args.Column);
-    }
+    private void _CellValueChanged(ValueChangedEventArgs args) => _UpdateDependents(args.SheetName, args.Row, args.Column);
 
     // eval single formula string
     public CalcValue EvaluateExpression(string str, string sheetName = "")
@@ -36,28 +33,21 @@ public class AlphaXCalcEngine : ICalcEngine
     }
 
     // get list of all registered formulas
-    public IEnumerable<Formula> GetRegisteredFormulas()
-    {
-        return _evaluator.GetRegisteredFormulas();
-    }
+    public IEnumerable<Formula> GetRegisteredFormulas() => _evaluator.GetRegisteredFormulas();
 
     // register a custom formula
-    public void RegisterCustomFormula(Formula formula)
-    {
-        _evaluator.RegisterFormula(formula);
-    }
+    public void RegisterCustomFormula(Formula formula) => _evaluator.RegisterFormula(formula);
 
     // get computed value of a formula
     public object GetValue(string sheetName, int row, int column)
     {
-        var metaInfo = _provider.GetMetaData(sheetName, row, column) as CalcCellMetaInfo;
-        if(metaInfo == null || string.IsNullOrEmpty(metaInfo.Formula))
+        if (_provider.GetMetaData(sheetName, row, column) is not CalcCellMetaInfo metaInfo || string.IsNullOrEmpty(metaInfo.Formula))
         {
             return null;
         }
 
         // value not calculated yet, calculate value
-        if(metaInfo.CalculatedValue == null)
+        if (metaInfo.CalculatedValue == null)
         {
             metaInfo.CalculatedValue = _evaluator.EvaluateExpressionTree(metaInfo.CalcChain, sheetName);
         }
@@ -85,10 +75,7 @@ public class AlphaXCalcEngine : ICalcEngine
     }
 
     // recalculate value of a cell
-    public void RecalculateCell(string sheetName, int row, int column)
-    {
-        _RecalculateCell(sheetName, row, column);
-    }
+    public void RecalculateCell(string sheetName, int row, int column) => _RecalculateCell(sheetName, row, column);
 
     // Get ranges
     public List<object> GetRangesInFormulaString(string formula)
@@ -149,7 +136,7 @@ public class AlphaXCalcEngine : ICalcEngine
             {
                 if(dependency is CellRef)
                 {
-                    _SetCellDependency(curCell, dependency as CellRef);
+                    SetCellDependency(curCell, dependency as CellRef);
                 }else
                 {
                     _SetRangeDependency(curCell, dependency as CellRangeRef);
@@ -164,8 +151,7 @@ public class AlphaXCalcEngine : ICalcEngine
     // remove formula from a cell(if present)
     private void _ClearFormula(string sheetName, int row, int column)
     {
-        var metaInfo = _provider.GetMetaData(sheetName, row, column) as CalcCellMetaInfo;
-        if(metaInfo != null)
+        if (_provider.GetMetaData(sheetName, row, column) is CalcCellMetaInfo metaInfo)
         {
             metaInfo.Formula = null;
             metaInfo.Dependencies.Clear();
@@ -177,7 +163,7 @@ public class AlphaXCalcEngine : ICalcEngine
     }
 
     // add a cell as dependent on other cell
-    private void _SetCellDependency(CellRef dependentCell, CellRef targetCell)
+    private void SetCellDependency(CellRef dependentCell, CellRef targetCell)
     {
         if (string.IsNullOrEmpty(targetCell.SheetName))
         {
@@ -197,7 +183,7 @@ public class AlphaXCalcEngine : ICalcEngine
         {
             for(int c = targetRange.LeftColumn; c <= targetRange.RightColumn; c++)
             {
-                _SetCellDependency(dependentCell, new CellRef(r, c, targetRange.SheetName));
+                SetCellDependency(dependentCell, new CellRef(r, c, targetRange.SheetName));
             }
         }
     }
@@ -273,8 +259,7 @@ public class AlphaXCalcEngine : ICalcEngine
         var dependents = _GetDependentCells(sheetName, row, column);
         for (var i = 0; i < dependents.Count; i++)
         {
-            var metaInfo = _provider.GetMetaData(dependents[i].SheetName, dependents[i].Row, dependents[i].Column) as CalcCellMetaInfo;
-            if (metaInfo != null)
+            if (_provider.GetMetaData(dependents[i].SheetName, dependents[i].Row, dependents[i].Column) is CalcCellMetaInfo metaInfo)
             {
                 metaInfo.CalculatedValue = null;
             }
@@ -293,8 +278,7 @@ public class AlphaXCalcEngine : ICalcEngine
     // private void update cell value
     private void _updateCellValue(string sheetName, int row, int column)
     {
-        var metaInfo = _provider.GetMetaData(sheetName, row, column) as CalcCellMetaInfo;
-        if (metaInfo == null || string.IsNullOrEmpty(metaInfo.Formula))
+        if (_provider.GetMetaData(sheetName, row, column) is not CalcCellMetaInfo metaInfo || string.IsNullOrEmpty(metaInfo.Formula))
         {
             return;
         }

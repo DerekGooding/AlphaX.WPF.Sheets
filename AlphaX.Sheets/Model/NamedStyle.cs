@@ -165,24 +165,18 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
         _vAligment = null;
     }
 
-    public virtual IStyle Clone()
+    public virtual IStyle Clone() => new NamedStyle()
     {
-        return new NamedStyle()
-        {
-            BackColor = _backColor.Value,
-            FontFamily = _fontFamily,
-            FontSize = _fontSize.Value,
-            FontWeight = _fontWeight.Value,
-            FontStyle = _fontStyle.Value,
-            ForeColor = _foreColor.Value,
-            HorizontalAlignment = _hAligment.Value,
-            VerticalAlignment = _vAligment.Value,
-            Padding = _padding.Value,
-        };
-    }
+        BackColor = _backColor.Value,
+        FontFamily = _fontFamily,
+        FontSize = _fontSize.Value,
+        FontWeight = _fontWeight.Value,
+        FontStyle = _fontStyle.Value,
+        ForeColor = _foreColor.Value,
+        HorizontalAlignment = _hAligment.Value,
+        VerticalAlignment = _vAligment.Value,
+        Padding = _padding.Value,
+    };
 
-    public virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    public virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

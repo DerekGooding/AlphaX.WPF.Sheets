@@ -21,7 +21,7 @@ public class WorkBook : IWorkBook
 
         Name = name;
         WorkSheets = new WorkSheets(this);
-        _namedStyles = new Dictionary<string, NamedStyle>();
+        _namedStyles = [];
         _dataProvider = new WorkBookDataProvider(this);
         CalcEngine = new AlphaXCalcEngine(_dataProvider);
     }

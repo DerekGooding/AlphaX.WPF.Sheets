@@ -1,32 +1,29 @@
-﻿using AlphaX.WPF.Sheets.Rendering;
+﻿using AlphaX.Sheets.Enums;
+using AlphaX.WPF.Sheets.Rendering.Renderers;
 using AlphaX.WPF.Sheets.UI.Editors;
 
-namespace AlphaX.WPF.Sheets.CellTypes
+namespace AlphaX.WPF.Sheets.CellTypes;
+
+public class ButtonCellType : BaseCellType
 {
-    public class ButtonCellType : BaseCellType
+    public IAlphaXCommand Command { get; set; }
+    public string Text { get; set; }
+
+    internal override void DrawCell(DrawingContext context, object value, Style style, IFormatter formatter, Rect cellRect, double pixelPerDip)
     {
-        public IAlphaXCommand Command { get; set; }
-        public string Text { get; set; }
+        base.DrawCell(context, value, style, formatter, cellRect, pixelPerDip);
 
-        internal override void DrawCell(DrawingContext context, object value, Style style, IFormatter formatter, Rect cellRect, double pixelPerDip)
+        cellRect.Inflate(-3, -3);
+        context.DrawRectangle(Brushes.LightGray, null, cellRect);
+
+        if(!string.IsNullOrEmpty(Text))
         {
-            base.DrawCell(context, value, style, formatter, cellRect, pixelPerDip);
+            if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
+                style.HorizontalAlignment = AlphaXHorizontalAlignment.Center;
 
-            cellRect.Inflate(-3, -3);
-            context.DrawRectangle(Brushes.LightGray, null, cellRect);
-
-            if(!string.IsNullOrEmpty(Text))
-            {
-                if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
-                    style.HorizontalAlignment = AlphaXHorizontalAlignment.Center;
-
-                context.DrawText(Text, cellRect, style, pixelPerDip);
-            }
-        }
-
-        public override AlphaXEditorBase GetEditor(Style style)
-        {
-            throw new NotImplementedException();
+            context.DrawText(Text, cellRect, style, pixelPerDip);
         }
     }
+
+    public override AlphaXEditorBase GetEditor(Style style) => throw new NotImplementedException();
 }

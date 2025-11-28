@@ -114,45 +114,21 @@ internal static class ParserProvider
     #endregion
 
     #region Maps
-    private static ParserResult NumberParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.Number, (result as StringResult).Value);
-    }
+    private static ParserResult NumberParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.Number, (result as StringResult).Value);
 
-    private static ParserResult StringParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.String, (result as StringResult).Value);
-    }
+    private static ParserResult StringParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.String, (result as StringResult).Value);
 
-    private static ParserResult BoolParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.Bool, (result as StringResult).Value);
-    }
+    private static ParserResult BoolParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.Bool, (result as StringResult).Value);
 
-    private static ParserResult FloatParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.Float, (result as StringResult).Value);
-    }
+    private static ParserResult FloatParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.Float, (result as StringResult).Value);
 
-    private static ParserResult VarParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.VarName, (result as StringResult).Value);
-    }
+    private static ParserResult VarParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.VarName, (result as StringResult).Value);
 
-    private static ParserResult OpenParanParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.OpenParan, ParserTokens.OpenBracket);
-    }
+    private static ParserResult OpenParanParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.OpenParan, ParserTokens.OpenBracket);
 
-    private static ParserResult CloseParanParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.CloseParan, ParserTokens.CloseBracket);
-    }
+    private static ParserResult CloseParanParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.CloseParan, ParserTokens.CloseBracket);
 
-    private static ParserResult OperatorParserMap(ParserResult result)
-    {
-        return new CalcParserResult(CalcParserResultKind.Operator, (result as StringResult).Value);
-    }
+    private static ParserResult OperatorParserMap(ParserResult result) => new CalcParserResult(CalcParserResultKind.Operator, (result as StringResult).Value);
 
     private static ParserResult CellRefParserMap(ParserResult result)
     {
@@ -199,59 +175,29 @@ internal static class ParserProvider
     #endregion
 
     #region Parsers Factory
-    private static Parser CreateRangeFinderParser()
-    {
-        return new ManyOccuranceParser(
+    private static Parser CreateRangeFinderParser() => new ManyOccuranceParser(
                 CreateChoiceParser(
                     SheetNameCellRangeParser,
                     SheetNameCellRefParser
                 )
             );
-    }
 
-    private static Parser CreateStringParser(string value)
-    {
-        return new StringParser(value);
-    }
+    private static Parser CreateStringParser(string value) => new StringParser(value);
 
-    private static Parser CreateManyParser(Parser parser)
-    {
-        return new ManyParser(parser);
-    }
+    private static Parser CreateManyParser(Parser parser) => new ManyParser(parser);
 
-    private static Parser CreateManyMaxParser(Parser parser)
-    {
-        return new ManyMaxParser(parser);
-    }
+    private static Parser CreateManyMaxParser(Parser parser) => new ManyMaxParser(parser);
 
-    private static Parser CreateRegexParser(string pattern)
-    {
-        return new RegexParser(new Regex(pattern));
-    }
+    private static Parser CreateRegexParser(string pattern) => new RegexParser(new Regex(pattern));
 
-    private static Parser CreateSequenceOfParser(params Parser[] parsers)
-    {
-        return new SequenceOfParser(parsers);
-    }
+    private static Parser CreateSequenceOfParser(params Parser[] parsers) => new SequenceOfParser(parsers);
 
-    private static Parser CreateChoiceParser(params Parser[] parsers)
-    {
-        return new ChoiceParser(parsers);
-    }
+    private static Parser CreateChoiceParser(params Parser[] parsers) => new ChoiceParser(parsers);
 
-    private static Parser CreateLazyChoiceParser(Lazy<Parser[]> parsers)
-    {
-        return new ChoiceParser(parsers);
-    }
+    private static Parser CreateLazyChoiceParser(Lazy<Parser[]> parsers) => new ChoiceParser(parsers);
 
-    private static Parser CreateBetweenParser(Parser left, Parser right, Parser content)
-    {
-        return new BetweenParser(left, right, content);
-    }
+    private static Parser CreateBetweenParser(Parser left, Parser right, Parser content) => new BetweenParser(left, right, content);
 
-    private static Parser CreateManySeptParser(Parser parser, Parser septBy)
-    {
-        return new ManySeptParser(parser, septBy);
-    }
+    private static Parser CreateManySeptParser(Parser parser, Parser septBy) => new ManySeptParser(parser, septBy);
     #endregion
 }

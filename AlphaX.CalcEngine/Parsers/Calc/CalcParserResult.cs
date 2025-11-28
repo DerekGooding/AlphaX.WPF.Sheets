@@ -16,7 +16,7 @@ public class CalcParserResult : ParserResult
     {
         Kind = kind;
         Value = value;
-        this._childs = childs;
+        _childs = childs;
 
         switch (kind)
         {

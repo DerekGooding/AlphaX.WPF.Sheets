@@ -49,7 +49,7 @@ internal class AlphaXDataCollection : IDataCollection
             if (type != null)
             {
                 var properties = type.GetProperties();
-                _itemPropertyInfo = new Dictionary<string, PropertyInfo>();
+                _itemPropertyInfo = [];
 
                 foreach (var property in properties)
                 {
@@ -63,13 +63,9 @@ internal class AlphaXDataCollection : IDataCollection
         {
             DataSourceType = DataSourceType.IEnumerable;
         }
-        else if (_actualSource is DataTable table)
-        {
-            DataSourceType= DataSourceType.DataTable;
-        }
         else
         {
-            DataSourceType = DataSourceType.NotSupported;
+            DataSourceType = _actualSource is DataTable table ? DataSourceType.DataTable : DataSourceType.NotSupported;
         }
     }
 
@@ -81,13 +77,7 @@ internal class AlphaXDataCollection : IDataCollection
                 .Where(i => i.IsGenericType && i.GenericTypeArguments.Length == 1)
                 .FirstOrDefault(i => i.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 
-        if (enumerable_type != null)
-            return enumerable_type.GenericTypeArguments[0];
-
-        if (list.Count == 0)
-            return null;
-
-        return list[0].GetType();
+        return enumerable_type != null ? enumerable_type.GenericTypeArguments[0] : list.Count == 0 ? null : list[0].GetType();
     }
 
     public object GetItemAt(int index)
@@ -118,10 +108,7 @@ internal class AlphaXDataCollection : IDataCollection
         }
     }
 
-    public PropertyInfo GetPropertyInfo(string name)
-    {
-        return _itemPropertyInfo[name];
-    }
+    public PropertyInfo GetPropertyInfo(string name) => _itemPropertyInfo[name];
 
     public void Dispose()
     {

@@ -1,8 +1,7 @@
-﻿namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets.UndoRedo.Actions;
+
+public abstract class SheetAction
 {
-    public abstract class SheetAction
-    {
-        public abstract void Redo();
-        public abstract void Undo();
-    }
+    public abstract void Redo();
+    public abstract void Undo();
 }

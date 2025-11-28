@@ -1,76 +1,68 @@
-﻿namespace AlphaX.WPF.Sheets.Rendering
+﻿using AlphaX.WPF.Sheets.Rendering.Renderers;
+
+namespace AlphaX.WPF.Sheets.Rendering;
+
+internal class RenderEngineCache
 {
-    internal class RenderEngineCache
+    private Dictionary<Renderer, Dictionary<(int, int), Drawing>> _drawingStore;
+
+    public RenderEngineCache() => _drawingStore = [];
+
+    public void RegisterCacheType(Renderer type) => _drawingStore.Add(type, []);
+
+    /// <summary>
+    /// Adds drawing to cache.
+    /// </summary>
+    /// <param name="cacheType"></param>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    /// <param name="drawing"></param>
+    public void AddDrawing(Renderer cacheType, int row, int col, Drawing drawing)
     {
-        private Dictionary<Renderer, Dictionary<(int, int), Drawing>> _drawingStore;
-
-        public RenderEngineCache()
+        if (!_drawingStore[cacheType].ContainsKey((row, col)))
         {
-            _drawingStore = new Dictionary<Renderer, Dictionary<(int, int), Drawing>>();
+            _drawingStore[cacheType].Add((row, col), drawing);
         }
-
-        public void RegisterCacheType(Renderer type)
+        else
         {
-            _drawingStore.Add(type, new Dictionary<(int, int), Drawing>());
+            _drawingStore[cacheType][(row, col)] = drawing;
         }
+    }
 
-        /// <summary>
-        /// Adds drawing to cache.
-        /// </summary>
-        /// <param name="cacheType"></param>
-        /// <param name="row"></param>
-        /// <param name="col"></param>
-        /// <param name="drawing"></param>
-        public void AddDrawing(Renderer cacheType, int row, int col, Drawing drawing)
+    /// <summary>
+    /// Clears cache.
+    /// </summary>
+    public void Clear()
+    {
+        foreach(var stores in _drawingStore)
         {
-            if (!_drawingStore[cacheType].ContainsKey((row, col)))
-            {
-                _drawingStore[cacheType].Add((row, col), drawing);
-            }
-            else
-            {
-                _drawingStore[cacheType][(row, col)] = drawing;
-            }
+            stores.Value.Clear();
         }
+        GC.Collect();
+    }
 
-        /// <summary>
-        /// Clears cache.
-        /// </summary>
-        public void Clear()
-        {
-            foreach(var stores in _drawingStore)
-            {
-                stores.Value.Clear();
-            }
-            GC.Collect();
-        }
+    /// <summary>
+    /// Gets the drawing object from cache if exists.
+    /// </summary>
+    /// <param name="cacheType"></param>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    /// <param name="drawing"></param>
+    /// <returns></returns>
+    public bool TryGetDrawing(Renderer cacheType, int row, int col, out Drawing drawing) => _drawingStore[cacheType].TryGetValue((row, col), out drawing);
 
-        /// <summary>
-        /// Gets the drawing object from cache if exists.
-        /// </summary>
-        /// <param name="cacheType"></param>
-        /// <param name="row"></param>
-        /// <param name="col"></param>
-        /// <param name="drawing"></param>
-        /// <returns></returns>
-        public bool TryGetDrawing(Renderer cacheType, int row, int col, out Drawing drawing)
+    /// <summary>
+    /// Removes the drawing object from cache
+    /// </summary>
+    /// <param name="cacheType"></param>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    public void RemoveFromCache(Renderer cacheType, int row, int col)
+    {
+        if (_drawingStore[cacheType].ContainsKey((row, col)))
         {
-            return _drawingStore[cacheType].TryGetValue((row, col), out drawing);
-        }
-
-        /// <summary>
-        /// Removes the drawing object from cache
-        /// </summary>
-        /// <param name="cacheType"></param>
-        /// <param name="row"></param>
-        /// <param name="col"></param>
-        public void RemoveFromCache(Renderer cacheType, int row, int col)
-        {
-            if (_drawingStore[cacheType].ContainsKey((row, col)))
-            {
-                cacheType.Drawing.Children.Remove(_drawingStore[cacheType][(row, col)]);
-                _drawingStore[cacheType].Remove((row, col));
-            }
+            cacheType.Drawing.Children.Remove(_drawingStore[cacheType][(row, col)]);
+            _drawingStore[cacheType].Remove((row, col));
         }
     }
 }

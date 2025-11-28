@@ -15,7 +15,7 @@ public class FilterProvider : IFilterProvider
     internal FilterProvider(WorkSheet workSheet)
     {
         _workSheet = workSheet;
-        _filteredRows = new Dictionary<int, object>();
+        _filteredRows = [];
     }
 
     public void ApplyFilter(CellRange range, FilterBase filter)
@@ -38,8 +38,5 @@ public class FilterProvider : IFilterProvider
         }
     }
 
-    public void Clear()
-    {
-        _filteredRows.Clear();
-    }
+    public void Clear() => _filteredRows.Clear();
 }

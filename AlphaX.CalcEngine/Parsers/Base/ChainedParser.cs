@@ -2,16 +2,10 @@
 
 internal delegate Parser ChainDelegate(ParserResult result);
 
-internal class ChainedParser : Parser
+internal class ChainedParser(Parser parser, ChainDelegate chainFn) : Parser
 {
-    private Parser Parser { get; set; }
-    private ChainDelegate ChainFn { get; set; }
-
-    public ChainedParser(Parser parser, ChainDelegate chainFn)
-    {
-        Parser = parser;
-        ChainFn = chainFn;
-    }
+    private Parser Parser { get; set; } = parser;
+    private ChainDelegate ChainFn { get; set; } = chainFn;
 
     public override ParserState Parse(ParserState state)
     {

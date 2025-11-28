@@ -15,10 +15,7 @@ public class Rows : CollectionBase<Row>, IRows
         }
     }
 
-    internal Rows(object parent) : base(parent) 
-    {
-        _locationMap = new Dictionary<int, double>();
-    }
+    internal Rows(object parent) : base(parent) => _locationMap = [];
 
     /// <summary>
     /// Gets the location of the row
@@ -100,10 +97,7 @@ public class Rows : CollectionBase<Row>, IRows
     {
         var sheetRow = GetItem(row, false);
 
-        if (sheetRow == null)
-            return GetDefaultRowHeight();
-
-        return sheetRow.Height;
+        return sheetRow == null ? GetDefaultRowHeight() : sheetRow.Height;
     }
 
     private int GetDefaultRowHeight()
@@ -150,20 +144,11 @@ public class Rows : CollectionBase<Row>, IRows
         _locationMap = null;
     }
 
-    public override void InsertBelow(int index)
-    {
-        InsertBelow(index, 1);
-    }
+    public override void InsertBelow(int index) => InsertBelow(index, 1);
 
-    public override void Add()
-    {
-        Add(1);
-    }
+    public override void Add() => Add(1);
 
-    public override void Remove(int index)
-    {
-        Remove(index, 1);
-    }
+    public override void Remove(int index) => Remove(index, 1);
 
     public override void InsertBelow(int index, int count)
     {

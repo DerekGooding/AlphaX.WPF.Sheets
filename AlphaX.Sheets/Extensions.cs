@@ -2,10 +2,7 @@
 
 internal static class Extensions
 {
-    public static bool IsNumber(this object value)
-    {
-        return value is int || value is double || value is float || value is decimal || value is long || value is short;
-    }
+    public static bool IsNumber(this object value) => value is int || value is double || value is float || value is decimal || value is long || value is short;
 
     /// <summary>
     /// Gets the column header.
@@ -45,13 +42,7 @@ internal static class Extensions
         return index - 1;
     }
 
-    public static CellRange AsCellRange(this Cells cells)
-    {
-        return new CellRange(cells.Row, cells.Column, cells.RowCount, cells.ColumnCount);
-    }
+    public static CellRange AsCellRange(this Cells cells) => new(cells.Row, cells.Column, cells.RowCount, cells.ColumnCount);
 
-    public static CellRange AsCellRange(this Cell cell)
-    {
-        return new CellRange(cell.Row, cell.Column);
-    }
+    public static CellRange AsCellRange(this Cell cell) => new(cell.Row, cell.Column);
 }
