@@ -9,7 +9,7 @@ namespace AlphaX.WPF.Sheets.Rendering;
 
 internal class AlphaXSheetViewPane : Grid, IDisposable
 {
-    private AlphaXSpread _spread;
+    private readonly AlphaXSpread _spread;
     private AlphaXSheetView _sheetView;
     private WorkSheet _workSheet;
     private CellsInteractionLayer _cellInteractionLayer;
@@ -92,7 +92,7 @@ internal class AlphaXSheetViewPane : Grid, IDisposable
             _spread.RenderEngine.BeginRenderInternal();
         else
             _spread.RenderEngine.BeginRender();
-        
+
         if (gridLines)
             _spread.RenderEngine.DrawGridLines(viewRange.TopRow, viewRange.LeftColumn, viewRange.BottomRow, viewRange.RightColumn);
 

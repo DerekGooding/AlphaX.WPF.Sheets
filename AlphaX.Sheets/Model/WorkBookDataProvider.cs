@@ -14,9 +14,9 @@ public class WorkBookDataProvider(WorkBook workBook) : IDataProvider, IDisposabl
 
         var data = new object[rowCount, columnCount];
 
-        for (int row = 0; row < rowCount; row++)
+        for (var row = 0; row < rowCount; row++)
         {
-            for (int col = 0; col < columnCount; col++)
+            for (var col = 0; col < columnCount; col++)
             {
                 data[row, col] = worksheet.DataStore.GetValue(rowIndex + row, columnIndex + col);
             }
@@ -41,7 +41,7 @@ public class WorkBookDataProvider(WorkBook workBook) : IDataProvider, IDisposabl
     {
         var cell = _workBook.WorkSheets.GetSheet(sheetName).Cells.GetCell(row, column, false);
 
-        return cell == null ? null : cell.MetaData;
+        return cell?.MetaData;
     }
 
     internal void RaiseValueChanged(ValueChangedEventArgs args) => ValueChanged?.Invoke(args);

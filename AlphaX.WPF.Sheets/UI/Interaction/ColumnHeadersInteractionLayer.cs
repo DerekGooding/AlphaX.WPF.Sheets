@@ -58,7 +58,7 @@ internal class ColumnHeadersInteractionLayer : InteractionLayer
             SheetView.Spread.SheetTabControl.UpdateScrollbars();
         }
 
-        if(hitTest != null && hitTest.Element != VisualElement.ColumnHeaderResizeBar)
+        if (hitTest != null && hitTest.Element != VisualElement.ColumnHeaderResizeBar)
             Cursor = SheetUtils.ColumnHeaderCursor;
     }
 
@@ -66,7 +66,7 @@ internal class ColumnHeadersInteractionLayer : InteractionLayer
     {
         base.OnMouseMove(e);
 
-        if(_resizeManager.IsResizing)
+        if (_resizeManager.IsResizing)
         {
             _resizeManager.ResizeColumn((int)e.GetPosition(this).X);
             return;
@@ -84,10 +84,10 @@ internal class ColumnHeadersInteractionLayer : InteractionLayer
         if (e.LeftButton != MouseButtonState.Pressed)
             return;
 
-        int leftColumn = Math.Min(hitTest.Column, SheetView.ActiveColumn);
-        int rightColumn = Math.Max(hitTest.Column, SheetView.ActiveColumn);
+        var leftColumn = Math.Min(hitTest.Column, SheetView.ActiveColumn);
+        var rightColumn = Math.Max(hitTest.Column, SheetView.ActiveColumn);
         SheetView.Spread.SelectionManager.SelectColumns(leftColumn, rightColumn - leftColumn + 1);
-    }      
+    }
 
     protected override void OnRender(DrawingContext dc)
     {
@@ -95,7 +95,7 @@ internal class ColumnHeadersInteractionLayer : InteractionLayer
         var selectionRangeRect = ToSheetViewRect(SheetView.ViewPort.GetRangeRect(SheetView.Selection));
         dc.PushClip(new RectangleGeometry(new Rect(0, 0, ActualWidth, ActualHeight + 0.5)));
         dc.DrawLine(SheetView.Spread.SelectionBorderPen,
-            new Point(selectionRangeRect.Left, ActualHeight), 
+            new Point(selectionRangeRect.Left, ActualHeight),
             new Point(selectionRangeRect.Right, ActualHeight));
         dc.Pop();
     }
@@ -104,18 +104,14 @@ internal class ColumnHeadersInteractionLayer : InteractionLayer
     {
         base.AttachToRegion(region);
 
-        if (_resizeManager == null)
-            _resizeManager = new ColumnResizeManager(region.SheetView.Spread);
+        _resizeManager ??= new ColumnResizeManager(region.SheetView.Spread);
     }
 
     public override void DetachFromRegion()
     {
         base.DetachFromRegion();
-        if (_resizeManager != null)
-        {
-            _resizeManager.Dispose();
-            _resizeManager = null;
-        }
+        _resizeManager?.Dispose();
+        _resizeManager = null;
     }
 
     protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) => base.OnRenderSizeChanged(sizeInfo);//Clip = new RectangleGeometry(new Rect(0, 0, ActualWidth, ActualHeight + 0.5));

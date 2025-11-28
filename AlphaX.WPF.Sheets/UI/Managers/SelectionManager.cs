@@ -96,17 +96,17 @@ internal class SelectionManager(AlphaXSpread spread) : UIManager(spread), ISelec
     {
         var cellsInteractionLayer = Spread.SheetViewPane.CellsRegion.GetInteractionLayer();
 
-        if (cellsInteractionLayer != null && cellsInteractionLayer.IsLoaded)
+        if (cellsInteractionLayer?.IsLoaded == true)
             cellsInteractionLayer.InvalidateVisual();
 
         var rowHeadersInteractionLayer = Spread.SheetViewPane.RowHeadersRegion.GetInteractionLayer();
 
-        if (rowHeadersInteractionLayer != null && rowHeadersInteractionLayer.IsLoaded)
+        if (rowHeadersInteractionLayer?.IsLoaded == true)
             rowHeadersInteractionLayer.InvalidateVisual();
 
         var columnHeadersInteractionLayer = Spread.SheetViewPane.ColumnHeadersRegion.GetInteractionLayer();
 
-        if (columnHeadersInteractionLayer != null && columnHeadersInteractionLayer.IsLoaded)
+        if (columnHeadersInteractionLayer?.IsLoaded == true)
             columnHeadersInteractionLayer.InvalidateVisual();
     }
 }

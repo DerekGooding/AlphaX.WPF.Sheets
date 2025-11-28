@@ -17,6 +17,7 @@ public abstract class HeadersBase : IHeaders
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         Cells.Dispose();
         Columns.Dispose();
         Rows.Dispose();

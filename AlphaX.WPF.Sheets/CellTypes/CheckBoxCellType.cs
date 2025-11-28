@@ -9,8 +9,8 @@ public class CheckBoxCellType : BaseCellType
 
     static CheckBoxCellType() => CheckBoxSize = new Size(11, 11);
 
-    private Pen _pen;
-    private Pen _markPen;
+    private readonly Pen _pen;
+    private readonly Pen _markPen;
 
     public bool IsThreeState { get; set; }
 
@@ -25,7 +25,7 @@ public class CheckBoxCellType : BaseCellType
     {
         var checkBoxRect = cellRect.ToCellCheckBoxRect(CheckBoxSize);
         var halfPenWidth = _pen.Thickness / 2;
-        GuidelineSet guidelines = new GuidelineSet();
+        var guidelines = new GuidelineSet();
         guidelines.GuidelinesX.Add(checkBoxRect.Left + halfPenWidth);
         guidelines.GuidelinesX.Add(checkBoxRect.Right + halfPenWidth);
         guidelines.GuidelinesY.Add(checkBoxRect.Top + halfPenWidth);
@@ -44,15 +44,15 @@ public class CheckBoxCellType : BaseCellType
     /// </summary>
     private void DrawMark(DrawingContext ctx, Rect checkBoxRect, object value)
     {
-        if(IsThreeState && value == null)
+        if (IsThreeState && value == null)
         {
             checkBoxRect.Inflate(-2, -2);
             ctx.DrawRectangle(Brushes.Black, null, checkBoxRect);
         }
-        else if(value != null && Convert.ToBoolean(value))
+        else if (value != null && Convert.ToBoolean(value))
         {
             var bottom = new Point(checkBoxRect.Left + (checkBoxRect.Width / 2), checkBoxRect.Bottom - 1.5);
-            ctx.DrawLine(_markPen, new Point(checkBoxRect.Left + 1.5, checkBoxRect.Top + checkBoxRect.Height / 2),
+            ctx.DrawLine(_markPen, new Point(checkBoxRect.Left + 1.5, checkBoxRect.Top + (checkBoxRect.Height / 2)),
                 bottom);
             ctx.DrawLine(_markPen, bottom, new Point(checkBoxRect.Right - 1.5, checkBoxRect.Top + 1.5));
         }

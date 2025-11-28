@@ -12,7 +12,7 @@ public class NumberCellType : TextCellType
         if (value == null)
             return;
 
-        if(style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
+        if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
             style.HorizontalAlignment = AlphaXHorizontalAlignment.Right;
 
         if (!string.IsNullOrEmpty(Format))
@@ -24,11 +24,14 @@ public class NumberCellType : TextCellType
     /// <inheritdoc/>
     public override AlphaXEditorBase GetEditor(Style style)
     {
-        var editor = new AlphaXNumericEditor() { TextAlignment = TextAlignment.Right };
-        editor.FontFamily = style.WpfFontFamily;
-        editor.Foreground = style.Foreground;
-        editor.Background = style.Background;
-        editor.FontSize = style.FontSize;
+        var editor = new AlphaXNumericEditor
+        {
+            TextAlignment = TextAlignment.Right,
+            FontFamily = style.WpfFontFamily,
+            Foreground = style.Foreground,
+            Background = style.Background,
+            FontSize = style.FontSize
+        };
         return editor;
     }
 }

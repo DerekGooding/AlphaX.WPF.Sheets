@@ -4,7 +4,7 @@ namespace AlphaX.WPF.Sheets.Rendering;
 
 internal class RenderEngineCache
 {
-    private Dictionary<Renderer, Dictionary<(int, int), Drawing>> _drawingStore;
+    private readonly Dictionary<Renderer, Dictionary<(int, int), Drawing>> _drawingStore;
 
     public RenderEngineCache() => _drawingStore = [];
 
@@ -13,28 +13,14 @@ internal class RenderEngineCache
     /// <summary>
     /// Adds drawing to cache.
     /// </summary>
-    /// <param name="cacheType"></param>
-    /// <param name="row"></param>
-    /// <param name="col"></param>
-    /// <param name="drawing"></param>
-    public void AddDrawing(Renderer cacheType, int row, int col, Drawing drawing)
-    {
-        if (!_drawingStore[cacheType].ContainsKey((row, col)))
-        {
-            _drawingStore[cacheType].Add((row, col), drawing);
-        }
-        else
-        {
-            _drawingStore[cacheType][(row, col)] = drawing;
-        }
-    }
+    public void AddDrawing(Renderer cacheType, int row, int col, Drawing drawing) => _drawingStore[cacheType][(row, col)] = drawing;
 
     /// <summary>
     /// Clears cache.
     /// </summary>
     public void Clear()
     {
-        foreach(var stores in _drawingStore)
+        foreach (var stores in _drawingStore)
         {
             stores.Value.Clear();
         }
@@ -44,19 +30,11 @@ internal class RenderEngineCache
     /// <summary>
     /// Gets the drawing object from cache if exists.
     /// </summary>
-    /// <param name="cacheType"></param>
-    /// <param name="row"></param>
-    /// <param name="col"></param>
-    /// <param name="drawing"></param>
-    /// <returns></returns>
     public bool TryGetDrawing(Renderer cacheType, int row, int col, out Drawing drawing) => _drawingStore[cacheType].TryGetValue((row, col), out drawing);
 
     /// <summary>
     /// Removes the drawing object from cache
     /// </summary>
-    /// <param name="cacheType"></param>
-    /// <param name="row"></param>
-    /// <param name="col"></param>
     public void RemoveFromCache(Renderer cacheType, int row, int col)
     {
         if (_drawingStore[cacheType].ContainsKey((row, col)))

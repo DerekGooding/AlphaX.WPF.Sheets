@@ -8,7 +8,7 @@ namespace AlphaX.WPF.Sheets.Components;
 /// </summary>
 public partial class FilterTool : UserControl
 {
-    private FilterProvider _filterProvider;
+    private readonly FilterProvider _filterProvider;
 
     internal FilterTool(FilterProvider filterProvider)
     {

@@ -16,7 +16,7 @@ public interface ICell : IDisposable, IStyledObject
     /// <summary>
     /// Gets or sets the cell formula.
     /// </summary>
-    string Formula { get; set; }
+    string? Formula { get; set; }
     /// <summary>
     /// Gets whether the cell has formula.
     /// </summary>
@@ -36,7 +36,7 @@ public interface ICell : IDisposable, IStyledObject
     /// <summary>
     /// Gets or sets the cell formatter.
     /// </summary>
-    IFormatter Formatter { get; set; }
+    IFormatter? Formatter { get; set; }
     /// <summary>
     /// Gets or sets whether this cell is visible or not.
     /// </summary>

@@ -10,12 +10,12 @@ internal class AlphaXNumericEditor : AlphaXEditorBase
     {
         base.OnPreviewTextInput(e);
 
-        if(!string.IsNullOrEmpty(e.Text))
+        if (!string.IsNullOrEmpty(e.Text))
         {
             var character = e.Text[0];
             var ascii = (int)character;
 
-            if (ascii == 46 && Text.Contains("."))
+            if (ascii == 46 && Text.Contains('.'))
             {
                 e.Handled = true;
             }

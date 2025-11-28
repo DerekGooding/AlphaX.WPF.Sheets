@@ -3,14 +3,18 @@ using System.Text.RegularExpressions;
 
 namespace AlphaX.CalcEngine.Parsers.Utility;
 
-internal class DigitParser : RegexParser
+internal partial class DigitParser : RegexParser
 {
-    static string _digitsRegex = "^-?[0-9]+";
+    const string _digitsRegex = "^-?[0-9]+";
 
-    public DigitParser(): base(new Regex(_digitsRegex))
+    public DigitParser() : base(MyRegex())
     {
-        
+
     }
 
-    protected override ParserError InternalErrorMap(ParserState state, ParserError error) => new($"Error at index {state.Index}, Expected digits");
+    protected override ParserError InternalErrorMap(ParserState state, ParserError error)
+        => new($"Error at index {state.Index}, Expected digits");
+
+    [GeneratedRegex(_digitsRegex)]
+    private static partial Regex MyRegex();
 }

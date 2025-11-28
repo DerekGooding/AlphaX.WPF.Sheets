@@ -26,6 +26,6 @@ public partial class Testing : UserControl
 
     private void Testing_Loaded(object sender, RoutedEventArgs e)
     {
-        
+
     }
 }

@@ -28,8 +28,8 @@ public partial class CellTypes : UserControl
         worksheet.Columns[4].Locked = true;
         worksheet.Columns[4].CellType = new ButtonCellType() { Text = "Button" };
 
-        Random rnd = new Random();
-        for (int row = 0; row < 50; row++)
+        var rnd = new Random();
+        for (var row = 0; row < 50; row++)
         {
             worksheet.Cells[row, 0].Value = $"Text {row + 1}";
             worksheet.Cells[row, 1].Value = rnd.Next(1, 10) % 2 == 0 ? true : rnd.NextDouble() < 0.5 ? false : (bool?)null;

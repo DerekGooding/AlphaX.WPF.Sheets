@@ -5,20 +5,17 @@ namespace AlphaX.WPF.Sheets.UI.Managers;
 
 public class UIUpdateProvider(AlphaXSpread spread) : IUpdateProvider
 {
-    private AlphaXSpread _spread = spread;
+    private readonly AlphaXSpread _spread = spread;
     private bool _suspendUpdates;
 
     bool IUpdateProvider.SuspendUpdates
     {
-        get
-        {
-            return _suspendUpdates;
-        }
+        get => _suspendUpdates;
         set
         {
             _suspendUpdates = value;
 
-            if(!_suspendUpdates && _spread.IsLoaded)
+            if (!_suspendUpdates && _spread.IsLoaded)
             {
                 _spread.SheetViews.ActiveSheetView.Invalidate();
             }
@@ -30,13 +27,14 @@ public class UIUpdateProvider(AlphaXSpread spread) : IUpdateProvider
         if (!_spread.IsLoaded)
             return;
 
-        _spread.Dispatcher.BeginInvoke(new Action(() => {
+        _spread.Dispatcher.BeginInvoke(new Action(() =>
+        {
 
             var sheetView = _spread.SheetViews.GetSheetView(worksheet);
 
             if (!sheetView.ViewPort.ViewRange.ContainsCell(row, column))
-            return;
-  
+                return;
+
             if (sheetView.ViewPort.ViewRange.ContainsCell(row, column))
             {
                 switch (changeType)

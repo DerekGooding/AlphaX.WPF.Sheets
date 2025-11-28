@@ -7,8 +7,8 @@ namespace AlphaX.WPF.Sheets;
 
 public class SheetViewCollection : IEnumerable<IAlphaXSheetView>, INotifyCollectionChanged
 {
-    private AlphaXSpread _spread;
-    private Dictionary<WorkSheet, IAlphaXSheetView> _sheetViewStore;
+    private readonly AlphaXSpread _spread;
+    private readonly Dictionary<WorkSheet, IAlphaXSheetView> _sheetViewStore;
 
     public IAlphaXSheetView ActiveSheetView { get; private set; }
     public event NotifyCollectionChangedEventHandler CollectionChanged;

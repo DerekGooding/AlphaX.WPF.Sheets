@@ -8,14 +8,14 @@ internal static class RenderingExtensions
 
     static RenderingExtensions() => DefaultCellType = new TextCellType();
 
-    internal static BaseCellType GetCellType(ICell cell, IColumn column) => cell != null && cell.CellType != null ? (BaseCellType)cell.CellType :
-                               column != null && column.CellType != null ?
+    internal static BaseCellType GetCellType(ICell cell, IColumn column) => cell?.CellType != null ? (BaseCellType)cell.CellType :
+                               column?.CellType != null ?
                                (BaseCellType)column.CellType : DefaultCellType;
 
     internal static Rect ToCellCheckBoxRect(this Rect cellRect, Size checkBoxSize)
     {
-        cellRect.X = cellRect.Left + cellRect.Width / 2 - checkBoxSize.Width / 2;
-        cellRect.Y = cellRect.Top + cellRect.Height / 2 - checkBoxSize.Height / 2;
+        cellRect.X = cellRect.Left + (cellRect.Width / 2) - (checkBoxSize.Width / 2);
+        cellRect.Y = cellRect.Top + (cellRect.Height / 2) - (checkBoxSize.Height / 2);
         cellRect.Size = checkBoxSize;
         return cellRect;
     }
@@ -83,17 +83,15 @@ internal static class RenderingExtensions
     /// <summary>
     /// Gets the column header.
     /// </summary>
-    /// <param name="index"></param>
-    /// <returns></returns>
     internal static string GetColumnHeader(int index)
     {
-        string str = "";
+        var str = "";
         char achar;
         int mod;
         while (true)
         {
             mod = (index % 26) + 65;
-            index = (int)(index / 26);
+            index /= 26;
             achar = (char)mod;
             str = achar + str;
             if (index > 0) index--;
@@ -104,13 +102,13 @@ internal static class RenderingExtensions
 
     internal static int GetColumnIndex(string address)
     {
-        int[] digits = new int[address.Length];
-        for (int i = 0; i < address.Length; ++i)
+        var digits = new int[address.Length];
+        for (var i = 0; i < address.Length; ++i)
         {
             digits[i] = Convert.ToInt32(address[i]) - 64;
         }
-        int mul = 1; int index = 0;
-        for (int pos = digits.Length - 1; pos >= 0; --pos)
+        var mul = 1; var index = 0;
+        for (var pos = digits.Length - 1; pos >= 0; --pos)
         {
             index += digits[pos] * mul;
             mul *= 26;

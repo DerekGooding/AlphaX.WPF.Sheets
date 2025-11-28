@@ -7,7 +7,7 @@ namespace AlphaX.WPF.Sheets.UI.Interaction;
 
 internal class RowHeadersInteractionLayer : InteractionLayer
 {
-    private RowResizeManager _resizeManager;
+    private RowResizeManager? _resizeManager;
 
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
@@ -42,7 +42,7 @@ internal class RowHeadersInteractionLayer : InteractionLayer
                 return;
         }
 
-        if(SheetView.Selection.RowCount <= 1)
+        if (SheetView.Selection.RowCount <= 1)
             SheetView.Spread.SelectionManager.SelectRow(hitTest.Row);
     }
 
@@ -83,8 +83,8 @@ internal class RowHeadersInteractionLayer : InteractionLayer
         if (e.LeftButton != MouseButtonState.Pressed)
             return;
 
-        int topRow = Math.Min(hitTest.Row, SheetView.ActiveRow);
-        int bottomRow = Math.Max(hitTest.Row, SheetView.ActiveRow);
+        var topRow = Math.Min(hitTest.Row, SheetView.ActiveRow);
+        var bottomRow = Math.Max(hitTest.Row, SheetView.ActiveRow);
         SheetView.Spread.SelectionManager.SelectRows(topRow, bottomRow - topRow + 1);
     }
 
@@ -103,18 +103,14 @@ internal class RowHeadersInteractionLayer : InteractionLayer
     {
         base.AttachToRegion(region);
 
-        if (_resizeManager == null)
-            _resizeManager = new RowResizeManager(region.SheetView.Spread);
+        _resizeManager ??= new RowResizeManager(region.SheetView.Spread);
     }
 
     public override void DetachFromRegion()
     {
         base.DetachFromRegion();
-        if (_resizeManager != null)
-        {
-            _resizeManager.Dispose();
-            _resizeManager = null;
-        }
+        _resizeManager?.Dispose();
+        _resizeManager = null;
     }
 
     protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) => base.OnRenderSizeChanged(sizeInfo);//Clip = new RectangleGeometry(new Rect(0, 0, ActualWidth + 0.5, ActualHeight));

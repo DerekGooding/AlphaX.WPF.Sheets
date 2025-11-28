@@ -21,7 +21,7 @@ public sealed class StringFilter : FilterBase
         if (Values == null || Values.Length == 0)
             return true;
 
-        foreach(var item in Values)
+        foreach (var item in Values)
         {
             if (item == null && value == null)
                 return true;
@@ -35,12 +35,11 @@ public sealed class StringFilter : FilterBase
             switch (Criteria)
             {
                 case StringFilterCriteria.Equals:
-                    return string.Equals(value?.ToString(), item, 
+                    return string.Equals(value?.ToString(), item,
                         MatchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase);
 
                 case StringFilterCriteria.Contains:
-                    return value.ToString().IndexOf(item, 
-                        MatchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase) >= 0;
+                    return value.ToString().Contains(item, MatchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase);
 
                 case StringFilterCriteria.StartsWith:
                     return value.ToString().StartsWith(item,

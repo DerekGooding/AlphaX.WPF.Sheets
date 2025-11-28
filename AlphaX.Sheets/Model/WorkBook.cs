@@ -5,25 +5,24 @@ namespace AlphaX.Sheets.Model;
 
 public class WorkBook : IWorkBook
 {
-    private WorkBookDataProvider _dataProvider;
     private Dictionary<string, NamedStyle> _namedStyles;
 
     public string Name { get; set; }
     public WorkSheets WorkSheets { get; private set; }
     public ICalcEngine CalcEngine { get; private set; }
     public IUpdateProvider UpdateProvider { get; }
-    internal WorkBookDataProvider DataProvider => _dataProvider;
+    internal WorkBookDataProvider DataProvider { get; private set; }
 
     public WorkBook(string name)
     {
-        if(string.IsNullOrEmpty(name))
+        if (string.IsNullOrEmpty(name))
             throw new ArgumentNullException(nameof(name));
 
         Name = name;
         WorkSheets = new WorkSheets(this);
         _namedStyles = [];
-        _dataProvider = new WorkBookDataProvider(this);
-        CalcEngine = new AlphaXCalcEngine(_dataProvider);
+        DataProvider = new WorkBookDataProvider(this);
+        CalcEngine = new AlphaXCalcEngine(DataProvider);
     }
 
     public WorkBook(string name, IUpdateProvider updateProvider) : this(name)
@@ -48,11 +47,12 @@ public class WorkBook : IWorkBook
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         WorkSheets.Dispose();
         _namedStyles.Clear();
         WorkSheets = null;
         CalcEngine = null;
         _namedStyles = null;
-        _dataProvider = null;
+        DataProvider = null;
     }
 }

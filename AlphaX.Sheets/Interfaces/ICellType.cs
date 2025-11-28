@@ -1,6 +1,3 @@
 ﻿namespace AlphaX.Sheets.Interfaces;
 
-public interface ICellType
-{
-    
-}
+public interface ICellType;

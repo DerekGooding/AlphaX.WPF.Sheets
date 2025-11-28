@@ -8,16 +8,14 @@ internal class TopLeftRegion : AlphaXSheetViewRegion
 
     public TopLeftRegion()
     {
-        
+
     }
 
     protected override Drawing GetDrawing() => SheetView.Spread.RenderEngine.TopLeftRenderer.Drawing;
 
     protected override SpreadHitTestResult HitTestCore(AlphaXSheetView sheetView, Point point)
     {
-        if (_hitTest == null)
-        {              
-            _hitTest = new SpreadHitTestResult()
+        _hitTest ??= new SpreadHitTestResult()
             {
                 ActualHitTestPoint = point,
                 Position = new Point(0, 0),
@@ -26,7 +24,6 @@ internal class TopLeftRegion : AlphaXSheetViewRegion
                 Column = -1,
                 Sheet = sheetView
             };
-        }
 
         return _hitTest;
     }

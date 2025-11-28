@@ -6,7 +6,7 @@ public abstract class Formula(string name)
 {
     public int MinArgs { get; set; }
     public int MaxArgs { get; set; }
-    public string Name { get; private set; } = name;
+    public string Name { get; } = name;
 
     public abstract CalcValue Calculate(params CalcValue[] values);
 

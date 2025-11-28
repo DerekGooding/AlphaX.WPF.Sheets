@@ -10,18 +10,16 @@ namespace AlphaX.WPF.Sheets;
 
 internal class AlphaXSheetView : IAlphaXSheetView
 {
-    private HeadersVisibility _headersVisibility;
-    private ViewPort _viewPort;
-    private WorkSheet _workSheet;
+    private readonly ViewPort _viewPort;
 
     #region Properties
     public GridLineVisibility GridLineVisibility { get; set; }
     public HeadersVisibility HeadersVisibility
     {
-        get => _headersVisibility;
+        get;
         set
         {
-            _headersVisibility = value;
+            field = value;
             SetHeadersVisibility();
         }
     }
@@ -33,13 +31,13 @@ internal class AlphaXSheetView : IAlphaXSheetView
     public int ActiveRow { get; internal set; }
     public int ActiveColumn { get; internal set; }
     public CellRange Selection { get; }
-    public WorkSheet WorkSheet => _workSheet;
+    public WorkSheet WorkSheet { get; }
     #endregion
 
     public AlphaXSheetView(AlphaXSpread spread, WorkSheet worksheet)
     {
         Spread = spread;
-        _workSheet = worksheet;
+        WorkSheet = worksheet;
         GridLineVisibility = GridLineVisibility.Both;
         SelectionMode = SelectionMode.CellRange;
         MouseWheelScrollDirection = MouseWheelScrollDirection.Vertical;
@@ -59,7 +57,7 @@ internal class AlphaXSheetView : IAlphaXSheetView
         if (dataObject == null)
             return;
 
-        if(dataObject.GetDataPresent("InternalDataObject"))
+        if (dataObject.GetDataPresent("InternalDataObject"))
         {
             var data = (object[,])dataObject.GetData("InternalDataObject");
 
@@ -69,14 +67,14 @@ internal class AlphaXSheetView : IAlphaXSheetView
             Spread.WorkBook.UpdateProvider.SuspendUpdates = true;
 
             var pasteAction = new ClipboardPasteAction() { SheetView = this };
-            pasteAction.OldState.Value = _workSheet.WorkBook.DataProvider.GetRangeValue(_workSheet.Name, ActiveRow, ActiveColumn, data.GetLength(0), data.GetLength(1));
+            pasteAction.OldState.Value = WorkSheet.WorkBook.DataProvider.GetRangeValue(WorkSheet.Name, ActiveRow, ActiveColumn, data.GetLength(0), data.GetLength(1));
             pasteAction.OldState.Row = ActiveRow;
             pasteAction.OldState.Column = ActiveColumn;
             pasteAction.OldState.Selection = Selection.Clone();
 
-            for (int row = 0; row < data.GetLength(0); row++)
+            for (var row = 0; row < data.GetLength(0); row++)
             {
-                for (int column = 0; column < data.GetLength(1); column++)
+                for (var column = 0; column < data.GetLength(1); column++)
                 {
                     var value = data[row, column];
                     WorkSheet.Cells[ActiveRow + row, ActiveColumn + column].Value = value;
@@ -99,17 +97,17 @@ internal class AlphaXSheetView : IAlphaXSheetView
     {
         var stringBuilder = new StringBuilder();
 
-        var data = _workSheet.WorkBook.DataProvider.GetRangeValue(_workSheet.Name, range.TopRow, range.LeftColumn, range.RowCount, range.ColumnCount);
+        var data = WorkSheet.WorkBook.DataProvider.GetRangeValue(WorkSheet.Name, range.TopRow, range.LeftColumn, range.RowCount, range.ColumnCount);
 
-        for(int row = 0; row < data.GetLength(0); row++)
+        for (var row = 0; row < data.GetLength(0); row++)
         {
-            for(int column = 0; column < data.GetLength(1); column++)
+            for (var column = 0; column < data.GetLength(1); column++)
             {
                 stringBuilder.Append(data[row, column]);
                 if (column < range.ColumnCount - 1)
                     stringBuilder.Append(SheetUtils.Tab);
             }
-            
+
             if (row < range.RowCount - 1)
                 stringBuilder.Append(SheetUtils.NextLine);
         }
@@ -129,22 +127,19 @@ internal class AlphaXSheetView : IAlphaXSheetView
         if (cells)
         {
             var interactionLayer = pane.CellsRegion.GetInteractionLayer();
-            if (interactionLayer != null)
-                interactionLayer.InvalidateVisual();
+            interactionLayer?.InvalidateVisual();
         }
 
         if (rowHeaders)
         {
             var interactionLayer = pane.RowHeadersRegion.GetInteractionLayer();
-            if (interactionLayer != null)
-                interactionLayer.InvalidateVisual();
+            interactionLayer?.InvalidateVisual();
         }
 
         if (columnHeaders)
         {
             var interactionLayer = pane.ColumnHeadersRegion.GetInteractionLayer();
-            if (interactionLayer != null)
-                interactionLayer.InvalidateVisual();
+            interactionLayer?.InvalidateVisual();
         }
 
         if (topLeft)
@@ -166,7 +161,7 @@ internal class AlphaXSheetView : IAlphaXSheetView
 
     public void ScrollToHorizontalOffset(double offset)
     {
-        double delta = offset - ScrollPosition.X;
+        var delta = offset - ScrollPosition.X;
         ScrollPosition = new Point(offset, ScrollPosition.Y);
         _viewPort.CalculateLeftColumn(delta);
         _viewPort.CalculateVisibleRange();
@@ -175,7 +170,7 @@ internal class AlphaXSheetView : IAlphaXSheetView
 
     public void ScrollToVerticalOffset(double offset)
     {
-        double delta = offset - ScrollPosition.Y;
+        var delta = offset - ScrollPosition.Y;
         ScrollPosition = new Point(ScrollPosition.X, offset);
         _viewPort.CalculateTopRow(delta);
         _viewPort.CalculateVisibleRange();
@@ -188,21 +183,15 @@ internal class AlphaXSheetView : IAlphaXSheetView
     #endregion
 
     #region Internal
-    internal double GetRowHeaderWidth()
-    {
-        return HeadersVisibility == HeadersVisibility.Row || HeadersVisibility == HeadersVisibility.Both ? _workSheet.RowHeaders.Width : 0;
-    }
+    internal double GetRowHeaderWidth() => HeadersVisibility is HeadersVisibility.Row or HeadersVisibility.Both ? WorkSheet.RowHeaders.Width : 0;
 
-    internal double GetColumnHeaderHeight()
-    {
-        return HeadersVisibility == HeadersVisibility.Column || HeadersVisibility == HeadersVisibility.Both
-            ? _workSheet.ColumnHeaders.Height
+    internal double GetColumnHeaderHeight() => HeadersVisibility is HeadersVisibility.Column or HeadersVisibility.Both
+            ? WorkSheet.ColumnHeaders.Height
             : 0;
-    }
 
     #endregion
 
-    public override string ToString() => _workSheet.Name;
+    public override string ToString() => WorkSheet.Name;
 
     public void AutoSizeColumn(int column)
     {
@@ -210,9 +199,9 @@ internal class AlphaXSheetView : IAlphaXSheetView
         var width = 0;
         var cellValues = WorkSheet.Cells.GetCellValues(column);
 
-        foreach(var cellValue in cellValues)
+        foreach (var cellValue in cellValues)
         {
-            if(cellValue.Value != null)
+            if (cellValue.Value != null)
             {
                 var style = WorkSheet.WorkBook.PickStyle(WorkSheet.Cells.GetCell(cellValue.Key, column, false), sheetColumn, WorkSheet.Rows.GetItem(cellValue.Key, false));
                 style ??= WorkSheet.WorkBook.GetNamedStyle(StyleKeys.DefaultRowHeaderStyleKey).As<Style>();
@@ -221,7 +210,7 @@ internal class AlphaXSheetView : IAlphaXSheetView
             }
         }
 
-        if(width != WorkSheet.Columns.GetColumnWidth(column))
+        if (width != WorkSheet.Columns.GetColumnWidth(column))
         {
             WorkSheet.Columns[column].Width = width;
         }

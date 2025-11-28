@@ -33,7 +33,7 @@ public class CalcParserResult : ParserResult
             case CalcParserResultKind.Operator:
                 ComputedValue = GetCalcOperatorFromString(value); break;
             case CalcParserResultKind.Bool:
-                ComputedValue = value == "true"? true: false; break;
+                ComputedValue = value == "true"; break;
         }
     }
 
@@ -53,10 +53,7 @@ public class CalcParserResult : ParserResult
 
     public void AddChild(CalcParserResult child)
     {
-        if (_childs == null)
-        {
-            _childs = new CalcParserResult[0];
-        }
+        _childs ??= [];
         Array.Resize(ref _childs, _childs.Length + 1);
         _childs[_childs.Length - 1] = child;
     }

@@ -32,14 +32,7 @@ public class WorkSheet : IWorkSheet
     public Cells Cells { get; private set; }
     public object DataSource
     {
-        get
-        {
-            return DataStore.IsValid && DataStore.ActualDataSource != null ? DataStore.ActualDataSource : null;
-        }
-        set
-        {
-            InitializeDataStore(value);
-        }
+        get => DataStore.IsValid && DataStore.ActualDataSource != null ? DataStore.ActualDataSource : null; set => InitializeDataStore(value);
     }
     public RowHeaders RowHeaders { get; private set; }
     public ColumnHeaders ColumnHeaders { get; private set; }
@@ -69,10 +62,10 @@ public class WorkSheet : IWorkSheet
 
     public object[,] GetData(int row, int column, int rowCount, int columnCount)
     {
-        object[,] data = new object[rowCount, columnCount];
-        for (int i = 0; i < rowCount; i++)
+        var data = new object[rowCount, columnCount];
+        for (var i = 0; i < rowCount; i++)
         {
-            for (int j = 0; j < columnCount; j++)
+            for (var j = 0; j < columnCount; j++)
             {
                 data[i, j] = DataStore.GetValue(i + row, j + column);
             }
@@ -87,25 +80,22 @@ public class WorkSheet : IWorkSheet
 
     private void InitializeDataStore(object dataSource)
     {
-        if(dataSource == null && DataStore != null)
+        if (dataSource == null && DataStore != null)
         {
             DataStore.Dispose();
             DataStore = null;
             return;
         }
 
-        if(DataStore != null)
-        {
-            DataStore.Dispose();
-            DataStore = null;
-        }
+        DataStore?.Dispose();
+        DataStore = null;
 
-        DataStore = new WorkSheetDataStore(this, dataSource);          
+        DataStore = new WorkSheetDataStore(this, dataSource);
     }
 
     internal void OnCellChanged(CellChangedEventArgs args)
     {
-        if (WorkBook.UpdateProvider != null && !WorkBook.UpdateProvider.SuspendUpdates)
+        if (WorkBook.UpdateProvider?.SuspendUpdates == false)
             WorkBook.UpdateProvider.CellChanged(this, args.Row, args.Column, args.OldValue, args.NewValue, args.Action, args.ChangeType);
 
         CellChanged?.Invoke(this, args);
@@ -113,7 +103,7 @@ public class WorkSheet : IWorkSheet
 
     internal void OnRangeChanged(RangeChangedEventArgs args)
     {
-        if (WorkBook.UpdateProvider != null && !WorkBook.UpdateProvider.SuspendUpdates)
+        if (WorkBook.UpdateProvider?.SuspendUpdates == false)
             WorkBook.UpdateProvider.RangeChanged(this, args.CellRange, args.Action, args.ChangeType);
 
         RangeSorted?.Invoke(this, args);
@@ -121,7 +111,7 @@ public class WorkSheet : IWorkSheet
 
     internal void OnRowsChanged(RowChangedEventArgs args)
     {
-        if (WorkBook.UpdateProvider != null && !WorkBook.UpdateProvider.SuspendUpdates)
+        if (WorkBook.UpdateProvider?.SuspendUpdates == false)
             WorkBook.UpdateProvider.RowsChanged(this, args.Index, args.Count, args.Action, args.ChangeType);
 
         RowsChanged?.Invoke(this, args);
@@ -129,7 +119,7 @@ public class WorkSheet : IWorkSheet
 
     internal void OnColumnsChanged(ColumnChangedEventArgs args)
     {
-        if (WorkBook.UpdateProvider != null && !WorkBook.UpdateProvider.SuspendUpdates)
+        if (WorkBook.UpdateProvider?.SuspendUpdates == false)
             WorkBook.UpdateProvider.ColumnsChanged(this, args.Index, args.Count, args.Action, args.ChangeType);
 
         ColumnsChanged?.Invoke(this, args);
@@ -157,7 +147,7 @@ public class WorkSheet : IWorkSheet
 
     public void Clear(WorkSheetClearMode mode)
     {
-        switch(mode)
+        switch (mode)
         {
             case WorkSheetClearMode.Data:
                 Cells.ClearCellStore();

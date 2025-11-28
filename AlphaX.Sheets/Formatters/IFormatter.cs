@@ -2,5 +2,5 @@
 
 public interface IFormatter
 {
-    string Format(object value);
+    string? Format(object value);
 }

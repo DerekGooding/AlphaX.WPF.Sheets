@@ -16,7 +16,7 @@ public class ButtonCellType : BaseCellType
         cellRect.Inflate(-3, -3);
         context.DrawRectangle(Brushes.LightGray, null, cellRect);
 
-        if(!string.IsNullOrEmpty(Text))
+        if (!string.IsNullOrEmpty(Text))
         {
             if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
                 style.HorizontalAlignment = AlphaXHorizontalAlignment.Center;

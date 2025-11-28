@@ -14,9 +14,9 @@ public partial class Sorting : UserControl
         var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
         worksheet.RowCount = worksheet.ColumnCount = 100;
         var rnd = new Random();
-        for (int row = 0; row < 100; row++)
+        for (var row = 0; row < 100; row++)
         {
-            for (int col = 0; col < 100; col++)
+            for (var col = 0; col < 100; col++)
                 worksheet.Cells[row, col].Value = rnd.Next(100, 10000);
         }
     }

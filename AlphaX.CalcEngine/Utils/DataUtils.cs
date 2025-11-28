@@ -4,18 +4,21 @@ namespace AlphaX.CalcEngine.Utils;
 
 internal static class DataUtils
 {
-    public static CalcValue? Transform(object data) {
+    public static CalcValue? Transform(object data)
+    {
         if (data == null)
         {
             return null;
-        }else if(data is CalcValue calcValue)
+        }
+        else if (data is CalcValue calcValue)
         {
             return calcValue;
         }
-        Type type = data.GetType();
+        var type = data.GetType();
         CalcValueKind kind;
 
-        switch (Type.GetTypeCode(type)) {
+        switch (Type.GetTypeCode(type))
+        {
             case TypeCode.Empty:
             case TypeCode.DBNull:
                 return null;

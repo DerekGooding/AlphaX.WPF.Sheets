@@ -1,20 +1,11 @@
 ﻿namespace AlphaX.WPF.Sheets;
 
-internal class DataTypeConverter
+internal static class DataTypeConverter
 {
-    public static object ConvertType(string value)
-    {
-        if (string.IsNullOrEmpty(value))
-            return null;
-
-        if (int.TryParse(value, out int integer))
-            return integer;
-
-        if (double.TryParse(value, out double doubleResult))
-            return doubleResult;
-
-        return decimal.TryParse(value, out decimal decimalResult)
-            ? decimalResult
-            : DateTime.TryParse(value, out DateTime date) ? date : value;
-    }
+    public static object? ConvertType(string value)
+        => string.IsNullOrEmpty(value) ? null
+            : int.TryParse(value, out var integer) ? integer
+            : double.TryParse(value, out var doubleResult) ? doubleResult
+            : decimal.TryParse(value, out var decimalResult) ? decimalResult
+            : DateTime.TryParse(value, out var date) ? date : value;
 }

@@ -3,14 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace AlphaX.CalcEngine.Parsers.Utility;
 
-internal class LettersParser : RegexParser
+internal partial class LettersParser : RegexParser
 {
-    static string _lettersRegex = "^[a-zA-Z]+";
+    const string _lettersRegex = "^[a-zA-Z]+";
 
-    public LettersParser() : base(new Regex(_lettersRegex))
+    public LettersParser() : base(MyRegex())
     {
 
     }
 
-    protected override ParserError InternalErrorMap(ParserState state, ParserError error) => new($"Error at index {state.Index}, Expected letters");
+    protected override ParserError InternalErrorMap(ParserState state, ParserError error)
+        => new($"Error at index {state.Index}, Expected letters");
+    [GeneratedRegex(_lettersRegex)]
+    private static partial Regex MyRegex();
 }

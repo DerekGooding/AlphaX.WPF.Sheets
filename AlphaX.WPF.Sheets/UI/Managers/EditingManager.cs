@@ -26,7 +26,7 @@ internal class EditingManager(AlphaXSpread spread) : UIManager(spread), IEditing
 
         var sheetColumn = workSheet.Columns.GetItem(column, false);
 
-        if (sheetColumn != null && sheetColumn.Locked)
+        if (sheetColumn?.Locked == true)
             return;
 
         var cellsInteractionLayer = sheetView.Spread.SheetViewPane.CellsRegion.GetInteractionLayer();
@@ -35,15 +35,14 @@ internal class EditingManager(AlphaXSpread spread) : UIManager(spread), IEditing
         cellRect.Y -= sheetView.ViewPort.As<ViewPort>().TopRowLocation;
         var cell = workSheet.Cells.GetCell(row, column, false);
 
-        if (cell != null && cell.Locked)
+        if (cell?.Locked == true)
             return;
 
         var sheetRow = workSheet.Rows.GetItem(row, false);
         var cellType = RenderingExtensions.GetCellType(cell, sheetColumn);
 
         var style = workSheet.WorkBook.PickStyle(cell, sheetColumn, sheetRow);
-        if (style == null)
-            style = workSheet.WorkBook.GetNamedStyle(StyleKeys.DefaultSheetStyleKey);
+        style ??= workSheet.WorkBook.GetNamedStyle(StyleKeys.DefaultSheetStyleKey);
 
         var editor = cellType.GetEditor(style.As<Style>());
         editor.SheetView = sheetView;
@@ -77,7 +76,7 @@ internal class EditingManager(AlphaXSpread spread) : UIManager(spread), IEditing
 
     private void OnEditorKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
-        switch(e.Key)
+        switch (e.Key)
         {
             case Key.Escape:
                 EndEdit(false);
@@ -104,7 +103,7 @@ internal class EditingManager(AlphaXSpread spread) : UIManager(spread), IEditing
         {
             return EndTextCellEdit(gcTextBox, sheetView, cellsInteractionLayer);
         }
-        else if(ActiveEditor is AlphaXNumericEditor numTextBox)
+        else if (ActiveEditor is AlphaXNumericEditor numTextBox)
         {
             return EndNumericCellEdit(numTextBox, sheetView, cellsInteractionLayer);
         }
@@ -141,11 +140,11 @@ internal class EditingManager(AlphaXSpread spread) : UIManager(spread), IEditing
     private bool EndTextCellEdit(AlphaXTextBox gcTextBox, IAlphaXSheetView sheetView, InteractionLayer layer)
     {
         var workSheet = sheetView.WorkSheet;
-        if (gcTextBox.Text.StartsWith("="))
+        if (gcTextBox.Text.StartsWith('='))
         {
             try
             {
-                workSheet.Cells[gcTextBox.Row, gcTextBox.Column].Formula = gcTextBox.Text.Substring(1);
+                workSheet.Cells[gcTextBox.Row, gcTextBox.Column].Formula = gcTextBox.Text[1..];
             }
             catch (CalcEngineException ex)
             {

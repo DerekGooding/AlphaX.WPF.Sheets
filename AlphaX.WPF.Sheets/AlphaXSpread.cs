@@ -17,7 +17,7 @@ namespace AlphaX.WPF.Sheets;
 /// </summary>
 public class AlphaXSpread : Control, IDisposable
 {
-    internal const double GridLineThickness = 0.25;
+    internal const double _gridLineThickness = 0.25;
 
     #region Dependency Properties
     public static readonly DependencyProperty ScrollBarStyleProperty;
@@ -37,7 +37,7 @@ public class AlphaXSpread : Control, IDisposable
             new PropertyMetadata(SheetScrollMode.Item));
         SelectionBackgroundProperty = DependencyProperty.Register("SelectionBackground", typeof(Brush), typeof(AlphaXSpread),
             new PropertyMetadata(new SolidColorBrush(Color.FromArgb(50, 25, 25, 25))));
-        GridLineBrushProperty = DependencyProperty.Register("GridLineBrush", typeof(Brush), typeof(AlphaXSpread), 
+        GridLineBrushProperty = DependencyProperty.Register("GridLineBrush", typeof(Brush), typeof(AlphaXSpread),
             new PropertyMetadata(OnGridLineBrushChanged));
         SelectionBorderBrushProperty = DependencyProperty.Register("SelectionBorderBrush", typeof(Brush), typeof(AlphaXSpread),
             new PropertyMetadata(OnSelectionBorderBrushChanged));
@@ -48,7 +48,7 @@ public class AlphaXSpread : Control, IDisposable
         DependencyProperty.Register("ShowFormulaSuggestions", typeof(bool), typeof(AlphaXSpread), new PropertyMetadata(true));
         SheetTabsVisibilityProperty =
         DependencyProperty.Register("SheetTabsVisibility", typeof(Visibility), typeof(AlphaXSpread), new PropertyMetadata(Visibility.Visible));
-        ResourceDictionary res = (ResourceDictionary)Application.LoadComponent(new Uri("/AlphaX.WPF.Sheets;component/Themes/ScrollBarStyle.xaml", UriKind.Relative));
+        var res = (ResourceDictionary)Application.LoadComponent(new Uri("/AlphaX.WPF.Sheets;component/Themes/ScrollBarStyle.xaml", UriKind.Relative));
         ScrollBarStyleProperty =
         DependencyProperty.Register("ScrollBarStyle", typeof(System.Windows.Style), typeof(AlphaXSpread), new PropertyMetadata((System.Windows.Style)res["ScrollBarStyle"]));
     }
@@ -57,85 +57,66 @@ public class AlphaXSpread : Control, IDisposable
     /// Gets or sets scrollbar style.
     /// </summary>
     public System.Windows.Style ScrollBarStyle
-    {
-        get { return (System.Windows.Style)GetValue(ScrollBarStyleProperty); }
-        set { SetValue(ScrollBarStyleProperty, value); }
+    { get => (System.Windows.Style)GetValue(ScrollBarStyleProperty); set => SetValue(ScrollBarStyleProperty, value);
     }
 
     /// <summary>
     /// Gets or sets whether the sheet tabs are visible.
     /// </summary>
     public Visibility SheetTabsVisibility
-    {
-        get { return (Visibility)GetValue(SheetTabsVisibilityProperty); }
-        set { SetValue(SheetTabsVisibilityProperty, value); }
+    { get => (Visibility)GetValue(SheetTabsVisibilityProperty); set => SetValue(SheetTabsVisibilityProperty, value);
     }
 
     /// <summary>
     /// Gets or sets whether the formula suggestion is enabled.
     /// </summary>
     public bool ShowFormulaSuggestions
-    {
-        get { return (bool)GetValue(ShowFormulaSuggestionsProperty); }
-        set { SetValue(ShowFormulaSuggestionsProperty, value); }
+    { get => (bool)GetValue(ShowFormulaSuggestionsProperty); set => SetValue(ShowFormulaSuggestionsProperty, value);
     }
 
     /// <summary>
     /// Gets or sets whether the columns can be resized.
     /// </summary>
     public bool AllowColumnResize
-    {
-        get { return (bool)GetValue(AllowColumnResizeProperty); }
-        set { SetValue(AllowColumnResizeProperty, value); }
+    { get => (bool)GetValue(AllowColumnResizeProperty); set => SetValue(AllowColumnResizeProperty, value);
     }
 
     /// <summary>
     /// Gets or sets whether the rows can be resized.
     /// </summary>
     public bool AllowRowResize
-    {
-        get { return (bool)GetValue(AllowRowResizeProperty); }
-        set { SetValue(AllowRowResizeProperty, value); }
+    { get => (bool)GetValue(AllowRowResizeProperty); set => SetValue(AllowRowResizeProperty, value);
     }
 
     /// <summary>
     /// Gets or sets the scroll mode.
     /// </summary>
     public SheetScrollMode ScrollMode
-    {
-        get { return (SheetScrollMode)GetValue(ScrollModeProperty); }
-        set { SetValue(ScrollModeProperty, value); }
+    { get => (SheetScrollMode)GetValue(ScrollModeProperty); set => SetValue(ScrollModeProperty, value);
     }
 
     /// <summary>
     /// Gets or sets the selection background.
     /// </summary>
     public Brush SelectionBackground
-    {
-        get { return (Brush)GetValue(SelectionBackgroundProperty); }
-        set { SetValue(SelectionBackgroundProperty, value); }
+    { get => (Brush)GetValue(SelectionBackgroundProperty); set => SetValue(SelectionBackgroundProperty, value);
     }
 
     /// <summary>
     /// Gets or sets the grid line brush.
     /// </summary>
     public Brush GridLineBrush
-    {
-        get { return (Brush)GetValue(GridLineBrushProperty); }
-        set { SetValue(GridLineBrushProperty, value); }
+    { get => (Brush)GetValue(GridLineBrushProperty); set => SetValue(GridLineBrushProperty, value);
     }
 
     /// <summary>
     /// Gets or sets the selection border brush.
     /// </summary>
     public Brush SelectionBorderBrush
-    {
-        get { return (Brush)GetValue(SelectionBorderBrushProperty); }
-        set { SetValue(SelectionBorderBrushProperty, value); }
+    { get => (Brush)GetValue(SelectionBorderBrushProperty); set => SetValue(SelectionBorderBrushProperty, value);
     }
     #endregion
 
-    private AlphaXSheetTabControl _tabControl;
 
     /// <summary>
     /// Fires when cell selection changes.
@@ -147,7 +128,7 @@ public class AlphaXSpread : Control, IDisposable
     public event EventHandler<CalcErrorEventArgs> CalculationError;
     internal RenderEngine RenderEngine { get; }
     internal AlphaXSheetViewPane SheetViewPane { get; }
-    internal AlphaXSheetTabControl SheetTabControl => _tabControl;
+    internal AlphaXSheetTabControl SheetTabControl { get; private set; }
     internal AlphaXFormulaTextBox FormulaTextBox { get; set; }
     internal Pen GridLinePen { get; private set; }
     internal Pen SelectionBorderPen { get; private set; }
@@ -155,7 +136,7 @@ public class AlphaXSpread : Control, IDisposable
     /// <summary>
     /// Gets the undo/redo manager.
     /// </summary>
-    public UndoRedoManager UndoRedoManager { get; private set; }
+    public UndoRedoManager UndoRedoManager { get; }
     /// <summary>
     /// Gets the workbook.
     /// </summary>
@@ -207,7 +188,7 @@ public class AlphaXSpread : Control, IDisposable
     /// <returns></returns>
     public SpreadHitTestResult HitTest(Point point)
     {
-        if(SheetViews.ActiveSheetView != null)
+        if (SheetViews.ActiveSheetView != null)
         {
             var activeSheetView = SheetViews.ActiveSheetView.As<AlphaXSheetView>();
             var columnHeaderHeight = activeSheetView.GetColumnHeaderHeight();
@@ -253,7 +234,7 @@ public class AlphaXSpread : Control, IDisposable
         var workSheet = sheetView.WorkSheet;
         SheetTabControl.HScrollBar.Value = workSheet.Columns.GetLocation(column);
     }
-  
+
     #endregion
 
     #region Private Methods
@@ -266,8 +247,8 @@ public class AlphaXSpread : Control, IDisposable
     {
         var columns = sheet.Columns.As<Columns>();
         var rows = sheet.Rows.As<Rows>();
-        double width = columns.GetLocation(sheet.ColumnCount - 1) + columns.GetColumnWidth(sheet.ColumnCount - 1);
-        double height = rows.GetLocation(sheet.RowCount - 1) + rows.GetRowHeight(sheet.RowCount - 1);
+        var width = columns.GetLocation(sheet.ColumnCount - 1) + columns.GetColumnWidth(sheet.ColumnCount - 1);
+        var height = rows.GetLocation(sheet.RowCount - 1) + rows.GetRowHeight(sheet.RowCount - 1);
         return new Size(width, height);
     }
 
@@ -295,24 +276,32 @@ public class AlphaXSpread : Control, IDisposable
 
     private void AddDefaultStyles(WorkBook workBook)
     {
-        var rowHeaderStyle = new Style();
-        rowHeaderStyle.FontSize = 14;
-        rowHeaderStyle.HorizontalAlignment = AlphaXHorizontalAlignment.Center;
-        rowHeaderStyle.BackColor = AlphaX.Sheets.Drawing.Color.Gray;
+        var rowHeaderStyle = new Style
+        {
+            FontSize = 14,
+            HorizontalAlignment = AlphaXHorizontalAlignment.Center,
+            BackColor = AlphaX.Sheets.Drawing.Color.Gray
+        };
         workBook.AddNamedStyle(StyleKeys.DefaultRowHeaderStyleKey, rowHeaderStyle);
 
-        var columnHeaderStyle = new Style();
-        columnHeaderStyle.FontSize = 14;
-        columnHeaderStyle.HorizontalAlignment = AlphaXHorizontalAlignment.Center;
-        columnHeaderStyle.BackColor = AlphaX.Sheets.Drawing.Color.Gray;
+        var columnHeaderStyle = new Style
+        {
+            FontSize = 14,
+            HorizontalAlignment = AlphaXHorizontalAlignment.Center,
+            BackColor = AlphaX.Sheets.Drawing.Color.Gray
+        };
         workBook.AddNamedStyle(StyleKeys.DefaultColumnHeaderStyleKey, columnHeaderStyle);
 
-        var sheetStyle = new Style();
-        sheetStyle.BackColor =  AlphaX.Sheets.Drawing.Color.White;
+        var sheetStyle = new Style
+        {
+            BackColor = AlphaX.Sheets.Drawing.Color.White
+        };
         workBook.AddNamedStyle(StyleKeys.DefaultSheetStyleKey, sheetStyle);
 
-        var topLeftStyle = new Style();
-        topLeftStyle.ForeColor = AlphaX.Sheets.Drawing.Color.LightGray;
+        var topLeftStyle = new Style
+        {
+            ForeColor = AlphaX.Sheets.Drawing.Color.LightGray
+        };
         workBook.AddNamedStyle(StyleKeys.DefaultTopLeftStyleKey, topLeftStyle);
 
         rowHeaderStyle.BackColor = topLeftStyle.BackColor = columnHeaderStyle.BackColor = AlphaX.Sheets.Drawing.Color.FromArgb(255, 240, 240, 240);
@@ -348,7 +337,7 @@ public class AlphaXSpread : Control, IDisposable
                     break;
 
                 case Key.Y:
-                    if(!EditingManager.IsEditing)
+                    if (!EditingManager.IsEditing)
                         UndoRedoManager.Redo();
                     break;
 
@@ -369,16 +358,16 @@ public class AlphaXSpread : Control, IDisposable
         switch (activeSheetView.MouseWheelScrollDirection)
         {
             case MouseWheelScrollDirection.Vertical:
-                if (_tabControl.VScrollBar == null)
+                if (SheetTabControl.VScrollBar == null)
                     return;
-                _tabControl.VScrollBar.Value += -e.Delta / 2;
+                SheetTabControl.VScrollBar.Value += -e.Delta / 2;
                 activeSheetView.Invalidate(true, false, true, false);
                 break;
 
             case MouseWheelScrollDirection.Horizontal:
-                if (_tabControl.HScrollBar == null)
+                if (SheetTabControl.HScrollBar == null)
                     return;
-                _tabControl.HScrollBar.Value += -e.Delta / 2;
+                SheetTabControl.HScrollBar.Value += -e.Delta / 2;
                 activeSheetView.Invalidate(false, true, true, false);
                 break;
         }
@@ -406,7 +395,7 @@ public class AlphaXSpread : Control, IDisposable
     public override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
-        _tabControl = GetTemplateChild("_sheetTabControl") as AlphaXSheetTabControl;
+        SheetTabControl = GetTemplateChild("_sheetTabControl") as AlphaXSheetTabControl;
     }
     #endregion
 
@@ -414,15 +403,15 @@ public class AlphaXSpread : Control, IDisposable
     private static void OnSelectionBorderBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var spread = d as AlphaXSpread;
-        if (e.NewValue != null && !e.NewValue.Equals(e.OldValue))
+        if (e.NewValue?.Equals(e.OldValue) == false)
             spread.UpdateSelectionBorderPen(spread.SelectionBorderBrush, 1.5);
     }
 
     private static void OnGridLineBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var spread = d as AlphaXSpread;
-        if (e.NewValue != null && !e.NewValue.Equals(e.OldValue))
-            spread.UpdateGridlinePen(spread.GridLineBrush, GridLineThickness);
+        if (e.NewValue?.Equals(e.OldValue) == false)
+            spread.UpdateGridlinePen(spread.GridLineBrush, _gridLineThickness);
     }
     #endregion
 
@@ -431,6 +420,7 @@ public class AlphaXSpread : Control, IDisposable
     /// </summary>
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         WorkBook.Dispose();
         SheetTabControl.Dispose();
         SheetViewPane.Dispose();

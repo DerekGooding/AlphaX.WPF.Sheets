@@ -24,7 +24,7 @@ internal class CellsInteractionLayer : InteractionLayer
         if (hitTest == null || hitTest.Row == -1 || hitTest.Column == -1)
             return;
 
-        switch(hitTest.Element)
+        switch (hitTest.Element)
         {
             case VisualElement.Cell:
                 // Starts editing
@@ -50,7 +50,7 @@ internal class CellsInteractionLayer : InteractionLayer
                         //        textBox.Text += range.Name;
                         //    else if (textBox.Text.StartsWith("=") && textBox.Text.Length > 1)
                         //    {
-                                 
+
                         //    }
 
                         //    textBox.CaretIndex = textBox.Text.Length;
@@ -101,7 +101,7 @@ internal class CellsInteractionLayer : InteractionLayer
     {
         base.OnMouseLeftButtonUp(e);
 
-        if(_isDragging)
+        if (_isDragging)
         {
             _isDragging = false;
             Cursor = null;
@@ -117,7 +117,7 @@ internal class CellsInteractionLayer : InteractionLayer
 
         if (SheetView.ActiveRow + 1 >= SheetView.ViewPort.ViewRange.BottomRow)
         {
-            double renderedRowHeight = SheetView.GetRowRenderedHeight(SheetView.ActiveRow + 1);
+            var renderedRowHeight = SheetView.GetRowRenderedHeight(SheetView.ActiveRow + 1);
             var rowRect = SheetView.ViewPort.GetRowRect(SheetView.ActiveRow + 1);
 
             if (renderedRowHeight < rowRect.Height)
@@ -136,7 +136,7 @@ internal class CellsInteractionLayer : InteractionLayer
 
         if (SheetView.ActiveRow - 1 <= SheetView.ViewPort.ViewRange.TopRow)
         {
-            double renderedRowHeight = SheetView.GetRowRenderedHeight(SheetView.ActiveRow - 1);
+            var renderedRowHeight = SheetView.GetRowRenderedHeight(SheetView.ActiveRow - 1);
             var rowRect = SheetView.ViewPort.GetRowRect(SheetView.ActiveRow - 1);
 
             if (renderedRowHeight < rowRect.Height)
@@ -156,7 +156,7 @@ internal class CellsInteractionLayer : InteractionLayer
 
         if (SheetView.ActiveColumn + 1 >= SheetView.ViewPort.ViewRange.RightColumn)
         {
-            double renderedColumnWidth = SheetView.GetColumnRenderedWidth(SheetView.ActiveColumn + 1);
+            var renderedColumnWidth = SheetView.GetColumnRenderedWidth(SheetView.ActiveColumn + 1);
             var colRect = SheetView.ViewPort.GetColumnRect(SheetView.ActiveColumn + 1);
 
             if (renderedColumnWidth < colRect.Width)
@@ -175,7 +175,7 @@ internal class CellsInteractionLayer : InteractionLayer
 
         if (SheetView.ActiveColumn - 1 <= SheetView.ViewPort.ViewRange.LeftColumn)
         {
-            double renderedColumnWidth = SheetView.GetColumnRenderedWidth(SheetView.ActiveColumn - 1);
+            var renderedColumnWidth = SheetView.GetColumnRenderedWidth(SheetView.ActiveColumn - 1);
             var colRect = SheetView.ViewPort.GetColumnRect(SheetView.ActiveColumn - 1);
 
             if (renderedColumnWidth < colRect.Width)
@@ -192,11 +192,10 @@ internal class CellsInteractionLayer : InteractionLayer
     {
         base.OnPreviewKeyDown(e);
         var editingManager = SheetView.Spread.EditingManager.As<EditingManager>();
-        
-        if(e.Key == Key.Down || e.Key == Key.Up || e.Key == Key.Left || e.Key == Key.Right)
+
+        if (e.Key is Key.Down or Key.Up or Key.Left or Key.Right && editingManager.IsEditing)
         {
-            if (editingManager.IsEditing)
-                return;
+            return;
 
             //if (!editingManager.EndEdit(true) && editingManager.ActiveEditor != null)
             //{
@@ -205,13 +204,14 @@ internal class CellsInteractionLayer : InteractionLayer
             //}
         }
 
-        if(e.Key == Key.Tab && editingManager.IsEditing && !AlphaXTextBox.IsShowingFormulaSuggestion)
+        if (e.Key == Key.Tab
+            && editingManager.IsEditing
+            && !AlphaXTextBox.IsShowingFormulaSuggestion
+            && !editingManager.EndEdit(true)
+            && editingManager.ActiveEditor != null)
         {
-            if (!editingManager.EndEdit(true) && editingManager.ActiveEditor != null)
-            {
-                editingManager.ActiveEditor.Focus();
-                return;
-            }
+            editingManager.ActiveEditor.Focus();
+            return;
         }
 
         switch (e.Key)
@@ -256,9 +256,9 @@ internal class CellsInteractionLayer : InteractionLayer
             case Key.Delete:
                 e.Handled = true;
                 SheetView.Spread.WorkBook.UpdateProvider.SuspendUpdates = true;
-                for (int row = SheetView.Selection.TopRow; row <= SheetView.Selection.BottomRow; row++)
+                for (var row = SheetView.Selection.TopRow; row <= SheetView.Selection.BottomRow; row++)
                 {
-                    for (int column = SheetView.Selection.LeftColumn; column <= SheetView.Selection.RightColumn; column++)
+                    for (var column = SheetView.Selection.LeftColumn; column <= SheetView.Selection.RightColumn; column++)
                     {
                         var cell = SheetView.WorkSheet.Cells.GetCell(row, column, false);
 
@@ -288,12 +288,9 @@ internal class CellsInteractionLayer : InteractionLayer
         base.OnMouseMove(e);
 
         if (SheetView.Spread.EditingManager.IsEditing)
-        {
             return;
-        }
 
-        if (SheetView.SelectionMode == SelectionMode.Cell ||
-            SheetView.SelectionMode == SelectionMode.Row || SheetView.SelectionMode == SelectionMode.Column)
+        if (SheetView.SelectionMode is SelectionMode.Cell or SelectionMode.Row or SelectionMode.Column)
             return;
 
         if (_scrolling)
@@ -316,7 +313,9 @@ internal class CellsInteractionLayer : InteractionLayer
         else
         {
             if (hitTest.Element == VisualElement.DragFill || _isDragging)
+            {
                 Cursor = SheetUtils.DragFillCursor;
+            }
             else if (hitTest.Element == VisualElement.Cell)
             {
                 Cursor = null;
@@ -335,51 +334,51 @@ internal class CellsInteractionLayer : InteractionLayer
     private async Task SelectiveMouseScroll()
     {
         SpreadHitTestResult hitTest = null;
-        int xSpeed = 1, ySpeed = 1;
+        const int xSpeed = 1, ySpeed = 1;
 
         do
         {
             var position = Mouse.GetPosition(SheetView.Spread);
 
-            bool up = position.Y < 0;
-            bool down = position.Y > SheetView.ViewPort.ActualBounds.Height;
-            bool right = position.X > SheetView.ViewPort.ActualBounds.Width;
-            bool left = position.X < 0;
+            var up = position.Y < 0;
+            var down = position.Y > SheetView.ViewPort.ActualBounds.Height;
+            var right = position.X > SheetView.ViewPort.ActualBounds.Width;
+            var left = position.X < 0;
 
             if (down && right)
             {
                 hitTest = HitTest(new Point(SheetView.ViewPort.ActualBounds.Width - 5, SheetView.ViewPort.ActualBounds.Height - 5));
-                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow + 1 * ySpeed);
-                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn + 1 * xSpeed);
+                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow + (1 * ySpeed));
+                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn + (1 * xSpeed));
             }
             else if (up && right)
             {
                 hitTest = HitTest(new Point(SheetView.ViewPort.ActualBounds.Width - 5, 0));
-                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow - 1 * ySpeed);
-                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn + 1 * xSpeed);
+                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow - (1 * ySpeed));
+                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn + (1 * xSpeed));
             }
             else if (left && up)
             {
                 hitTest = HitTest(new Point(SheetView.GetRowHeaderWidth() + 5, SheetView.GetColumnHeaderHeight() + 5));
-                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow - 1 * ySpeed);
-                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn - 1 * xSpeed);
+                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow - (1 * ySpeed));
+                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn - (1 * xSpeed));
             }
             else if (left && down)
             {
                 hitTest = HitTest(new Point(0, SheetView.ViewPort.ActualBounds.Height - 5));
-                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow + 1 * ySpeed);
-                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn - 1 * xSpeed);
+                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow + (1 * ySpeed));
+                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn - (1 * xSpeed));
             }
             else if (up)
             {
                 hitTest = HitTest(new Point(position.X, 0));
-                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow - 1 * ySpeed);
+                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow - (1 * ySpeed));
             }
             else if (down)
             {
                 var workSheet = SheetView.WorkSheet;
                 hitTest = HitTest(new Point(position.X, SheetView.ViewPort.ActualBounds.Height - 5));
-                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow + 1 * ySpeed);
+                SheetView.Spread.ScrollToRow(SheetView, SheetView.ViewPort.ViewRange.TopRow + (1 * ySpeed));
                 var bottomRow = SheetView.ViewPort.ViewRange.BottomRow;
                 var renderedHeight = SheetView.GetRowRenderedHeight(bottomRow);
                 var actualHeight = workSheet.Rows.GetRowHeight(bottomRow);
@@ -388,12 +387,12 @@ internal class CellsInteractionLayer : InteractionLayer
             else if (left)
             {
                 hitTest = HitTest(new Point(0, position.Y));
-                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn - 1 * xSpeed);
+                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn - (1 * xSpeed));
             }
             else if (right)
             {
                 hitTest = HitTest(new Point(SheetView.ViewPort.ActualBounds.Width - 5, position.Y));
-                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn + 1 * xSpeed);
+                SheetView.Spread.ScrollToColumn(SheetView, SheetView.ViewPort.ViewRange.LeftColumn + (1 * xSpeed));
             }
             else
             {
@@ -403,7 +402,7 @@ internal class CellsInteractionLayer : InteractionLayer
             SelectRange(hitTest);
             await Task.Delay(1);
 
-        }while (IsMouseCaptured);
+        } while (IsMouseCaptured);
     }
 
     private void SelectRange(SpreadHitTestResult hitTest)
@@ -411,25 +410,21 @@ internal class CellsInteractionLayer : InteractionLayer
         if (hitTest == null)
             return;
 
-        if (_isDragging)
+        if (!_isDragging)
         {
-            
-        }
-        else
-        {
-            int topRow = Math.Min(hitTest.Row, SheetView.ActiveRow);
-            int leftColumn = Math.Min(hitTest.Column, SheetView.ActiveColumn);
-            int bottomRow = Math.Max(hitTest.Row, SheetView.ActiveRow);
-            int rightColumn = Math.Max(hitTest.Column, SheetView.ActiveColumn);
+            var topRow = Math.Min(hitTest.Row, SheetView.ActiveRow);
+            var leftColumn = Math.Min(hitTest.Column, SheetView.ActiveColumn);
+            var bottomRow = Math.Max(hitTest.Row, SheetView.ActiveRow);
+            var rightColumn = Math.Max(hitTest.Column, SheetView.ActiveColumn);
             SheetView.Spread.SelectionManager.SelectRange(topRow, leftColumn, bottomRow + 1 - topRow, rightColumn + 1 - leftColumn);
         }
     }
 
     public void AddFilterTools(CellRange cellRange)
     {
-        for(int col = cellRange.LeftColumn; col <= cellRange.RightColumn; col++)
+        for (var col = cellRange.LeftColumn; col <= cellRange.RightColumn; col++)
         {
-            
+
         }
     }
 
@@ -440,8 +435,8 @@ internal class CellsInteractionLayer : InteractionLayer
         var selectionRangeRect = ToSheetViewRect(SheetView.ViewPort.GetRangeRect(SheetView.Selection));
         var activeCellRect = ToSheetViewRect(SheetView.ViewPort.GetCellRect(SheetView.ActiveRow, SheetView.ActiveColumn));
 
-        double halfPenWidth = SheetView.Spread.GridLinePen.Thickness / 2;
-        GuidelineSet guidelines = new GuidelineSet();
+        var halfPenWidth = SheetView.Spread.GridLinePen.Thickness / 2;
+        var guidelines = new GuidelineSet();
         guidelines.GuidelinesY.Add(selectionRangeRect.TopRight.Y + halfPenWidth);
         guidelines.GuidelinesY.Add(selectionRangeRect.BottomRight.Y + halfPenWidth);
         guidelines.GuidelinesX.Add(selectionRangeRect.BottomLeft.X + halfPenWidth);
@@ -457,26 +452,26 @@ internal class CellsInteractionLayer : InteractionLayer
 
         if (activeCellRect != selectionRangeRect)
         {
-            double margin = 1.5;
+            const double margin = 1.5;
             var pathGeometry = new PathGeometry();
-            pathGeometry.Figures.Add(new PathFigure(new Point(selectionRangeRect.Left + margin, selectionRangeRect.Top + margin), 
+            pathGeometry.Figures.Add(new PathFigure(new Point(selectionRangeRect.Left + margin, selectionRangeRect.Top + margin),
                 GetSelectionBackgroundSegments(selectionRangeRect, activeCellRect), true));
             dc.DrawGeometry(SheetView.Spread.SelectionBackground, null, pathGeometry);
         }
         else
         {
             // If editing is active then update editor location
-            if(SheetView.Spread.EditingManager.ActiveEditor != null)
+            if (SheetView.Spread.EditingManager.ActiveEditor != null)
             {
                 SetLeft(SheetView.Spread.EditingManager.ActiveEditor, activeCellRect.Left + 1);
                 SetTop(SheetView.Spread.EditingManager.ActiveEditor, activeCellRect.Top + 1);
             }
 
-            if(workSheet.FilterProvider.FilterRange != null)
+            if (workSheet.FilterProvider.FilterRange != null)
             {
                 var filterRange = workSheet.FilterProvider.FilterRange;
-                
-                
+
+
 
             }
         }
@@ -492,7 +487,7 @@ internal class CellsInteractionLayer : InteractionLayer
 
     private IEnumerable<PathSegment> GetSelectionBackgroundSegments(Rect selectionRect, Rect activeCellRect)
     {
-        if(selectionRect.TopLeft == activeCellRect.TopLeft)
+        if (selectionRect.TopLeft == activeCellRect.TopLeft)
         {
             yield return new LineSegment(activeCellRect.TopRight, false);
             yield return new LineSegment(selectionRect.TopRight, false);
@@ -502,7 +497,7 @@ internal class CellsInteractionLayer : InteractionLayer
             yield return new LineSegment(activeCellRect.BottomRight, false);
             yield return new LineSegment(activeCellRect.TopRight, false);
         }
-        else if(selectionRect.TopRight == activeCellRect.TopRight)
+        else if (selectionRect.TopRight == activeCellRect.TopRight)
         {
             yield return new LineSegment(selectionRect.TopLeft, false);
             yield return new LineSegment(activeCellRect.TopLeft, false);
@@ -512,7 +507,7 @@ internal class CellsInteractionLayer : InteractionLayer
             yield return new LineSegment(selectionRect.BottomLeft, false);
             yield return new LineSegment(selectionRect.TopLeft, false);
         }
-        else if(selectionRect.BottomLeft == activeCellRect.BottomLeft)
+        else if (selectionRect.BottomLeft == activeCellRect.BottomLeft)
         {
             yield return new LineSegment(selectionRect.TopLeft, false);
             yield return new LineSegment(selectionRect.TopRight, false);
@@ -522,7 +517,7 @@ internal class CellsInteractionLayer : InteractionLayer
             yield return new LineSegment(activeCellRect.TopLeft, false);
             yield return new LineSegment(selectionRect.TopLeft, false);
         }
-        else if(selectionRect.BottomRight == activeCellRect.BottomRight)
+        else if (selectionRect.BottomRight == activeCellRect.BottomRight)
         {
             yield return new LineSegment(selectionRect.TopLeft, false);
             yield return new LineSegment(selectionRect.TopRight, false);
@@ -534,7 +529,7 @@ internal class CellsInteractionLayer : InteractionLayer
         }
         else
         {
-            Point endingPoint = new Point(activeCellRect.TopLeft.X, selectionRect.TopLeft.Y);
+            var endingPoint = new Point(activeCellRect.TopLeft.X, selectionRect.TopLeft.Y);
             yield return new LineSegment(selectionRect.TopLeft, false);
             yield return new LineSegment(selectionRect.TopRight, false);
             yield return new LineSegment(selectionRect.BottomRight, false);

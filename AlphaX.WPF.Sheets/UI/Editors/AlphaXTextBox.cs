@@ -7,32 +7,32 @@ namespace AlphaX.WPF.Sheets.UI.Editors;
 
 internal class AlphaXTextBox : AlphaXEditorBase
 {
-    private static Popup _suggestionPopup;
-    private static Popup _descriptionPopup;
-    private static TextBlock _descriptionTextBlock;
-    private static SuggestionListBox _suggestionListBox;
+    private static readonly Popup _suggestionPopup;
+    private static readonly Popup _descriptionPopup;
+    private static readonly TextBlock _descriptionTextBlock;
+    private static readonly SuggestionListBox _suggestionListBox;
     private Window _ownerWindow;
 
     public static bool IsShowingFormulaSuggestion => _suggestionPopup.IsOpen;
 
     static AlphaXTextBox()
     {
-        _suggestionPopup = new Popup() 
-        { 
+        _suggestionPopup = new Popup()
+        {
             Placement = PlacementMode.Bottom,
             HorizontalOffset = 7,
             VerticalOffset = 5,
             PopupAnimation = PopupAnimation.Fade,
             AllowsTransparency = true,
-            IsOpen = false 
+            IsOpen = false
         };
 
-        _descriptionPopup = new Popup() 
-        { 
-            Placement = PlacementMode.Right, 
+        _descriptionPopup = new Popup()
+        {
+            Placement = PlacementMode.Right,
             IsOpen = false,
             HorizontalOffset = 10,
-            AllowsTransparency = true,   
+            AllowsTransparency = true,
             PopupAnimation = PopupAnimation.Fade
         };
 
@@ -52,7 +52,7 @@ internal class AlphaXTextBox : AlphaXEditorBase
         _suggestionListBox.SelectedValuePath = "Name";
     }
 
-   
+
 
     public AlphaXTextBox()
     {
@@ -62,13 +62,13 @@ internal class AlphaXTextBox : AlphaXEditorBase
         Loaded += OnLoaded;
     }
 
-   
+
 
     protected override void OnPreviewKeyDown(KeyEventArgs e)
     {
         base.OnPreviewKeyDown(e);
 
-        if(_suggestionPopup.IsOpen && _suggestionListBox.Items.Count > 0)
+        if (_suggestionPopup.IsOpen && _suggestionListBox.Items.Count > 0)
         {
             if (e.Key == Key.Down && _suggestionListBox.SelectedIndex < _suggestionListBox.Items.Count - 1)
                 _suggestionListBox.SelectedIndex++;
@@ -89,8 +89,7 @@ internal class AlphaXTextBox : AlphaXEditorBase
     protected override void OnTextChanged(TextChangedEventArgs e)
     {
         base.OnTextChanged(e);
-        if(SheetView.Spread.FormulaTextBox != null)
-            SheetView.Spread.FormulaTextBox._txtEditor.Text = Text;
+        SheetView.Spread.FormulaTextBox?._txtEditor.Text = Text;
         TryShowSuggestionPopup();
     }
 
@@ -105,12 +104,12 @@ internal class AlphaXTextBox : AlphaXEditorBase
         if (!SheetView.Spread.ShowFormulaSuggestions)
             return;
 
-        if (Text.Length > 1 && Text.StartsWith("="))
+        if (Text.Length > 1 && Text.StartsWith('='))
         {
-            var searchString = Text.Substring(1);
+            var searchString = Text[1..];
             var formulas = SheetView.Spread.WorkBook.CalcEngine.GetRegisteredFormulas();
             var searchedFormulas = formulas.Where(fx => fx.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase));
-            if (searchedFormulas.Count() > 0)
+            if (searchedFormulas.Any())
             {
                 _suggestionListBox.ItemsSource = searchedFormulas;
                 _suggestionPopup.IsOpen = true;

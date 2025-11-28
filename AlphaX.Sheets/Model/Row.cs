@@ -6,7 +6,6 @@ namespace AlphaX.Sheets.Model;
 public class Row : IRow
 {
     private int _height;
-    private string _styleName;
 
     public IFormatter Formatter { get; set; }
 
@@ -50,12 +49,12 @@ public class Row : IRow
             if (Parent.Parent is WorkSheet sheet)
             {
                 sheet?.OnRowsChanged(new RowChangedEventArgs()
-                { 
+                {
                     Index = Index,
                     NewValue = value,
                     OldValue = oldHeight,
                     Count = 1,
-                    ChangeType = ChangeType.Size, 
+                    ChangeType = ChangeType.Size,
                     Action = SheetAction.None
                 });
             }
@@ -66,20 +65,17 @@ public class Row : IRow
 
     public string StyleName
     {
-        get
-        {
-            return _styleName;
-        }
+        get;
         set
         {
-            if (_styleName != value)
+            if (field != value)
             {
                 if (Parent.Parent is WorkSheet worksheet)
                 {
                     worksheet.OnRowsChanged(new RowChangedEventArgs()
                     {
                         Index = Index,
-                        OldValue = _styleName,
+                        OldValue = field,
                         NewValue = value,
                         Count = 1,
                         ChangeType = ChangeType.Style,
@@ -88,7 +84,7 @@ public class Row : IRow
                 }
             }
 
-            _styleName = value;
+            field = value;
         }
     }
 

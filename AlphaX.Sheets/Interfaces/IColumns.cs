@@ -10,19 +10,12 @@ public interface IColumns : IEnumerableEx<Column>, IDisposable
     /// Gets the column present at the provided index.
     /// </summary>
     /// <param name="index">
-    /// Column index. 
+    /// Column index.
     /// </param>
-    /// <returns></returns>
     Column this[int index] { get; }
     /// <summary>
     /// Gets the column with specific column name.
     /// </summary>
-    /// <returns></returns>
     Column this[string address] { get; }
-    /// <summary>
-    /// Gets the column width.
-    /// </summary>
-    /// <param name="column"></param>
-    /// <returns></returns>
     int GetColumnWidth(int column);
 }

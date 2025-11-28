@@ -24,8 +24,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Transparent, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Transparent, out var color))
             {
                 color = FromArgb(0, 255, 255, 255);
                 _colorsCache.Add(KnownColor.Transparent, color);
@@ -39,8 +38,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.AliceBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.AliceBlue, out var color))
             {
                 color = FromArgb(255, 240, 248, 255);
                 _colorsCache.Add(KnownColor.AliceBlue, color);
@@ -54,8 +52,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.AntiqueWhite, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.AntiqueWhite, out var color))
             {
                 color = FromArgb(255, 250, 235, 215);
                 _colorsCache.Add(KnownColor.AntiqueWhite, color);
@@ -69,8 +66,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Aqua, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Aqua, out var color))
             {
                 color = FromArgb(255, 0, 255, 255);
                 _colorsCache.Add(KnownColor.Aqua, color);
@@ -84,8 +80,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Aquamarine, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Aquamarine, out var color))
             {
                 color = FromArgb(255, 127, 255, 212);
                 _colorsCache.Add(KnownColor.Aquamarine, color);
@@ -99,8 +94,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Azure, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Azure, out var color))
             {
                 color = FromArgb(255, 240, 255, 255);
                 _colorsCache.Add(KnownColor.Azure, color);
@@ -114,8 +108,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Beige, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Beige, out var color))
             {
                 color = FromArgb(255, 245, 245, 220);
                 _colorsCache.Add(KnownColor.Beige, color);
@@ -129,8 +122,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Bisque, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Bisque, out var color))
             {
                 color = FromArgb(255, 255, 228, 196);
                 _colorsCache.Add(KnownColor.Bisque, color);
@@ -144,8 +136,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Black, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Black, out var color))
             {
                 color = FromArgb(255, 0, 0, 0);
                 _colorsCache.Add(KnownColor.Black, color);
@@ -159,8 +150,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.BlanchedAlmond, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.BlanchedAlmond, out var color))
             {
                 color = FromArgb(255, 255, 235, 205);
                 _colorsCache.Add(KnownColor.BlanchedAlmond, color);
@@ -174,8 +164,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Blue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Blue, out var color))
             {
                 color = FromArgb(255, 0, 0, 255);
                 _colorsCache.Add(KnownColor.Blue, color);
@@ -189,8 +178,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.BlueViolet, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.BlueViolet, out var color))
             {
                 color = FromArgb(255, 138, 43, 226);
                 _colorsCache.Add(KnownColor.BlueViolet, color);
@@ -204,8 +192,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Brown, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Brown, out var color))
             {
                 color = FromArgb(255, 165, 42, 42);
                 _colorsCache.Add(KnownColor.Brown, color);
@@ -219,8 +206,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.BurlyWood, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.BurlyWood, out var color))
             {
                 color = FromArgb(255, 222, 184, 135);
                 _colorsCache.Add(KnownColor.BurlyWood, color);
@@ -234,8 +220,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.CadetBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.CadetBlue, out var color))
             {
                 color = FromArgb(255, 95, 158, 160);
                 _colorsCache.Add(KnownColor.CadetBlue, color);
@@ -249,8 +234,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Chartreuse, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Chartreuse, out var color))
             {
                 color = FromArgb(255, 127, 255, 0);
                 _colorsCache.Add(KnownColor.Chartreuse, color);
@@ -264,8 +248,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Chocolate, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Chocolate, out var color))
             {
                 color = FromArgb(255, 210, 105, 30);
                 _colorsCache.Add(KnownColor.Chocolate, color);
@@ -279,8 +262,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Coral, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Coral, out var color))
             {
                 color = FromArgb(255, 255, 127, 80);
                 _colorsCache.Add(KnownColor.Coral, color);
@@ -294,8 +276,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.CornflowerBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.CornflowerBlue, out var color))
             {
                 color = FromArgb(255, 100, 149, 237);
                 _colorsCache.Add(KnownColor.CornflowerBlue, color);
@@ -309,8 +290,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Cornsilk, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Cornsilk, out var color))
             {
                 color = FromArgb(255, 255, 248, 220);
                 _colorsCache.Add(KnownColor.Cornsilk, color);
@@ -324,8 +304,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Crimson, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Crimson, out var color))
             {
                 color = FromArgb(255, 220, 20, 60);
                 _colorsCache.Add(KnownColor.Crimson, color);
@@ -339,8 +318,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Cyan, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Cyan, out var color))
             {
                 color = FromArgb(255, 0, 255, 255);
                 _colorsCache.Add(KnownColor.Cyan, color);
@@ -354,8 +332,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkBlue, out var color))
             {
                 color = FromArgb(255, 0, 0, 139);
                 _colorsCache.Add(KnownColor.DarkBlue, color);
@@ -369,8 +346,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkCyan, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkCyan, out var color))
             {
                 color = FromArgb(255, 0, 139, 139);
                 _colorsCache.Add(KnownColor.DarkCyan, color);
@@ -384,8 +360,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkGoldenrod, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkGoldenrod, out var color))
             {
                 color = FromArgb(255, 184, 134, 11);
                 _colorsCache.Add(KnownColor.DarkGoldenrod, color);
@@ -399,8 +374,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkGray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkGray, out var color))
             {
                 color = FromArgb(255, 169, 169, 169);
                 _colorsCache.Add(KnownColor.DarkGray, color);
@@ -414,8 +388,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkGreen, out var color))
             {
                 color = FromArgb(255, 0, 100, 0);
                 _colorsCache.Add(KnownColor.DarkGreen, color);
@@ -429,8 +402,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkKhaki, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkKhaki, out var color))
             {
                 color = FromArgb(255, 189, 183, 107);
                 _colorsCache.Add(KnownColor.DarkKhaki, color);
@@ -444,8 +416,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkMagenta, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkMagenta, out var color))
             {
                 color = FromArgb(255, 139, 0, 139);
                 _colorsCache.Add(KnownColor.DarkMagenta, color);
@@ -459,8 +430,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkOliveGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkOliveGreen, out var color))
             {
                 color = FromArgb(255, 85, 107, 47);
                 _colorsCache.Add(KnownColor.DarkOliveGreen, color);
@@ -474,8 +444,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkOrange, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkOrange, out var color))
             {
                 color = FromArgb(255, 255, 140, 0);
                 _colorsCache.Add(KnownColor.DarkOrange, color);
@@ -489,8 +458,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkOrchid, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkOrchid, out var color))
             {
                 color = FromArgb(255, 153, 50, 204);
                 _colorsCache.Add(KnownColor.DarkOrchid, color);
@@ -504,8 +472,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkRed, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkRed, out var color))
             {
                 color = FromArgb(255, 139, 0, 0);
                 _colorsCache.Add(KnownColor.DarkRed, color);
@@ -519,8 +486,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkSalmon, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkSalmon, out var color))
             {
                 color = FromArgb(255, 233, 150, 122);
                 _colorsCache.Add(KnownColor.DarkSalmon, color);
@@ -534,8 +500,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkSeaGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkSeaGreen, out var color))
             {
                 color = FromArgb(255, 143, 188, 139);
                 _colorsCache.Add(KnownColor.DarkSeaGreen, color);
@@ -549,8 +514,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkSlateBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkSlateBlue, out var color))
             {
                 color = FromArgb(255, 72, 61, 139);
                 _colorsCache.Add(KnownColor.DarkSlateBlue, color);
@@ -564,8 +528,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkSlateGray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkSlateGray, out var color))
             {
                 color = FromArgb(255, 47, 79, 79);
                 _colorsCache.Add(KnownColor.DarkSlateGray, color);
@@ -579,8 +542,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkTurquoise, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkTurquoise, out var color))
             {
                 color = FromArgb(255, 0, 206, 209);
                 _colorsCache.Add(KnownColor.DarkTurquoise, color);
@@ -594,8 +556,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DarkViolet, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DarkViolet, out var color))
             {
                 color = FromArgb(255, 148, 0, 211);
                 _colorsCache.Add(KnownColor.DarkViolet, color);
@@ -609,8 +570,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DeepPink, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DeepPink, out var color))
             {
                 color = FromArgb(255, 255, 20, 147);
                 _colorsCache.Add(KnownColor.DeepPink, color);
@@ -624,8 +584,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DeepSkyBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DeepSkyBlue, out var color))
             {
                 color = FromArgb(255, 0, 191, 255);
                 _colorsCache.Add(KnownColor.DeepSkyBlue, color);
@@ -639,8 +598,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DimGray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DimGray, out var color))
             {
                 color = FromArgb(255, 105, 105, 105);
                 _colorsCache.Add(KnownColor.DimGray, color);
@@ -654,8 +612,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.DodgerBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.DodgerBlue, out var color))
             {
                 color = FromArgb(255, 30, 144, 255);
                 _colorsCache.Add(KnownColor.DodgerBlue, color);
@@ -669,8 +626,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Firebrick, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Firebrick, out var color))
             {
                 color = FromArgb(255, 178, 34, 34);
                 _colorsCache.Add(KnownColor.Firebrick, color);
@@ -684,8 +640,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.FloralWhite, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.FloralWhite, out var color))
             {
                 color = FromArgb(255, 255, 250, 240);
                 _colorsCache.Add(KnownColor.FloralWhite, color);
@@ -699,8 +654,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.ForestGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.ForestGreen, out var color))
             {
                 color = FromArgb(255, 34, 139, 34);
                 _colorsCache.Add(KnownColor.ForestGreen, color);
@@ -714,8 +668,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Fuchsia, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Fuchsia, out var color))
             {
                 color = FromArgb(255, 255, 0, 255);
                 _colorsCache.Add(KnownColor.Fuchsia, color);
@@ -729,8 +682,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Gainsboro, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Gainsboro, out var color))
             {
                 color = FromArgb(255, 220, 220, 220);
                 _colorsCache.Add(KnownColor.Gainsboro, color);
@@ -744,8 +696,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.GhostWhite, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.GhostWhite, out var color))
             {
                 color = FromArgb(255, 248, 248, 255);
                 _colorsCache.Add(KnownColor.GhostWhite, color);
@@ -759,8 +710,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Gold, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Gold, out var color))
             {
                 color = FromArgb(255, 255, 215, 0);
                 _colorsCache.Add(KnownColor.Gold, color);
@@ -774,8 +724,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Goldenrod, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Goldenrod, out var color))
             {
                 color = FromArgb(255, 218, 165, 32);
                 _colorsCache.Add(KnownColor.Goldenrod, color);
@@ -789,8 +738,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Gray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Gray, out var color))
             {
                 color = FromArgb(255, 128, 128, 128);
                 _colorsCache.Add(KnownColor.Gray, color);
@@ -804,8 +752,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Green, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Green, out var color))
             {
                 color = FromArgb(255, 0, 128, 0);
                 _colorsCache.Add(KnownColor.Green, color);
@@ -819,8 +766,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.GreenYellow, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.GreenYellow, out var color))
             {
                 color = FromArgb(255, 173, 255, 47);
                 _colorsCache.Add(KnownColor.GreenYellow, color);
@@ -834,8 +780,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Honeydew, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Honeydew, out var color))
             {
                 color = FromArgb(255, 240, 255, 240);
                 _colorsCache.Add(KnownColor.Honeydew, color);
@@ -849,8 +794,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.HotPink, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.HotPink, out var color))
             {
                 color = FromArgb(255, 255, 105, 180);
                 _colorsCache.Add(KnownColor.HotPink, color);
@@ -864,8 +808,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.IndianRed, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.IndianRed, out var color))
             {
                 color = FromArgb(255, 205, 92, 92);
                 _colorsCache.Add(KnownColor.IndianRed, color);
@@ -879,8 +822,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Indigo, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Indigo, out var color))
             {
                 color = FromArgb(255, 75, 0, 130);
                 _colorsCache.Add(KnownColor.Indigo, color);
@@ -894,8 +836,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Ivory, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Ivory, out var color))
             {
                 color = FromArgb(255, 255, 255, 240);
                 _colorsCache.Add(KnownColor.Ivory, color);
@@ -909,8 +850,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Khaki, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Khaki, out var color))
             {
                 color = FromArgb(255, 240, 230, 140);
                 _colorsCache.Add(KnownColor.Khaki, color);
@@ -924,8 +864,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Lavender, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Lavender, out var color))
             {
                 color = FromArgb(255, 230, 230, 250);
                 _colorsCache.Add(KnownColor.Lavender, color);
@@ -939,8 +878,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LavenderBlush, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LavenderBlush, out var color))
             {
                 color = FromArgb(255, 255, 240, 245);
                 _colorsCache.Add(KnownColor.LavenderBlush, color);
@@ -954,8 +892,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LawnGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LawnGreen, out var color))
             {
                 color = FromArgb(255, 124, 252, 0);
                 _colorsCache.Add(KnownColor.LawnGreen, color);
@@ -969,8 +906,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LemonChiffon, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LemonChiffon, out var color))
             {
                 color = FromArgb(255, 255, 250, 205);
                 _colorsCache.Add(KnownColor.LemonChiffon, color);
@@ -984,8 +920,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightBlue, out var color))
             {
                 color = FromArgb(255, 173, 216, 230);
                 _colorsCache.Add(KnownColor.LightBlue, color);
@@ -999,8 +934,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightCoral, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightCoral, out var color))
             {
                 color = FromArgb(255, 240, 128, 128);
                 _colorsCache.Add(KnownColor.LightCoral, color);
@@ -1014,8 +948,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightCyan, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightCyan, out var color))
             {
                 color = FromArgb(255, 224, 255, 255);
                 _colorsCache.Add(KnownColor.LightCyan, color);
@@ -1029,8 +962,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightGoldenrodYellow, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightGoldenrodYellow, out var color))
             {
                 color = FromArgb(255, 250, 250, 210);
                 _colorsCache.Add(KnownColor.LightGoldenrodYellow, color);
@@ -1044,8 +976,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightGreen, out var color))
             {
                 color = FromArgb(255, 144, 238, 144);
                 _colorsCache.Add(KnownColor.LightGreen, color);
@@ -1059,8 +990,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightGray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightGray, out var color))
             {
                 color = FromArgb(255, 211, 211, 211);
                 _colorsCache.Add(KnownColor.LightGray, color);
@@ -1074,8 +1004,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightPink, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightPink, out var color))
             {
                 color = FromArgb(255, 255, 182, 193);
                 _colorsCache.Add(KnownColor.LightPink, color);
@@ -1089,8 +1018,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightSalmon, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightSalmon, out var color))
             {
                 color = FromArgb(255, 255, 160, 122);
                 _colorsCache.Add(KnownColor.LightSalmon, color);
@@ -1104,8 +1032,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightSeaGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightSeaGreen, out var color))
             {
                 color = FromArgb(255, 32, 178, 170);
                 _colorsCache.Add(KnownColor.LightSeaGreen, color);
@@ -1119,8 +1046,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightSkyBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightSkyBlue, out var color))
             {
                 color = FromArgb(255, 135, 206, 250);
                 _colorsCache.Add(KnownColor.LightSkyBlue, color);
@@ -1134,8 +1060,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightSlateGray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightSlateGray, out var color))
             {
                 color = FromArgb(255, 119, 136, 153);
                 _colorsCache.Add(KnownColor.LightSlateGray, color);
@@ -1149,8 +1074,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightSteelBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightSteelBlue, out var color))
             {
                 color = FromArgb(255, 176, 196, 222);
                 _colorsCache.Add(KnownColor.LightSteelBlue, color);
@@ -1164,8 +1088,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LightYellow, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LightYellow, out var color))
             {
                 color = FromArgb(255, 255, 255, 224);
                 _colorsCache.Add(KnownColor.LightYellow, color);
@@ -1179,8 +1102,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Lime, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Lime, out var color))
             {
                 color = FromArgb(255, 0, 255, 0);
                 _colorsCache.Add(KnownColor.Lime, color);
@@ -1194,8 +1116,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.LimeGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.LimeGreen, out var color))
             {
                 color = FromArgb(255, 50, 205, 50);
                 _colorsCache.Add(KnownColor.LimeGreen, color);
@@ -1209,8 +1130,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Linen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Linen, out var color))
             {
                 color = FromArgb(255, 250, 240, 230);
                 _colorsCache.Add(KnownColor.Linen, color);
@@ -1224,8 +1144,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Magenta, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Magenta, out var color))
             {
                 color = FromArgb(255, 255, 0, 255);
                 _colorsCache.Add(KnownColor.Magenta, color);
@@ -1239,8 +1158,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Maroon, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Maroon, out var color))
             {
                 color = FromArgb(255, 128, 0, 0);
                 _colorsCache.Add(KnownColor.Maroon, color);
@@ -1254,8 +1172,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumAquamarine, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumAquamarine, out var color))
             {
                 color = FromArgb(255, 102, 205, 170);
                 _colorsCache.Add(KnownColor.MediumAquamarine, color);
@@ -1269,8 +1186,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumBlue, out var color))
             {
                 color = FromArgb(255, 0, 0, 205);
                 _colorsCache.Add(KnownColor.MediumBlue, color);
@@ -1284,8 +1200,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumOrchid, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumOrchid, out var color))
             {
                 color = FromArgb(255, 186, 85, 211);
                 _colorsCache.Add(KnownColor.MediumOrchid, color);
@@ -1299,8 +1214,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumPurple, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumPurple, out var color))
             {
                 color = FromArgb(255, 147, 112, 219);
                 _colorsCache.Add(KnownColor.MediumPurple, color);
@@ -1314,8 +1228,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumSeaGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumSeaGreen, out var color))
             {
                 color = FromArgb(255, 60, 179, 113);
                 _colorsCache.Add(KnownColor.MediumSeaGreen, color);
@@ -1329,8 +1242,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumSlateBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumSlateBlue, out var color))
             {
                 color = FromArgb(255, 123, 104, 238);
                 _colorsCache.Add(KnownColor.MediumSlateBlue, color);
@@ -1344,8 +1256,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumSpringGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumSpringGreen, out var color))
             {
                 color = FromArgb(255, 0, 250, 154);
                 _colorsCache.Add(KnownColor.MediumSpringGreen, color);
@@ -1359,8 +1270,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumTurquoise, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumTurquoise, out var color))
             {
                 color = FromArgb(255, 72, 209, 204);
                 _colorsCache.Add(KnownColor.MediumTurquoise, color);
@@ -1374,8 +1284,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MediumVioletRed, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MediumVioletRed, out var color))
             {
                 color = FromArgb(255, 199, 21, 133);
                 _colorsCache.Add(KnownColor.MediumVioletRed, color);
@@ -1389,8 +1298,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MidnightBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MidnightBlue, out var color))
             {
                 color = FromArgb(255, 25, 25, 112);
                 _colorsCache.Add(KnownColor.MidnightBlue, color);
@@ -1404,8 +1312,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MintCream, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MintCream, out var color))
             {
                 color = FromArgb(255, 245, 255, 250);
                 _colorsCache.Add(KnownColor.MintCream, color);
@@ -1419,8 +1326,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.MistyRose, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.MistyRose, out var color))
             {
                 color = FromArgb(255, 255, 228, 225);
                 _colorsCache.Add(KnownColor.MistyRose, color);
@@ -1434,8 +1340,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Moccasin, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Moccasin, out var color))
             {
                 color = FromArgb(255, 255, 228, 181);
                 _colorsCache.Add(KnownColor.Moccasin, color);
@@ -1449,8 +1354,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.NavajoWhite, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.NavajoWhite, out var color))
             {
                 color = FromArgb(255, 255, 222, 173);
                 _colorsCache.Add(KnownColor.NavajoWhite, color);
@@ -1464,8 +1368,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Navy, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Navy, out var color))
             {
                 color = FromArgb(255, 0, 0, 128);
                 _colorsCache.Add(KnownColor.Navy, color);
@@ -1479,8 +1382,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.OldLace, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.OldLace, out var color))
             {
                 color = FromArgb(255, 253, 245, 230);
                 _colorsCache.Add(KnownColor.OldLace, color);
@@ -1494,8 +1396,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Olive, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Olive, out var color))
             {
                 color = FromArgb(255, 128, 128, 0);
                 _colorsCache.Add(KnownColor.Olive, color);
@@ -1509,8 +1410,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.OliveDrab, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.OliveDrab, out var color))
             {
                 color = FromArgb(255, 107, 142, 35);
                 _colorsCache.Add(KnownColor.OliveDrab, color);
@@ -1524,8 +1424,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Orange, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Orange, out var color))
             {
                 color = FromArgb(255, 255, 165, 0);
                 _colorsCache.Add(KnownColor.Orange, color);
@@ -1539,8 +1438,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.OrangeRed, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.OrangeRed, out var color))
             {
                 color = FromArgb(255, 255, 69, 0);
                 _colorsCache.Add(KnownColor.OrangeRed, color);
@@ -1554,8 +1452,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Orchid, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Orchid, out var color))
             {
                 color = FromArgb(255, 218, 112, 214);
                 _colorsCache.Add(KnownColor.Orchid, color);
@@ -1569,8 +1466,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PaleGoldenrod, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PaleGoldenrod, out var color))
             {
                 color = FromArgb(255, 238, 232, 170);
                 _colorsCache.Add(KnownColor.PaleGoldenrod, color);
@@ -1584,8 +1480,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PaleGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PaleGreen, out var color))
             {
                 color = FromArgb(255, 152, 251, 152);
                 _colorsCache.Add(KnownColor.PaleGreen, color);
@@ -1599,8 +1494,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PaleTurquoise, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PaleTurquoise, out var color))
             {
                 color = FromArgb(255, 175, 238, 238);
                 _colorsCache.Add(KnownColor.PaleTurquoise, color);
@@ -1614,8 +1508,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PaleVioletRed, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PaleVioletRed, out var color))
             {
                 color = FromArgb(255, 219, 112, 147);
                 _colorsCache.Add(KnownColor.PaleVioletRed, color);
@@ -1629,8 +1522,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PapayaWhip, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PapayaWhip, out var color))
             {
                 color = FromArgb(255, 255, 239, 213);
                 _colorsCache.Add(KnownColor.PapayaWhip, color);
@@ -1644,8 +1536,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PeachPuff, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PeachPuff, out var color))
             {
                 color = FromArgb(255, 255, 218, 185);
                 _colorsCache.Add(KnownColor.PeachPuff, color);
@@ -1659,8 +1550,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Peru, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Peru, out var color))
             {
                 color = FromArgb(255, 205, 133, 63);
                 _colorsCache.Add(KnownColor.Peru, color);
@@ -1674,8 +1564,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Pink, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Pink, out var color))
             {
                 color = FromArgb(255, 255, 192, 203);
                 _colorsCache.Add(KnownColor.Pink, color);
@@ -1689,8 +1578,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Plum, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Plum, out var color))
             {
                 color = FromArgb(255, 221, 160, 221);
                 _colorsCache.Add(KnownColor.Plum, color);
@@ -1704,8 +1592,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.PowderBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.PowderBlue, out var color))
             {
                 color = FromArgb(255, 176, 224, 230);
                 _colorsCache.Add(KnownColor.PowderBlue, color);
@@ -1719,8 +1606,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Purple, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Purple, out var color))
             {
                 color = FromArgb(255, 128, 0, 128);
                 _colorsCache.Add(KnownColor.Purple, color);
@@ -1734,8 +1620,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Red, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Red, out var color))
             {
                 color = FromArgb(255, 255, 0, 0);
                 _colorsCache.Add(KnownColor.Red, color);
@@ -1749,8 +1634,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.RosyBrown, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.RosyBrown, out var color))
             {
                 color = FromArgb(255, 188, 143, 143);
                 _colorsCache.Add(KnownColor.RosyBrown, color);
@@ -1764,8 +1648,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.RoyalBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.RoyalBlue, out var color))
             {
                 color = FromArgb(255, 65, 105, 225);
                 _colorsCache.Add(KnownColor.RoyalBlue, color);
@@ -1779,8 +1662,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SaddleBrown, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SaddleBrown, out var color))
             {
                 color = FromArgb(255, 139, 69, 19);
                 _colorsCache.Add(KnownColor.SaddleBrown, color);
@@ -1794,8 +1676,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Salmon, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Salmon, out var color))
             {
                 color = FromArgb(255, 250, 128, 114);
                 _colorsCache.Add(KnownColor.Salmon, color);
@@ -1809,8 +1690,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SandyBrown, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SandyBrown, out var color))
             {
                 color = FromArgb(255, 244, 164, 96);
                 _colorsCache.Add(KnownColor.SandyBrown, color);
@@ -1824,8 +1704,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SeaGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SeaGreen, out var color))
             {
                 color = FromArgb(255, 46, 139, 87);
                 _colorsCache.Add(KnownColor.SeaGreen, color);
@@ -1839,8 +1718,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SeaShell, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SeaShell, out var color))
             {
                 color = FromArgb(255, 255, 245, 238);
                 _colorsCache.Add(KnownColor.SeaShell, color);
@@ -1854,8 +1732,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Sienna, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Sienna, out var color))
             {
                 color = FromArgb(255, 160, 82, 45);
                 _colorsCache.Add(KnownColor.Sienna, color);
@@ -1869,8 +1746,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Silver, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Silver, out var color))
             {
                 color = FromArgb(255, 192, 192, 192);
                 _colorsCache.Add(KnownColor.Silver, color);
@@ -1884,8 +1760,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SkyBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SkyBlue, out var color))
             {
                 color = FromArgb(255, 135, 206, 235);
                 _colorsCache.Add(KnownColor.SkyBlue, color);
@@ -1899,8 +1774,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SlateBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SlateBlue, out var color))
             {
                 color = FromArgb(255, 106, 90, 205);
                 _colorsCache.Add(KnownColor.SlateBlue, color);
@@ -1914,8 +1788,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SlateGray, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SlateGray, out var color))
             {
                 color = FromArgb(255, 112, 128, 144);
                 _colorsCache.Add(KnownColor.SlateGray, color);
@@ -1929,8 +1802,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Snow, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Snow, out var color))
             {
                 color = FromArgb(255, 255, 250, 250);
                 _colorsCache.Add(KnownColor.Snow, color);
@@ -1944,8 +1816,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SpringGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SpringGreen, out var color))
             {
                 color = FromArgb(255, 0, 255, 127);
                 _colorsCache.Add(KnownColor.SpringGreen, color);
@@ -1959,8 +1830,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.SteelBlue, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.SteelBlue, out var color))
             {
                 color = FromArgb(255, 70, 130, 180);
                 _colorsCache.Add(KnownColor.SteelBlue, color);
@@ -1974,8 +1844,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Tan, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Tan, out var color))
             {
                 color = FromArgb(255, 210, 180, 140);
                 _colorsCache.Add(KnownColor.Tan, color);
@@ -1989,8 +1858,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Teal, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Teal, out var color))
             {
                 color = FromArgb(255, 0, 128, 128);
                 _colorsCache.Add(KnownColor.Teal, color);
@@ -2004,8 +1872,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Thistle, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Thistle, out var color))
             {
                 color = FromArgb(255, 216, 191, 216);
                 _colorsCache.Add(KnownColor.Thistle, color);
@@ -2019,8 +1886,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Tomato, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Tomato, out var color))
             {
                 color = FromArgb(255, 255, 99, 71);
                 _colorsCache.Add(KnownColor.Tomato, color);
@@ -2034,8 +1900,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Turquoise, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Turquoise, out var color))
             {
                 color = FromArgb(255, 64, 224, 208);
                 _colorsCache.Add(KnownColor.Turquoise, color);
@@ -2049,8 +1914,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Violet, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Violet, out var color))
             {
                 color = FromArgb(255, 238, 130, 238);
                 _colorsCache.Add(KnownColor.Violet, color);
@@ -2064,8 +1928,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Wheat, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Wheat, out var color))
             {
                 color = FromArgb(255, 245, 222, 179);
                 _colorsCache.Add(KnownColor.Wheat, color);
@@ -2079,8 +1942,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.White, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.White, out var color))
             {
                 color = FromArgb(255, 255, 255, 255);
                 _colorsCache.Add(KnownColor.White, color);
@@ -2094,8 +1956,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.WhiteSmoke, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.WhiteSmoke, out var color))
             {
                 color = FromArgb(255, 245, 245, 245);
                 _colorsCache.Add(KnownColor.WhiteSmoke, color);
@@ -2109,8 +1970,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.Yellow, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.Yellow, out var color))
             {
                 color = FromArgb(255, 255, 255, 0);
                 _colorsCache.Add(KnownColor.Yellow, color);
@@ -2124,8 +1984,7 @@ public struct Color(byte a, byte r, byte g, byte b) : IEquatable<Color>
     {
         get
         {
-            Color color;
-            if (!_colorsCache.TryGetValue(KnownColor.YellowGreen, out color))
+            if (!_colorsCache.TryGetValue(KnownColor.YellowGreen, out var color))
             {
                 color = FromArgb(255, 154, 205, 50);
                 _colorsCache.Add(KnownColor.YellowGreen, color);

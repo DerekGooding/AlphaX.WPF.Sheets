@@ -5,13 +5,7 @@ public abstract class CollectionBase<T> where T : class
     protected internal SortedDictionary<int, T> InternalCollection;
     protected abstract int Count { get; }
 
-    public T this[int index]
-    {
-        get
-        {
-            return GetItem(index, true);
-        }
-    }
+    public T? this[int index] => GetItem(index, true);
 
     public object Parent { get; }
 
@@ -31,7 +25,7 @@ public abstract class CollectionBase<T> where T : class
 
     public IEnumerable<T> Enumerate()
     {
-        for (int row = 0; row < Count; row++)
+        for (var row = 0; row < Count; row++)
         {
             yield return GetItem(row, true);
         }
@@ -56,13 +50,8 @@ public abstract class CollectionBase<T> where T : class
     /// <param name="createIfNotExist">
     /// Whether to create and add the item if not exist.
     /// </param>
-    /// <returns></returns>
-    public T GetItem(int index, bool createIfNotExist)
-    {
-        //ValidateIndex(index);
-
-        return InternalCollection.TryGetValue(index, out T item) ? item : createIfNotExist ? AddItemInternal(index) : null;
-    }
+    public T? GetItem(int index, bool createIfNotExist) =>
+        InternalCollection.TryGetValue(index, out var item) ? item : createIfNotExist ? AddItemInternal(index) : null;
 
     /// <summary>
     /// Validates whether the provided index was out of range
@@ -71,8 +60,8 @@ public abstract class CollectionBase<T> where T : class
     /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void ValidateIndex(int index)
     {
-        if(index < 0 || index >= Count)
-            throw new ArgumentOutOfRangeException("index");
+        if (index < 0 || index >= Count)
+            throw new ArgumentOutOfRangeException(nameof(index));
     }
 
     /// <summary>

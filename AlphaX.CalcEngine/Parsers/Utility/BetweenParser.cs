@@ -2,7 +2,7 @@
 
 namespace AlphaX.CalcEngine.Parsers.Utility;
 
-internal class BetweenParser(Parser left, Parser right, Parser content) : SequenceOfParser(new Parser[]{ left, content, right})
+internal class BetweenParser(Parser left, Parser right, Parser content) : SequenceOfParser([left, content, right])
 {
     public override ParserState Parse(ParserState state)
     {

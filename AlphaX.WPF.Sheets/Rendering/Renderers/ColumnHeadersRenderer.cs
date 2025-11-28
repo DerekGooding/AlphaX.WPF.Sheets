@@ -14,7 +14,7 @@ internal class ColumnHeadersRenderer : Renderer
         var cells = workSheet.ColumnHeaders.Cells;
         var viewport = SheetView.ViewPort.As<ViewPort>();
 
-        for (int row = topRow; row <= bottomRow; row++)
+        for (var row = topRow; row <= bottomRow; row++)
         {
             var rowHeight = rows.GetRowHeight(row);
             if (rowHeight == 0)
@@ -22,7 +22,7 @@ internal class ColumnHeadersRenderer : Renderer
             var sheetRow = rows.GetItem(row, false);
             var rowLocation = rows.GetLocation(row);
 
-            for (int col = leftColumn; col <= rightColumn; col++)
+            for (var col = leftColumn; col <= rightColumn; col++)
             {
                 if (Engine.RenderInfo.PartialRender)
                     Engine.EnsureNewCacheDrawing(this, row, col);
@@ -38,14 +38,13 @@ internal class ColumnHeadersRenderer : Renderer
 
                 var style = workSheet.WorkBook.PickStyle(cell, sheetColumn, sheetRow);
 
-                if (style == null)
-                    style = workSheet.WorkBook.GetNamedStyle(StyleKeys.DefaultColumnHeaderStyleKey);
+                style ??= workSheet.WorkBook.GetNamedStyle(StyleKeys.DefaultColumnHeaderStyleKey);
 
                 style = style.Clone();
                 var cellDrawing = Engine.CreateDrawingObject(this, row, col);
 
-                double halfPenWidth = SheetView.Spread.GridLinePen.Thickness * SheetView.Spread.PixelPerDip / 2;
-                GuidelineSet guidelines = new GuidelineSet();
+                var halfPenWidth = SheetView.Spread.GridLinePen.Thickness * SheetView.Spread.PixelPerDip / 2;
+                var guidelines = new GuidelineSet();
                 guidelines.GuidelinesX.Add(cellRect.Left + halfPenWidth);
                 guidelines.GuidelinesX.Add(cellRect.Right + halfPenWidth);
                 guidelines.GuidelinesY.Add(cellRect.Top + halfPenWidth);
@@ -67,15 +66,15 @@ internal class ColumnHeadersRenderer : Renderer
     private void DrawColumnHeaderCell(DrawingContext context, int row, int column, ICell cell, IStyle baseStyle, Rect cellRect, double pixelPerDip)
     {
         var style = baseStyle.As<Style>();
-        double halfPenWidth = SheetView.Spread.GridLinePen.Thickness * pixelPerDip / 2;
-        GuidelineSet guidelines = new GuidelineSet();
+        var halfPenWidth = SheetView.Spread.GridLinePen.Thickness * pixelPerDip / 2;
+        var guidelines = new GuidelineSet();
         guidelines.GuidelinesX.Add(cellRect.Left + halfPenWidth);
         guidelines.GuidelinesX.Add(cellRect.Right + halfPenWidth);
         guidelines.GuidelinesY.Add(cellRect.Top + halfPenWidth);
         guidelines.GuidelinesY.Add(cellRect.Bottom + halfPenWidth);
 
         context.DrawRectangle(style.Background, SheetView.Spread.GridLinePen, cellRect);
-        if (cell != null && cell.Value != null)
+        if (cell?.Value != null)
         {
             context.DrawText(cell.Value.ToString(), cellRect, style, pixelPerDip, true);
         }
@@ -83,5 +82,5 @@ internal class ColumnHeadersRenderer : Renderer
         {
             context.DrawText(RenderingExtensions.GetColumnHeader(column), cellRect, style, pixelPerDip);
         }
-    }      
+    }
 }

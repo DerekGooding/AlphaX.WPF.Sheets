@@ -10,7 +10,7 @@ internal class TopLeftInteractionLayer : InteractionLayer
         base.OnMouseLeftButtonDown(e);
         var hitTest = HitTest();
 
-        if(hitTest != null && hitTest.Element == VisualElement.TopLeft)
+        if (hitTest != null && hitTest.Element == VisualElement.TopLeft)
         {
             var workSheet = SheetView.WorkSheet;
             SheetView.ActiveRow = 0;

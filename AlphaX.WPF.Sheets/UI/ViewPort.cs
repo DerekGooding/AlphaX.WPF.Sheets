@@ -6,14 +6,14 @@ namespace AlphaX.WPF.Sheets.UI;
 internal class ViewPort : IViewPort
 {
     private Rect _actualBounds;
-    private AlphaXSheetView _sheetView;
-    private WorkSheet _workSheet;
-    private Rows _rows;
-    private Columns _columns;
+    private readonly AlphaXSheetView _sheetView;
+    private readonly WorkSheet _workSheet;
+    private readonly Rows _rows;
+    private readonly Columns _columns;
 
     public double TopRowLocation { get; private set; }
     public double LeftColumnLocation { get; private set; }
-    public CellRange ViewRange { get; private set; }
+    public CellRange ViewRange { get; }
     public bool IsEmpty => GetIsEmpty();
     public Rect ActualBounds => _actualBounds;
 
@@ -28,12 +28,12 @@ internal class ViewPort : IViewPort
 
     internal CellRange ShrinkRangeToViewPort(CellRange range)
     {
-        int topRow = range.TopRow < ViewRange.TopRow ? ViewRange.TopRow : range.TopRow;
-        int bottomRow = range.BottomRow > ViewRange.BottomRow ? ViewRange.BottomRow : range.BottomRow;
-        int leftColumn = range.LeftColumn < ViewRange.LeftColumn ? ViewRange.LeftColumn : range.LeftColumn;
-        int rightColumn = range.RightColumn > ViewRange.RightColumn ? ViewRange.RightColumn : range.RightColumn;
-        int rowCount = bottomRow + 1 - topRow;
-        int columnCount = rightColumn + 1 - leftColumn;
+        var topRow = range.TopRow < ViewRange.TopRow ? ViewRange.TopRow : range.TopRow;
+        var bottomRow = range.BottomRow > ViewRange.BottomRow ? ViewRange.BottomRow : range.BottomRow;
+        var leftColumn = range.LeftColumn < ViewRange.LeftColumn ? ViewRange.LeftColumn : range.LeftColumn;
+        var rightColumn = range.RightColumn > ViewRange.RightColumn ? ViewRange.RightColumn : range.RightColumn;
+        var rowCount = bottomRow + 1 - topRow;
+        var columnCount = rightColumn + 1 - leftColumn;
         return new CellRange(topRow, leftColumn, rowCount, columnCount);
     }
 
@@ -49,7 +49,7 @@ internal class ViewPort : IViewPort
     {
         var topLeftCellRect = GetCellRect(topRow, leftColumn);
 
-        if(bottomRow > topRow || rightColumn > leftColumn)
+        if (bottomRow > topRow || rightColumn > leftColumn)
         {
             var bottomRightCellRect = GetCellRect(bottomRow, rightColumn);
             var rangeRect = new Rect(topLeftCellRect.TopLeft, bottomRightCellRect.BottomRight);
@@ -93,9 +93,9 @@ internal class ViewPort : IViewPort
 
         if (row > 0)
         {
-            int temp = row - 1;
+            var temp = row - 1;
             cell = _workSheet.Cells.GetCell(temp, col, false);
-            while (cell != null && cell.RowSpan > 1)
+            while (cell?.RowSpan > 1)
             {
                 temp--;
                 cell = _workSheet.Cells.GetCell(temp, col, false);
@@ -104,8 +104,8 @@ internal class ViewPort : IViewPort
             cell = _workSheet.Cells.GetCell(row, col, false);
         }
 
-        int rowSpan = 1;
-        int colSpan = 1;
+        var rowSpan = 1;
+        var colSpan = 1;
 
         if (cell != null)
         {
@@ -120,13 +120,13 @@ internal class ViewPort : IViewPort
 
         if (rowSpan > 1)
         {
-            int bottomRow = row + rowSpan - 1;
+            var bottomRow = row + rowSpan - 1;
             height = (int)(_rows.GetLocation(bottomRow) - rowLocation + _rows.GetRowHeight(bottomRow));
         }
 
         if (colSpan > 1)
         {
-            int rightColumn = col + colSpan - 1;
+            var rightColumn = col + colSpan - 1;
             width = (int)(_columns.GetLocation(rightColumn) - colLocation + _columns.GetColumnWidth(rightColumn));
         }
 
@@ -146,17 +146,19 @@ internal class ViewPort : IViewPort
         if (ViewRange.TopRow < 0 || ViewRange.LeftColumn < 0)
             return;
 
-        for (int row = ViewRange.TopRow; row < _workSheet.RowCount; row++)
+        for (var row = ViewRange.TopRow; row < _workSheet.RowCount; row++)
         {
             if (IsRowVisible(row))
             {
                 ViewRange.RowCount = row - ViewRange.TopRow + 1;
             }
             else
+            {
                 break;
+            }
         }
 
-        for (int col = ViewRange.LeftColumn; col < _workSheet.ColumnCount; col++)
+        for (var col = ViewRange.LeftColumn; col < _workSheet.ColumnCount; col++)
         {
             if (IsColumnVisible(col))
                 ViewRange.ColumnCount = col - ViewRange.LeftColumn + 1;
@@ -176,24 +178,24 @@ internal class ViewPort : IViewPort
 
         if (delta >= 0)
         {
-            for (int row = ViewRange.TopRow; row < _workSheet.RowCount; row++)
+            for (var row = ViewRange.TopRow; row < _workSheet.RowCount; row++)
             {
                 var rowLocation = _rows.GetLocation(row);
                 if (IsTopRow(row, rowLocation))
                 {
-                    TopRowLocation = _sheetView.Spread.ScrollMode == SheetScrollMode.Pixel 
+                    TopRowLocation = _sheetView.Spread.ScrollMode == SheetScrollMode.Pixel
                         ? _sheetView.ScrollPosition.Y : rowLocation;
-                    ViewRange.TopRow = row;                      
+                    ViewRange.TopRow = row;
                     break;
                 }
             }
         }
         else
         {
-            for (int row = ViewRange.TopRow; row >= 0; row--)
+            for (var row = ViewRange.TopRow; row >= 0; row--)
             {
                 var rowLocation = _rows.GetLocation(row);
-                if(IsTopRow(row, rowLocation))
+                if (IsTopRow(row, rowLocation))
                 {
                     TopRowLocation = _sheetView.Spread.ScrollMode == SheetScrollMode.Pixel
                         ? _sheetView.ScrollPosition.Y : rowLocation;
@@ -215,7 +217,7 @@ internal class ViewPort : IViewPort
 
         if (delta >= 0)
         {
-            for (int col = ViewRange.LeftColumn; col < _workSheet.ColumnCount; col++)
+            for (var col = ViewRange.LeftColumn; col < _workSheet.ColumnCount; col++)
             {
                 var colLocation = _columns.GetLocation(col);
                 if (IsLeftColumn(col, colLocation))
@@ -229,7 +231,7 @@ internal class ViewPort : IViewPort
         }
         else
         {
-            for (int col = ViewRange.LeftColumn; col >= 0; col--)
+            for (var col = ViewRange.LeftColumn; col >= 0; col--)
             {
                 var colLocation = _columns.GetLocation(col);
                 if (IsLeftColumn(col, colLocation))

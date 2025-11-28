@@ -2,8 +2,8 @@
 
 internal class CellChangedAction : SheetAction
 {
-    public State OldState { get; private set; }
-    public State NewState { get; private set; }
+    public State OldState { get; }
+    public State NewState { get; }
     public AlphaXSheetView SheetView { get; set; }
 
     public CellChangedAction()

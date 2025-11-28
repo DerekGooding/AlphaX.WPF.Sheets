@@ -24,10 +24,7 @@ public partial class Styling : UserControl
         var sheet = spread.WorkBook.WorkSheets.GetSheet(0);
         styleAction(spread.SheetViews.GetSheetView(sheet));
         SetupSheetDataSource(sheet);
-        spread.WorkBook.WorkSheets.SheetAdded += (s, e) =>
-        {
-            styleAction(spread.SheetViews.GetSheetView(e.WorkSheet));
-        };
+        spread.WorkBook.WorkSheets.SheetAdded += (s, e) => styleAction(spread.SheetViews.GetSheetView(e.WorkSheet));
     }
 
     private void SetupSpread1Style(IAlphaXSheetView sheetView)
@@ -35,7 +32,7 @@ public partial class Styling : UserControl
         var worksheet = sheetView.WorkSheet;
 
         // Headers Styling
-        string headerStyleName = "HeaderStyle";
+        const string headerStyleName = "HeaderStyle";
         var headerStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(headerStyleName, headerStyle);
         headerStyle.BackColor = Color.White;
@@ -46,13 +43,13 @@ public partial class Styling : UserControl
         worksheet.TopLeft.StyleName = headerStyleName;
 
         // Alternating Row Styling
-        string altRowStyle = "AlternatingStyle";
+        const string altRowStyle = "AlternatingStyle";
         var rowStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(altRowStyle, rowStyle);
         rowStyle.BackColor = Color.FromArgb(255, 240, 240, 240);
         rowStyle.ForeColor = Color.Black;
 
-        for (int row = 0; row < worksheet.RowCount; row++)
+        for (var row = 0; row < worksheet.RowCount; row++)
         {
             if (row % 2 != 0)
             {
@@ -66,7 +63,7 @@ public partial class Styling : UserControl
         var worksheet = sheetView.WorkSheet;
 
         // Headers Styling
-        string headerStyleName = "HeaderStyle";
+        const string headerStyleName = "HeaderStyle";
         var headerStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(headerStyleName, headerStyle);
         headerStyle.BackColor = Color.FromArgb(255, 131, 84, 139);
@@ -77,13 +74,13 @@ public partial class Styling : UserControl
         worksheet.TopLeft.StyleName = headerStyleName;
 
         // Alternating Row Styling
-        string altRowStyle = "AlternatingStyle";
+        const string altRowStyle = "AlternatingStyle";
         var rowStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(altRowStyle, rowStyle);
         rowStyle.BackColor = Color.FromArgb(255, 238, 232, 246);
         rowStyle.ForeColor = Color.Black;
 
-        for (int row = 0; row < worksheet.RowCount; row++)
+        for (var row = 0; row < worksheet.RowCount; row++)
         {
             if (row % 2 != 0)
             {
@@ -98,7 +95,7 @@ public partial class Styling : UserControl
         var worksheet = sheetView.WorkSheet;
 
         // Headers Styling
-        string headerStyleName = "HeaderStyle";
+        const string headerStyleName = "HeaderStyle";
         var headerStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(headerStyleName, headerStyle);
         headerStyle.BackColor = Color.FromArgb(255, 44, 62, 80);
@@ -109,19 +106,19 @@ public partial class Styling : UserControl
         worksheet.TopLeft.StyleName = headerStyleName;
 
         // Alternating Row Styling
-        string altRowStyle = "AlternatingStyle";
+        const string altRowStyle = "AlternatingStyle";
         var rowStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(altRowStyle, rowStyle);
         rowStyle.BackColor = Color.FromArgb(255, 22, 160, 133);
         rowStyle.ForeColor = Color.White;
 
-        string altRow2Style = "Alternating2Style";
+        const string altRow2Style = "Alternating2Style";
         var row2Style = new Style();
         worksheet.WorkBook.AddNamedStyle(altRow2Style, row2Style);
         row2Style.BackColor = Color.FromArgb(255, 44, 62, 80);
         row2Style.ForeColor = Color.White;
 
-        for (int row = 0; row < worksheet.RowCount; row++)
+        for (var row = 0; row < worksheet.RowCount; row++)
         {
             worksheet.Rows[row].StyleName = row % 2 != 0 ? altRow2Style : altRowStyle;
         }
@@ -132,7 +129,7 @@ public partial class Styling : UserControl
         var worksheet = sheetView.WorkSheet;
 
         // Headers Styling
-        string headerStyleName = "HeaderStyle";
+        const string headerStyleName = "HeaderStyle";
         var headerStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(headerStyleName, headerStyle);
         headerStyle.BackColor = Color.FromArgb(255, 188, 221, 255);
@@ -143,13 +140,13 @@ public partial class Styling : UserControl
         worksheet.TopLeft.StyleName = headerStyleName;
 
         // Alternating Row Styling
-        string altRowStyle = "AlternatingStyle";
+        const string altRowStyle = "AlternatingStyle";
         var rowStyle = new Style();
         worksheet.WorkBook.AddNamedStyle(altRowStyle, rowStyle);
         rowStyle.BackColor = Color.FromArgb(255, 216, 225, 240);
         rowStyle.ForeColor = Color.Black;
 
-        for (int row = 0; row < worksheet.RowCount; row++)
+        for (var row = 0; row < worksheet.RowCount; row++)
         {
             if (row % 2 != 0)
             {

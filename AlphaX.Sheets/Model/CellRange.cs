@@ -8,13 +8,7 @@ public class CellRange
     /// <summary>
     /// Gets whether this range contains only single cell.
     /// </summary>
-    public bool IsSingleCell
-    {
-        get
-        {
-            return RowCount == 1 && ColumnCount == 1;
-        }
-    }
+    public bool IsSingleCell => RowCount == 1 && ColumnCount == 1;
     /// <summary>
     /// Gets the top row in this range.
     /// </summary>
@@ -22,13 +16,7 @@ public class CellRange
     /// <summary>
     /// Gets the bottom row in this range.
     /// </summary>
-    public int BottomRow
-    {
-        get
-        {
-            return RowCount == 0 ? -1 : TopRow + RowCount - 1;
-        }
-    }
+    public int BottomRow => RowCount == 0 ? -1 : TopRow + RowCount - 1;
     /// <summary>
     /// Gets the left column in this range.
     /// </summary>
@@ -36,13 +24,7 @@ public class CellRange
     /// <summary>
     /// Gets the right column in this range.
     /// </summary>
-    public int RightColumn
-    {
-        get
-        {
-            return ColumnCount == 0 ? -1 : LeftColumn + ColumnCount - 1;
-        }
-    }
+    public int RightColumn => ColumnCount == 0 ? -1 : LeftColumn + ColumnCount - 1;
     /// <summary>
     /// Gets the row count of this range.
     /// </summary>
@@ -54,14 +36,8 @@ public class CellRange
     /// <summary>
     /// Gets whether this range is valid or not.
     /// </summary>
-    public bool IsValid
-    {
-        get
-        {
-            return TopRow > -1 && BottomRow > -1 && RowCount > 0 && ColumnCount > 0
+    public bool IsValid => TopRow > -1 && BottomRow > -1 && RowCount > 0 && ColumnCount > 0
                 && TopRow <= BottomRow && LeftColumn <= RightColumn;
-        }
-    }
     public CellRange(int row, int col)
     {
         TopRow = row;

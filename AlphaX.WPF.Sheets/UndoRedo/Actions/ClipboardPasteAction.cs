@@ -2,8 +2,8 @@
 
 internal class ClipboardPasteAction : SheetAction
 {
-    public State OldState { get; private set; }
-    public State NewState { get; private set; }
+    public State OldState { get; }
+    public State NewState { get; }
     public AlphaXSheetView SheetView { get; set; }
 
     public ClipboardPasteAction()
@@ -22,9 +22,9 @@ internal class ClipboardPasteAction : SheetAction
 
         SheetView.Spread.WorkBook.UpdateProvider.SuspendUpdates = true;
 
-        for (int row = 0; row < data.GetLength(0); row++)
+        for (var row = 0; row < data.GetLength(0); row++)
         {
-            for (int column = 0; column < data.GetLength(1); column++)
+            for (var column = 0; column < data.GetLength(1); column++)
             {
                 var value = data[row, column];
                 SheetView.WorkSheet.Cells[state.Row + row, state.Column + column].Value = value;

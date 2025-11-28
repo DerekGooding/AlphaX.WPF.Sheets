@@ -23,8 +23,12 @@ internal class RowHeadersRegion : AlphaXSheetViewRegion
 
     protected override SpreadHitTestResult HitTestCore(AlphaXSheetView sheetView, Point hitPoint)
     {
-        var hitTestInfo = new SpreadHitTestResult() { Element = VisualElement.RowHeader, Sheet = sheetView };
-        hitTestInfo.ActualHitTestPoint = hitPoint;
+        var hitTestInfo = new SpreadHitTestResult
+        {
+            Element = VisualElement.RowHeader,
+            Sheet = sheetView,
+            ActualHitTestPoint = hitPoint
+        };
         var rows = _workSheet.Rows.As<Rows>();
         var columns = _workSheet.RowHeaders.Columns.As<Columns>();
         var viewRange = sheetView.ViewPort.ViewRange;
@@ -34,7 +38,7 @@ internal class RowHeadersRegion : AlphaXSheetViewRegion
 
         double x = 0, y = 0;
 
-        for (int row = viewRange.TopRow; row <= viewRange.BottomRow; row++)
+        for (var row = viewRange.TopRow; row <= viewRange.BottomRow; row++)
         {
             var rowLocation = rows.GetLocation(row);
             double rowHeight = _workSheet.Rows.GetRowHeight(row);
@@ -52,7 +56,7 @@ internal class RowHeadersRegion : AlphaXSheetViewRegion
             }
         }
 
-        for (int col = viewRange.LeftColumn; col <= viewRange.RightColumn; col++)
+        for (var col = viewRange.LeftColumn; col <= viewRange.RightColumn; col++)
         {
             var colLocation = columns.GetLocation(col);
             var sheetColumn = columns.GetItem(col, false);

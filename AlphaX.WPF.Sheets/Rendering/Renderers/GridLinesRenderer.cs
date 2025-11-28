@@ -19,7 +19,7 @@ internal class GridLinesRenderer : Renderer
         var columns = workSheet.Columns;
         var viewport = SheetView.ViewPort.As<ViewPort>();
 
-        for (int row = topRow; row <= bottomRow; row++)
+        for (var row = topRow; row <= bottomRow; row++)
         {
             if (Engine.RenderInfo.PartialRender)
                 Engine.EnsureNewCacheDrawing(this, row, -1);
@@ -28,10 +28,10 @@ internal class GridLinesRenderer : Renderer
                 continue;
 
             var rowLocation = rows.GetLocation(row);
-            double y = rowLocation - viewport.TopRowLocation + rowHeight;
-            double halfPenWidth = (SheetView.Spread.GridLinePen.Thickness * SheetView.Spread.PixelPerDip) / 2;
-            DrawingGroup drawing = Engine.CreateDrawingObject(this, row, -1);
-            GuidelineSet guidelines = new GuidelineSet();
+            var y = rowLocation - viewport.TopRowLocation + rowHeight;
+            var halfPenWidth = (SheetView.Spread.GridLinePen.Thickness * SheetView.Spread.PixelPerDip) / 2;
+            var drawing = Engine.CreateDrawingObject(this, row, -1);
+            var guidelines = new GuidelineSet();
             guidelines.GuidelinesY.Add(y + halfPenWidth);
             drawing.GuidelineSet = guidelines;
             var ctx = drawing.Open();
@@ -56,7 +56,7 @@ internal class GridLinesRenderer : Renderer
         var columns = workSheet.Columns;
         var viewport = SheetView.ViewPort.As<ViewPort>();
 
-        for (int col = leftColumn; col <= rightColumn; col++)
+        for (var col = leftColumn; col <= rightColumn; col++)
         {
             if (Engine.RenderInfo.PartialRender)
                 Engine.EnsureNewCacheDrawing(this, -1, col);
@@ -65,10 +65,10 @@ internal class GridLinesRenderer : Renderer
                 continue;
 
             var colLocation = columns.GetLocation(col);
-            double x = colLocation - viewport.LeftColumnLocation + columnWidth;
-            double halfPenWidth = (SheetView.Spread.GridLinePen.Thickness * SheetView.Spread.PixelPerDip) / 2;
-            DrawingGroup drawing = Engine.CreateDrawingObject(this, -1, col);
-            GuidelineSet guidelines = new GuidelineSet();
+            var x = colLocation - viewport.LeftColumnLocation + columnWidth;
+            var halfPenWidth = (SheetView.Spread.GridLinePen.Thickness * SheetView.Spread.PixelPerDip) / 2;
+            var drawing = Engine.CreateDrawingObject(this, -1, col);
+            var guidelines = new GuidelineSet();
             guidelines.GuidelinesX.Add(x + halfPenWidth);
             drawing.GuidelineSet = guidelines;
             var ctx = drawing.Open();

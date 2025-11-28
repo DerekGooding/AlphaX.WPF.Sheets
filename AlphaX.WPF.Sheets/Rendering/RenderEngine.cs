@@ -8,7 +8,7 @@ internal class RenderEngine : IRenderEngine, IDisposable
 {
     private AlphaXSheetView _sheetView;
     private WorkSheet _workSheet;
-    private RenderEngineCache _cache;
+    private readonly RenderEngineCache _cache;
     private DispatcherProcessingDisabled _dispatcherDisabled;
 
     #region Renderers
@@ -90,7 +90,7 @@ internal class RenderEngine : IRenderEngine, IDisposable
 
     public Drawing GetDrawingObject(Renderer renderer, int row, int column)
     {
-        _cache.TryGetDrawing(renderer, row, column, out Drawing drawing);
+        _cache.TryGetDrawing(renderer, row, column, out var drawing);
         return drawing;
     }
 
@@ -109,7 +109,7 @@ internal class RenderEngine : IRenderEngine, IDisposable
 
     public void DrawRowHeaderCells(int topRow, int bottomRow)
     {
-        if (_sheetView.HeadersVisibility == HeadersVisibility.Row || _sheetView.HeadersVisibility == HeadersVisibility.Both)
+        if (_sheetView.HeadersVisibility is HeadersVisibility.Row or HeadersVisibility.Both)
         {
             RowHeadersRenderer.Render(topRow, 0, bottomRow, _workSheet.RowHeaders.ColumnCount - 1);
         }
@@ -117,7 +117,7 @@ internal class RenderEngine : IRenderEngine, IDisposable
 
     public void DrawColumnHeaderCells(int leftCol, int rightCol)
     {
-        if (_sheetView.HeadersVisibility == HeadersVisibility.Column || _sheetView.HeadersVisibility == HeadersVisibility.Both)
+        if (_sheetView.HeadersVisibility is HeadersVisibility.Column or HeadersVisibility.Both)
         {
             ColumnHeadersRenderer.Render(0, leftCol, _workSheet.ColumnHeaders.RowCount - 1, rightCol);
         }

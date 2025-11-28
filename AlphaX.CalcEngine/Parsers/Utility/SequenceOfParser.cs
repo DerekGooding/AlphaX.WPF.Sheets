@@ -4,7 +4,7 @@ namespace AlphaX.CalcEngine.Parsers.Utility;
 
 internal class SequenceOfParser(Parser[] parsers) : Parser
 {
-    private Parser[] _parsers = parsers;
+    private readonly Parser[] _parsers = parsers;
 
     public override ParserState Parse(ParserState state)
     {
@@ -29,6 +29,6 @@ internal class SequenceOfParser(Parser[] parsers) : Parser
             }
         }
 
-        return UpdateResult(nextState, new ArrayResult(results.ToArray()));
+        return UpdateResult(nextState, new ArrayResult([.. results]));
     }
 }

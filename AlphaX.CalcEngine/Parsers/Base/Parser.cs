@@ -8,7 +8,8 @@ internal abstract class Parser
     // initial state provider
     public ParserState Run(string inputString)
     {
-        var initialState = new ParserState { 
+        var initialState = new ParserState
+        {
             InputString = inputString
         };
         return Parse(initialState);

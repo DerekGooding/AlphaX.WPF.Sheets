@@ -10,40 +10,21 @@ public class WorkSheets : IWorkSheets
     public int Count => _sheets.Count;
     public WorkBook WorkBook { get; private set; }
 
-    public WorkSheet this[string sheetName]
-    {
-        get
-        {
-            return GetSheet(sheetName);
-        }
-    }
+    public WorkSheet this[string sheetName] => GetSheet(sheetName);
 
-    public WorkSheet this[int index]
-    {
-        get
-        {
-            return GetSheet(index);
-        }
-    }
+    public WorkSheet this[int index] => GetSheet(index);
 
     public WorkSheet ActiveSheet
     {
-        get
-        {
-            return _activeSheet;
-        }
-        set
-        {
-            SetActiveSheet(value);
-        }
+        get => _activeSheet; set => SetActiveSheet(value);
     }
 
     public int ActiveSheetIndex
     {
         get
         {
-            int index = 0;
-            foreach(var sheet in _sheets.Values)
+            var index = 0;
+            foreach (var sheet in _sheets.Values)
             {
                 if (sheet == _activeSheet)
                     return index;
@@ -92,11 +73,9 @@ public class WorkSheets : IWorkSheets
     {
         sheetName = sheetName.ToLowerInvariant();
 
-        if (!_sheets.ContainsKey(sheetName))
-            throw new ArgumentException($"Sheet with name '{sheetName}' not present.");
-
-        var sheet = _sheets[sheetName];
-        return sheet;
+        return !_sheets.TryGetValue(sheetName, out var sheet)
+            ? throw new ArgumentException($"Sheet with name '{sheetName}' not present.")
+            : sheet;
     }
 
     public WorkSheet GetSheet(int index)
@@ -131,7 +110,7 @@ public class WorkSheets : IWorkSheets
 
     public void Clear()
     {
-        foreach(var sheet in _sheets.ToList())
+        foreach (var sheet in _sheets.ToList())
         {
             RemoveSheet(sheet.Key);
         }
@@ -142,6 +121,7 @@ public class WorkSheets : IWorkSheets
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         Clear();
         _sheets = null;
         WorkBook = null;

@@ -20,10 +20,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public Color ForeColor
     {
-        get
-        {
-            return _foreColor.Value;
-        }
+        get => _foreColor.Value;
         set
         {
             _foreColor = value;
@@ -34,10 +31,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public Color BackColor
     {
-        get
-        {
-            return _backColor.Value;
-        }
+        get => _backColor.Value;
         set
         {
             _backColor = value;
@@ -48,10 +42,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public double FontSize
     {
-        get
-        {
-            return _fontSize.Value;
-        }
+        get => _fontSize.Value;
         set
         {
             _fontSize = value;
@@ -62,10 +53,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public FontFamily FontFamily
     {
-        get
-        {
-            return _fontFamily;
-        }
+        get => _fontFamily;
         set
         {
             _fontFamily = value;
@@ -76,10 +64,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public FontWeight FontWeight
     {
-        get
-        {
-            return _fontWeight.Value;
-        }
+        get => _fontWeight.Value;
         set
         {
             _fontWeight = value;
@@ -89,10 +74,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public FontStyle FontStyle
     {
-        get
-        {
-            return _fontStyle.Value;
-        }
+        get => _fontStyle.Value;
         set
         {
             _fontStyle = value;
@@ -102,10 +84,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public Thickness Padding
     {
-        get
-        {
-            return _padding.Value;
-        }
+        get => _padding.Value;
         set
         {
             _padding = value;
@@ -115,10 +94,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public AlphaXHorizontalAlignment HorizontalAlignment
     {
-        get
-        {
-            return _hAligment.Value;
-        }
+        get => _hAligment.Value;
         set
         {
             _hAligment = value;
@@ -128,10 +104,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public AlphaXVerticalAlignment VerticalAlignment
     {
-        get
-        {
-            return _vAligment.Value;
-        }
+        get => _vAligment.Value;
         set
         {
             _vAligment = value;
@@ -154,6 +127,7 @@ public class NamedStyle : IStyle, INotifyPropertyChanged
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         _foreColor = null;
         _backColor = null;
         _fontSize = null;

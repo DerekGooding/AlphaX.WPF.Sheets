@@ -72,9 +72,9 @@ internal static class ParserProvider
             .Map(CloseParanParserMap);
 
         OperatorParser = CreateChoiceParser(
-                CreateStringParser(ParserTokens.Plus), 
-                CreateStringParser(ParserTokens.Minus), 
-                CreateStringParser(ParserTokens.Multiply), 
+                CreateStringParser(ParserTokens.Plus),
+                CreateStringParser(ParserTokens.Minus),
+                CreateStringParser(ParserTokens.Multiply),
                 CreateStringParser(ParserTokens.Divide),
                 CreateStringParser(ParserTokens.Amp))
             .Map(OperatorParserMap)
@@ -82,7 +82,7 @@ internal static class ParserProvider
     }
 
     private static void CreateComplexParsers()
-    {     
+    {
         CellRefParser = CreateSequenceOfParser(LettersParser, DigitsParser)
             .Map(CellRefParserMap)
             .MapError(error => new ParserError(ExceptionMessages.CellRefExpected));
@@ -99,7 +99,7 @@ internal static class ParserProvider
             .Map(SheetNameCellRangeParserMap)
             .MapError(error => new ParserError(ExceptionMessages.CellRangeRefExpected));
 
-        FormulaArgumentParser = CreateLazyChoiceParser(new Lazy<Parser[]>(()=> new Parser[] { FormulaParser, FloatParser, NumberParser, StringValueParser, BoolValueParser, SheetNameCellRangeParser, SheetNameCellRefParser, VarParser }));
+        FormulaArgumentParser = CreateLazyChoiceParser(new Lazy<Parser[]>(() => [FormulaParser, FloatParser, NumberParser, StringValueParser, BoolValueParser, SheetNameCellRangeParser, SheetNameCellRefParser, VarParser]));
 
         FormulaParser = CreateSequenceOfParser(VarParser, CreateBetweenParser(OpenParanParser, CloseParanParser, CreateManySeptParser(FormulaArgumentParser, CreateRegexParser(ParserRegexes.GetFormulaParserRegex()))))
             .Map(FormulaParserMap)
@@ -145,13 +145,13 @@ internal static class ParserProvider
     private static ParserResult SheetNameCellRefParserMap(ParserResult result)
     {
         var res = result as ArrayResult;
-        string sheetName = "";
+        var sheetName = "";
         var sheetNameSeqRes = ((res.Value[0] as ArrayResult).Value);
         if (sheetNameSeqRes.Length > 0)
         {
             sheetName = ((sheetNameSeqRes[0] as ArrayResult).Value[0] as CalcParserResult).Value;
         }
-        string refStr = (res.Value[1] as CalcParserResult).Value;
+        var refStr = (res.Value[1] as CalcParserResult).Value;
         return new CalcParserResult(CalcParserResultKind.CellRef, sheetName + "!" + refStr);
     }
 
@@ -167,9 +167,7 @@ internal static class ParserProvider
         return new CalcParserResult(
                 CalcParserResultKind.Formula,
                 (res.Value[0] as CalcParserResult).Value.ToUpperInvariant(),
-                (res.Value[1] as ArrayResult).Value.Select<ParserResult, CalcParserResult>(el => {
-                    return el as CalcParserResult;
-                }).ToArray()
+                [.. (res.Value[1] as ArrayResult).Value.Select<ParserResult, CalcParserResult>(el => el as CalcParserResult)]
             );
     }
     #endregion

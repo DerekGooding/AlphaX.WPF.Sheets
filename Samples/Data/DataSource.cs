@@ -7,7 +7,7 @@ namespace AlphaXSpreadSamplesExplorer.Data;
 
 public static class DataSource
 {
-    public static List<Customer> _customers;
+    private static List<Customer> _customers = [];
     private static DataTable _customersTable;
 
     public static IEnumerable<Customer> GetCustomers()
@@ -19,7 +19,7 @@ public static class DataSource
 
     public static DataTable GetCustomersTable()
     {
-        if(_customersTable != null)
+        if (_customersTable != null)
             return _customersTable;
 
         var customers = GetCustomers();
@@ -30,7 +30,7 @@ public static class DataSource
             _customersTable.Columns.Add(property.Name, property.PropertyType);
         }
 
-        foreach(var customer in customers)
+        foreach (var customer in customers)
         {
             var row = _customersTable.NewRow();
             foreach (var property in properties)
@@ -38,7 +38,7 @@ public static class DataSource
                 row[property.Name] = property.GetValue(customer);
             }
             _customersTable.Rows.Add(row);
-        }    
+        }
 
         return _customersTable;
     }

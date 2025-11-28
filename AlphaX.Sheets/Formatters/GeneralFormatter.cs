@@ -4,20 +4,13 @@ namespace AlphaX.Sheets.Formatters;
 
 public class GeneralFormatter : IFormatter
 {
-    private CultureInfo _culture;
+    private readonly CultureInfo _culture;
 
     public GeneralFormatter() => _culture = CultureInfo.CurrentCulture;
 
-    public string Format(object value)
-    {
-        if (value == null)
-            return null;
-
-        if (value is string)
-            return (string)value;
-
-        return value.IsNumber()
-            ? double.Parse(value.ToString(), _culture).ToString()
-            : value is DateTime ? DateTime.Parse(value.ToString(), _culture).ToShortDateString() : value.ToString();
-    }
+    public string? Format(object? value)
+        => value == null ? null
+        : value is string v ? v
+        : value.IsNumber() ? double.Parse(value.ToString(), _culture).ToString()
+        : value is DateTime ? DateTime.Parse(value.ToString(), _culture).ToShortDateString() : value.ToString();
 }

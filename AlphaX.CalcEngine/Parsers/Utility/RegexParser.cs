@@ -5,7 +5,7 @@ namespace AlphaX.CalcEngine.Parsers.Utility;
 
 internal class RegexParser(Regex regex) : Parser
 {
-    private Regex _regex = regex;
+    private readonly Regex _regex = regex;
 
     public override ParserState Parse(ParserState state)
     {
@@ -14,7 +14,7 @@ internal class RegexParser(Regex regex) : Parser
             return state;
         }
 
-        string inp = state.InputString.Substring(state.Index);
+        var inp = state.InputString[state.Index..];
         var match = _regex.Match(inp);
 
         return match.Success

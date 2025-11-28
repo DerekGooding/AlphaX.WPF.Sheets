@@ -1,6 +1,6 @@
 ﻿namespace AlphaX.CalcEngine.Parsers.Base;
 
-public class ParserResult { }
+public class ParserResult;
 
 class StringResult(string value) : ParserResult
 {

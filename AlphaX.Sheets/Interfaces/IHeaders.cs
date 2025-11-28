@@ -5,7 +5,7 @@ public interface IHeaders : IDisposable
     /// <summary>
     /// Gets the worksheet this headers belongs to.
     /// </summary>
-    WorkSheet WorkSheet { get; }    
+    WorkSheet WorkSheet { get; }
     /// <summary>
     /// Gets header row collection.
     /// </summary>

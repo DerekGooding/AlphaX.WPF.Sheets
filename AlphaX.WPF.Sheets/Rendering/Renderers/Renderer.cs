@@ -8,7 +8,7 @@ internal abstract class Renderer
     private DrawingContext _context;
     protected RenderEngine Engine { get; private set; }
     protected AlphaXSheetView SheetView { get; private set; }
-    public DrawingGroup Drawing { get; private set; }
+    public DrawingGroup Drawing { get; }
 
     protected Renderer() => Drawing = new DrawingGroup();
 
@@ -30,8 +30,7 @@ internal abstract class Renderer
     public void Render(int topRow, int leftColumn, int bottomRow, int rightColumn)
     {
         Drawing.ClipGeometry = Engine.RenderInfo.ViewPortGeometry;
-        if (_context != null)
-            _context.Close();
+        _context?.Close();
         _context = Engine.RenderInfo.PartialRender ? Drawing.Append() : Drawing.Open();
         OnRender(_context, topRow, leftColumn, bottomRow, rightColumn);
     }

@@ -14,12 +14,12 @@ internal class StringParser(string value) : Parser
             return state;
         }
 
-        var str = state.InputString.Substring(state.Index);
+        var str = state.InputString[state.Index..];
 
         return str.Length < Value.Length
             ? UpdateError(state, new ParserError($"Unexpected end of input, expected ${Value}, found end of input"))
             : str.StartsWith(Value)
             ? UpdateState(state, state.Index + Value.Length, new StringResult(Value))
-            : UpdateError(state, new ParserError ($"No match found, expected {Value} but got {str}" ));
+            : UpdateError(state, new ParserError($"No match found, expected {Value} but got {str}"));
     }
 }

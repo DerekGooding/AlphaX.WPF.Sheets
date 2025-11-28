@@ -6,43 +6,28 @@ namespace AlphaX.Sheets.Data;
 
 internal class AlphaXDataCollection : IDataCollection
 {
-    private object _actualSource;
-
     private Dictionary<string, PropertyInfo> _itemPropertyInfo;
     public DataSourceType DataSourceType { get; private set; }
 
-    public int Count
+    public int Count => DataSourceType switch
     {
-        get
-        {
-            switch(DataSourceType)
-            {
-                case DataSourceType.IList:
-                    return (_actualSource as IList).Count;
+        DataSourceType.IList => (ActualSource as IList).Count,
+        DataSourceType.IEnumerable => 0,
+        DataSourceType.DataTable => (ActualSource as DataTable).Rows.Count,
+        _ => 0,
+    };
 
-                case DataSourceType.IEnumerable:
-                    return 0;
-
-                case DataSourceType.DataTable:
-                    return (_actualSource as DataTable).Rows.Count;
-
-                default:
-                    return 0;
-            }
-        }
-    }
-
-    public object ActualSource => _actualSource;
+    public object ActualSource { get; private set; }
 
     public AlphaXDataCollection(object source)
     {
-        _actualSource = source;
+        ActualSource = source;
         InitCollection();
     }
 
     private void InitCollection()
     {
-        if (_actualSource is IList list)
+        if (ActualSource is IList list)
         {
             var type = GetItemType(list);
 
@@ -59,13 +44,11 @@ internal class AlphaXDataCollection : IDataCollection
                 DataSourceType = DataSourceType.IList;
             }
         }
-        else if(_actualSource is IEnumerable enumerable)
-        {
-            DataSourceType = DataSourceType.IEnumerable;
-        }
         else
         {
-            DataSourceType = _actualSource is DataTable table ? DataSourceType.DataTable : DataSourceType.NotSupported;
+            DataSourceType = ActualSource is IEnumerable enumerable
+                ? DataSourceType.IEnumerable
+                : ActualSource is DataTable ? DataSourceType.DataTable : DataSourceType.NotSupported;
         }
     }
 
@@ -85,23 +68,23 @@ internal class AlphaXDataCollection : IDataCollection
         switch (DataSourceType)
         {
             case DataSourceType.IList:
-                return (_actualSource as IList)[index];
+                return (ActualSource as IList)[index];
 
             case DataSourceType.IEnumerable:
-                int currentIndex = 0;
-                var enumerator = (_actualSource as IEnumerable).GetEnumerator();
+                var currentIndex = 0;
+                var enumerator = (ActualSource as IEnumerable).GetEnumerator();
                 do
                 {
                     if (index == currentIndex)
                         break;
 
-                    currentIndex++;                      
+                    currentIndex++;
                 }
-                while (enumerator.MoveNext());               
+                while (enumerator.MoveNext());
                 return enumerator.Current;
 
             case DataSourceType.DataTable:
-                return (_actualSource as DataTable).Rows[index];
+                return (ActualSource as DataTable).Rows[index];
 
             default:
                 return null;
@@ -112,7 +95,7 @@ internal class AlphaXDataCollection : IDataCollection
 
     public void Dispose()
     {
-        _actualSource = null;
+        ActualSource = null;
         _itemPropertyInfo = null;
     }
 }

@@ -7,8 +7,8 @@ namespace AlphaX.CalcEngine.Evaluator;
 
 internal class CalcEvaluator
 {
-    private Dictionary<string, Formula> _formulas;
-    private IDataProvider _dataProvider;
+    private readonly Dictionary<string, Formula> _formulas;
+    private readonly IDataProvider _dataProvider;
 
     public CalcEvaluator(IDataProvider dataProvider)
     {
@@ -27,7 +27,8 @@ internal class CalcEvaluator
         switch (node.Kind)
         {
             case CalcParserResultKind.Number:
-                return new CalcValue() { 
+                return new CalcValue()
+                {
                     Kind = CalcValueKind.Number,
                     Value = node.ComputedValue
                 };
@@ -114,39 +115,36 @@ internal class CalcEvaluator
                 };
         }
 
-        switch (op)
+        return op switch
         {
-            case CalcOperators.Plus: 
-                return new CalcValue() { 
-                    Kind = CalcValueKind.Float,
-                    Value = compLeftVal + compRightVal
-                };
-            case CalcOperators.Minus:
-                return new CalcValue()
+            CalcOperators.Plus => new CalcValue()
+            {
+                Kind = CalcValueKind.Float,
+                Value = compLeftVal + compRightVal
+            },
+            CalcOperators.Minus => new CalcValue()
+            {
+                Kind = CalcValueKind.Float,
+                Value = compLeftVal - compRightVal
+            },
+            CalcOperators.Multiply => new CalcValue()
+            {
+                Kind = CalcValueKind.Float,
+                Value = compLeftVal * compRightVal
+            },
+            CalcOperators.Divide => compRightVal == 0
+                ? new CalcValue()
+                {
+                    Kind = CalcValueKind.Error,
+                    Value = new DivideByZeroError()
+                }
+                : new CalcValue()
                 {
                     Kind = CalcValueKind.Float,
-                    Value = compLeftVal - compRightVal
-                };
-            case CalcOperators.Multiply:
-                return new CalcValue()
-                {
-                    Kind = CalcValueKind.Float,
-                    Value = compLeftVal * compRightVal
-                };
-            case CalcOperators.Divide:
-                return compRightVal == 0
-                    ? new CalcValue() {
-                        Kind= CalcValueKind.Error,
-                        Value= new DivideByZeroError()
-                    }
-                    : new CalcValue()
-                    {
-                        Kind = CalcValueKind.Float,
-                        Value = compLeftVal / compRightVal
-                    };
-        }
-
-        throw new Exception(ExceptionMessages.UnknownOperator);
+                    Value = compLeftVal / compRightVal
+                },
+            _ => throw new Exception(ExceptionMessages.UnknownOperator),
+        };
     }
 
     private CalcValue EvaluateCustomName(CalcParserResult varname, string defaultSheetName = "") =>
@@ -160,26 +158,25 @@ internal class CalcEvaluator
 
     private CalcValue EvaluateFormula(CalcParserResult formula, string defaultSheetName = "")
     {
-        if (_formulas.ContainsKey(formula.Value))
+        if (_formulas.TryGetValue(formula.Value, out var f))
         {
-            var f = _formulas[formula.Value];
             var values = new List<CalcValue>();
-            if(formula.Childs.Length > f.MaxArgs || formula.Childs.Length < f.MinArgs)
+            if (formula.Childs.Length > f.MaxArgs || formula.Childs.Length < f.MinArgs)
             {
                 throw new CalcEngineException(ExceptionMessages.InvalidFormulaArgs);
             }
-            foreach(var arg in formula.Childs)
+            foreach (var arg in formula.Childs)
             {
                 values.Add(EvaluateNode(arg, defaultSheetName));
             }
 
-            return f.Calculate(values.ToArray());
+            return f.Calculate([.. values]);
         }
         else
         {
             return new CalcValue()
             {
-                Kind= CalcValueKind.Error,
+                Kind = CalcValueKind.Error,
                 Value = new NameError()
             };
         }
@@ -188,7 +185,7 @@ internal class CalcEvaluator
     private CalcValue EvaluateCellRef(CalcParserResult cellRefResult, string defaultSheetName = "")
     {
         var cellRef = (CellRef)cellRefResult.ComputedValue;
-        var value = _dataProvider.GetValue(string.IsNullOrEmpty(cellRef.SheetName) ? defaultSheetName: cellRef.SheetName, cellRef.Row, cellRef.Column);
+        var value = _dataProvider.GetValue(string.IsNullOrEmpty(cellRef.SheetName) ? defaultSheetName : cellRef.SheetName, cellRef.Row, cellRef.Column);
 
         return DataUtils.Transform(value);
     }
@@ -199,9 +196,9 @@ internal class CalcEvaluator
         var value = _dataProvider.GetRangeValue(string.IsNullOrEmpty(rangeRef.SheetName) ? defaultSheetName : rangeRef.SheetName, rangeRef.TopRow, rangeRef.LeftColumn, rangeRef.RowCount, rangeRef.ColumnCount);
 
         var transformedValue = new CalcValue[value.GetLength(0), value.GetLength(1)];
-        for(var r = 0; r < value.GetLength(0); r++)
+        for (var r = 0; r < value.GetLength(0); r++)
         {
-            for(var c = 0; c < value.GetLength(1); c++)
+            for (var c = 0; c < value.GetLength(1); c++)
             {
                 transformedValue[r, c] = (DataUtils.Transform(value[r, c]));
             }
@@ -247,7 +244,7 @@ internal class CalcEvaluator
                 return;
             case CalcParserResultKind.Formula:
             case CalcParserResultKind.Operator:
-                foreach(var child in node.Childs)
+                foreach (var child in node.Childs)
                 {
                     FillDependencies(child, dependencies);
                 }

@@ -5,21 +5,9 @@ namespace AlphaX.Sheets.Model;
 public class Columns : CollectionBase<Column>, IColumns
 {
     private Dictionary<int, double> _locationMap;
-    protected override int Count
-    {
-        get
-        {
-            return GetCount();
-        }
-    }
+    protected override int Count => GetCount();
 
-    public Column this[string address]
-    {
-        get
-        {               
-            return this[Extensions.GetColumnIndex(address)];
-        }
-    }
+    public Column this[string address] => this[Extensions.GetColumnIndex(address)];
 
     internal Columns(object parent) : base(parent) => _locationMap = [];
 
@@ -30,14 +18,14 @@ public class Columns : CollectionBase<Column>, IColumns
     /// <exception cref="NotImplementedException"></exception>
     internal override double GetLocation(int column, bool recalculate = false)
     {
-        if (_locationMap.ContainsKey(column) && !recalculate)
-            return _locationMap[column];
+        if (_locationMap.TryGetValue(column, out var value) && !recalculate)
+            return value;
 
         double xLocation = 0;
         double deltaWidth = 0;
-        int count = 0;
+        var count = 0;
 
-        for (int index = column - 1; index >= 0; index--)
+        for (var index = column - 1; index >= 0; index--)
         {
             InternalCollection.TryGetValue(index, out var sheetColumn);
 
@@ -46,9 +34,9 @@ public class Columns : CollectionBase<Column>, IColumns
             else
                 count++;
 
-            if (_locationMap.ContainsKey(index))
+            if (_locationMap.TryGetValue(index, out var value2))
             {
-                xLocation = _locationMap[index];
+                xLocation = value2;
                 break;
             }
         }
@@ -70,9 +58,7 @@ public class Columns : CollectionBase<Column>, IColumns
 
         var location = xLocation + (count * defaultColumnWidth) + deltaWidth;
 
-        if (!_locationMap.ContainsKey(column))
-            _locationMap.Add(column, location);
-        else
+        if (!_locationMap.TryAdd(column, location))
             _locationMap[column] = location;
 
         return location;
@@ -80,19 +66,14 @@ public class Columns : CollectionBase<Column>, IColumns
 
     internal void UpdateColumnsLocation(int fromColumn, double offset)
     {
-        for (int index = fromColumn; index < Count; index++)
+        for (var index = fromColumn; index < Count; index++)
         {
             if (_locationMap.ContainsKey(index))
                 _locationMap[index] += offset;
         }
     }
 
-    protected override Column CreateItem(int index)
-    {
-        var column =  new Column(this);
-        column.Index = index;
-        return column;
-    }
+    protected override Column CreateItem(int index) => new(this) { Index = index };
 
     public int GetColumnWidth(int column)
     {
@@ -145,6 +126,7 @@ public class Columns : CollectionBase<Column>, IColumns
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         _locationMap.Clear();
         InternalCollection.Clear();
         InternalCollection = null;
@@ -159,7 +141,7 @@ public class Columns : CollectionBase<Column>, IColumns
     {
         if (Parent is IWorkSheet workSheet)
         {
-            foreach(var item in InternalCollection.ToList())
+            foreach (var item in InternalCollection.ToList())
             {
                 if (item.Key < index)
                     continue;

@@ -6,7 +6,7 @@ namespace AlphaX.CalcEngine.Parsers.Utility;
 
 internal class BoolValueParser : Parser
 {
-    private Regex _regex;
+    private readonly Regex _regex;
 
     public BoolValueParser() => _regex = new Regex(ParserRegexes.GetVarParserRegex());
 
@@ -17,13 +17,13 @@ internal class BoolValueParser : Parser
             return state;
         }
 
-        string inp = state.InputString.Substring(state.Index);
+        var inp = state.InputString[state.Index..];
         var match = _regex.Match(inp);
 
         if (match.Success)
         {
             var val = match.Value.ToLowerInvariant();
-            if(val == "true" || val == "false")
+            if (val is "true" or "false")
             {
                 return UpdateState(state, state.Index + match.Value.Length, new StringResult(val));
             }

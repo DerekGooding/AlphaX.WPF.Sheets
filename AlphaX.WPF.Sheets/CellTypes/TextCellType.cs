@@ -15,7 +15,7 @@ public class TextCellType : BaseCellType
             if (value is string)
             {
                 if (style.HorizontalAlignment == AlphaXHorizontalAlignment.Auto)
-                    style.HorizontalAlignment = AlphaXHorizontalAlignment.Left;           
+                    style.HorizontalAlignment = AlphaXHorizontalAlignment.Left;
             }
             else
             {
@@ -31,11 +31,13 @@ public class TextCellType : BaseCellType
 
     public override AlphaXEditorBase GetEditor(Style style)
     {
-        var editor = new AlphaXTextBox();
-        editor.FontFamily = style.WpfFontFamily;
-        editor.Foreground = style.Foreground;
-        editor.Background = style.Background;
-        editor.FontSize = style.FontSize;
+        var editor = new AlphaXTextBox
+        {
+            FontFamily = style.WpfFontFamily,
+            Foreground = style.Foreground,
+            Background = style.Background,
+            FontSize = style.FontSize
+        };
         return editor;
     }
 }

@@ -9,9 +9,9 @@ public partial class ScrollModes : UserControl
     {
         InitializeComponent();
         var worksheet = spread.SheetViews.ActiveSheetView.WorkSheet;
-        for(int row = 0; row < 100; row++)
+        for (var row = 0; row < 100; row++)
         {
-            for(int col = 0; col < 10; col++)
+            for (var col = 0; col < 10; col++)
             {
                 worksheet.Cells[row, col].Value = $"abc{col}";
             }

@@ -13,7 +13,7 @@ public class AverageFormula : Formula
     {
         double sum = 0;
         double count = 0;
-        for (int i = 0; i < values.Length; i++)
+        for (var i = 0; i < values.Length; i++)
         {
             var calcValue = values[i];
             switch (calcValue.Kind)
@@ -55,7 +55,7 @@ public class AverageFormula : Formula
         return new CalcValue()
         {
             Kind = CalcValueKind.Float,
-            Value = sum/count
+            Value = sum / count
         };
     }
 

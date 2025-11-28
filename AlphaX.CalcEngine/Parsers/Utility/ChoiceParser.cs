@@ -4,9 +4,9 @@ namespace AlphaX.CalcEngine.Parsers.Utility;
 
 internal class ChoiceParser : Parser
 {
-    private Parser[] _parsers;
-    private Lazy<Parser[]> _lazyParsers;
-    private int _minCount = -1;
+    private readonly Parser[] _parsers;
+    private readonly Lazy<Parser[]> _lazyParsers;
+    private readonly int _minCount = -1;
 
     public ChoiceParser(Parser[] parsers, int minCount = -1)
     {
@@ -25,7 +25,7 @@ internal class ChoiceParser : Parser
         }
 
         var parsers = _parsers;
-        if(_lazyParsers != null)
+        if (_lazyParsers != null)
         {
             parsers = _lazyParsers.Value;
         }
@@ -39,6 +39,6 @@ internal class ChoiceParser : Parser
             }
         }
 
-        return UpdateError(state, new ParserError($"Unable to match with any parser at index { state.Index}"));
+        return UpdateError(state, new ParserError($"Unable to match with any parser at index {state.Index}"));
     }
 }

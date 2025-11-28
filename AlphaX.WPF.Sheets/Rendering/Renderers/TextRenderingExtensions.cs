@@ -8,20 +8,20 @@ internal static class TextRenderingExtensions
 
     private static GlyphRun CreateGlyphRun(string text, Style style, Rect bounds, double pixelPerDip, bool characterEllipses)
     {
-        ushort[] glyphIndexes = new ushort[text.Length];
-        double[] advanceWidths = new double[text.Length];
+        var glyphIndexes = new ushort[text.Length];
+        var advanceWidths = new double[text.Length];
         double textWidth = 0;
 
-        for (int n = 0; n < text.Length; n++)
+        for (var n = 0; n < text.Length; n++)
         {
-            char c = text[n];
+            var c = text[n];
 
-            if(characterEllipses && textWidth > bounds.Width - 20)
+            if (characterEllipses && textWidth > bounds.Width - 20)
             {
                 c = '.';
             }
 
-            ushort glyphIndex = style.GlyphTypeface.CharacterToGlyphMap[c];
+            var glyphIndex = style.GlyphTypeface.CharacterToGlyphMap[c];
             glyphIndexes[n] = glyphIndex;
             advanceWidths[n] = style.GlyphTypeface.AdvanceWidths[glyphIndex] * 14;
             textWidth += advanceWidths[n];
@@ -31,7 +31,7 @@ internal static class TextRenderingExtensions
         renderPosition.Offset(0, -pixelPerDip);
         renderPosition.Offset(pixelPerDip, 0);
 
-        return new GlyphRun(style.GlyphTypeface, 0, false, style.FontSize, (float)pixelPerDip, 
+        return new GlyphRun(style.GlyphTypeface, 0, false, style.FontSize, (float)pixelPerDip,
             glyphIndexes, renderPosition, advanceWidths, null, null, null,
                                           null, null, null);
     }
@@ -41,8 +41,8 @@ internal static class TextRenderingExtensions
         switch (hAlign)
         {
             case AlphaXHorizontalAlignment.Center:
-                defaultRenderPosition.Offset(bounds.Width / 2 - textWidth / 2, -5);
-                if(defaultRenderPosition.X < bounds.X)
+                defaultRenderPosition.Offset((bounds.Width / 2) - (textWidth / 2), -5);
+                if (defaultRenderPosition.X < bounds.X)
                     defaultRenderPosition.X = bounds.X;
                 break;
 
@@ -58,7 +58,7 @@ internal static class TextRenderingExtensions
         switch (vAlign)
         {
             case AlphaXVerticalAlignment.Center:
-                defaultRenderPosition.Offset(0, -(bounds.Height / 2 - textHeight / 2));
+                defaultRenderPosition.Offset(0, -((bounds.Height / 2) - (textHeight / 2)));
                 if (defaultRenderPosition.Y < bounds.Y)
                     defaultRenderPosition.Y = bounds.Y;
                 break;
@@ -74,12 +74,12 @@ internal static class TextRenderingExtensions
 
     public static int ComputeTextWidth(string text, double fontSize, GlyphTypeface glyphTypeface)
     {
-        ushort[] glyphIndexes = new ushort[text.Length];
-        double[] advanceWidths = new double[text.Length];
+        var glyphIndexes = new ushort[text.Length];
+        var advanceWidths = new double[text.Length];
         double textWidth = 0;
-        for (int n = 0; n < text.Length; n++)
+        for (var n = 0; n < text.Length; n++)
         {
-            ushort glyphIndex = glyphTypeface.CharacterToGlyphMap[text[n]];
+            var glyphIndex = glyphTypeface.CharacterToGlyphMap[text[n]];
             glyphIndexes[n] = glyphIndex;
             advanceWidths[n] = glyphTypeface.AdvanceWidths[glyphIndex] * fontSize;
             textWidth += advanceWidths[n];

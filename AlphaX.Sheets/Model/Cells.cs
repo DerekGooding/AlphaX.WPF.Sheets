@@ -11,10 +11,7 @@ public class Cells : ICell
     static Cells() => _sortComparer = new NaturalSortComparer();
 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-    private static NaturalSortComparer _sortComparer;
-    private int _rowCount;
-    private int _columnCount;
-
+    private static readonly NaturalSortComparer _sortComparer;
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private SortedDictionary<int, SortedDictionary<int, Cell>> _cellStore;
 
@@ -22,7 +19,7 @@ public class Cells : ICell
     {
         get
         {
-            if(name.Contains(":"))
+            if (name.Contains(':'))
             {
                 var rangeRef = new CellRangeRef(name);
                 return GetRange(rangeRef.TopRow, rangeRef.LeftColumn, rangeRef.RowCount, rangeRef.ColumnCount);
@@ -35,21 +32,9 @@ public class Cells : ICell
         }
     }
 
-    public Cell this[int row, int column]
-    {
-        get
-        {
-            return GetCell(row, column, true);
-        }
-    }
+    public Cell this[int row, int column] => GetCell(row, column, true);
 
-    public Cells this[int row, int column, int rowCount, int columnCount]
-    {
-        get
-        {
-            return GetRange(row, column, rowCount, columnCount);
-        }
-    }
+    public Cells this[int row, int column, int rowCount, int columnCount] => GetRange(row, column, rowCount, columnCount);
 
     public int Row { get; }
 
@@ -59,8 +44,8 @@ public class Cells : ICell
     {
         get
         {
-            if (_rowCount >= 0)
-                return _rowCount;
+            if (field >= 0)
+                return field;
 
             if (Parent is IWorkSheet workSheet)
             {
@@ -83,8 +68,8 @@ public class Cells : ICell
     {
         get
         {
-            if (_columnCount >= 0)
-                return _columnCount;
+            if (field >= 0)
+                return field;
 
             if (Parent is IWorkSheet workSheet)
             {
@@ -105,78 +90,46 @@ public class Cells : ICell
 
     public object Value
     {
-        get
-        {
-            return GetCell(Row, Column, true).Value;
-        }
-        set
-        {
-            ApplyToRange(x => x.Value = value);
-        }
+        get => GetCell(Row, Column, true).Value; set => ApplyToRange(x => x.Value = value);
     }
 
-    public string Formula
+    public string? Formula
     {
         get
         {
             var cell = GetCell(Row, Column, false);
-            return cell != null ? cell.Formula : null;
+            return cell?.Formula;
         }
-        set
-        {
-            ApplyToRange(x => x.Formula = value);
-        }
+
+        set => ApplyToRange(x => x.Formula = value);
     }
 
-    public IFormatter Formatter
+    public IFormatter? Formatter
     {
         get
         {
             var cell = GetCell(Row, Column, false);
-            return cell != null ? cell.Formatter : null;
+            return cell?.Formatter;
         }
-        set
-        {
-            ApplyToRange(x => x.Formatter = value);
-        }
+
+        set => ApplyToRange(x => x.Formatter = value);
     }
 
     public string StyleName
     {
-        get
-        {
-            return GetCell(Row, Column, true).StyleName;
-        }
-        set
-        {
-            ApplyToRange(x => x.StyleName = value);
-        }
+        get => GetCell(Row, Column, true).StyleName; set => ApplyToRange(x => x.StyleName = value);
     }
 
     public object Parent { get; }
 
     public DataMap DataMap
     {
-        get
-        {
-            return GetCell(Row, Column, true).DataMap;
-        }
-        set
-        {
-            ApplyToRange(x => x.DataMap = value);
-        }
+        get => GetCell(Row, Column, true).DataMap; set => ApplyToRange(x => x.DataMap = value);
     }
 
     public ICellType CellType
     {
-        get
-        {
-            return GetCell(Row, Column, true).CellType;
-        }
-        set
-        {
-            ApplyToRange(x => x.CellType = value);
-        }
+        get => GetCell(Row, Column, true).CellType; set => ApplyToRange(x => x.CellType = value);
     }
 
     Cells ICell.Parent { get; }
@@ -184,57 +137,29 @@ public class Cells : ICell
 
     public bool Locked
     {
-        get
-        {
-            return GetCell(Row, Column, true).Locked;
-        }
-        set
-        {
-            ApplyToRange(x => x.Locked = value);
-        }
+        get => GetCell(Row, Column, true).Locked; set => ApplyToRange(x => x.Locked = value);
     }
 
     public bool IsVisible
     {
-        get
-        {
-            return GetCell(Row, Column, true).IsVisible;
-        }
-        set
-        {
-            ApplyToRange(x => x.IsVisible = value);
-        }
+        get => GetCell(Row, Column, true).IsVisible; set => ApplyToRange(x => x.IsVisible = value);
     }
 
     public int RowSpan
     {
-        get
-        {
-            return GetCell(Row, Column, true).RowSpan;
-        }
-        set
-        {
-            ApplyToRange(x => x.RowSpan = value);
-        }
+        get => GetCell(Row, Column, true).RowSpan; set => ApplyToRange(x => x.RowSpan = value);
     }
 
     public int ColumnSpan
     {
-        get
-        {
-            return GetCell(Row, Column, true).ColumnSpan;
-        }
-        set
-        {
-            ApplyToRange(x => x.ColumnSpan = value);
-        }
+        get => GetCell(Row, Column, true).ColumnSpan; set => ApplyToRange(x => x.ColumnSpan = value);
     }
 
     internal Cells(object parent)
     {
         Parent = parent;
         Row = Column = 0;
-        _rowCount = _columnCount = -1;
+        RowCount = ColumnCount = -1;
         _cellStore = [];
     }
 
@@ -243,8 +168,8 @@ public class Cells : ICell
         Parent = parentRange.Parent;
         Row = row;
         Column = column;
-        _rowCount = rowCount;
-        _columnCount = columnCount;
+        RowCount = rowCount;
+        ColumnCount = columnCount;
         _cellStore = parentRange._cellStore;
     }
 
@@ -287,11 +212,11 @@ public class Cells : ICell
     /// <param name="column"></param>
     internal IEnumerable<KeyValuePair<int, object>> GetCellValues(int column)
     {
-        foreach(var rowCells in _cellStore)
+        foreach (var rowCells in _cellStore)
         {
-            if(rowCells.Value.ContainsKey(column) && rowCells.Value[column].Value != null)
+            if (rowCells.Value.TryGetValue(column, out var value) && value.Value != null)
             {
-                yield return new KeyValuePair<int, object>(rowCells.Key, rowCells.Value[column].Value);
+                yield return new KeyValuePair<int, object>(rowCells.Key, value.Value);
             }
         }
     }
@@ -312,11 +237,11 @@ public class Cells : ICell
     {
         await Task.Factory.StartNew(() =>
         {
-            for (int col = Column; col < Column + ColumnCount; col++)
+            for (var col = Column; col < Column + ColumnCount; col++)
             {
                 var cells = new Dictionary<int, Cell>();
 
-                for (int row = Row; row < Row + RowCount; row++)
+                for (var row = Row; row < Row + RowCount; row++)
                 {
                     cells.Add(row, GetCell(row, col, false));
                 }
@@ -352,9 +277,9 @@ public class Cells : ICell
 
     public void Merge(string mergeStyle = null)
     {
-        for (int col = Column; col < Column + ColumnCount; col++)
+        for (var col = Column; col < Column + ColumnCount; col++)
         {
-            for (int row = Row + RowCount - 2; row >= Row; row--)
+            for (var row = Row + RowCount - 2; row >= Row; row--)
             {
                 var cell = GetCell(row, col, true);
                 var previousCell = GetCell(row + 1, col, true);
@@ -383,13 +308,13 @@ public class Cells : ICell
     {
         foreach (var item in _cellStore)
         {
-            foreach(var value in item.Value)
+            foreach (var value in item.Value)
             {
                 value.Value.Value = null;
             }
             item.Value.Clear();
         }
-            
+
         _cellStore.Clear();
     }
 
@@ -399,7 +324,7 @@ public class Cells : ICell
         {
             var items = _cellStore.ToList();
 
-            for (int itemIndex = items.Count - 1; itemIndex >= 0; itemIndex--)
+            for (var itemIndex = items.Count - 1; itemIndex >= 0; itemIndex--)
             {
                 var item = items[itemIndex];
 
@@ -418,7 +343,7 @@ public class Cells : ICell
         {
             var items = _cellStore.ToList();
 
-            for (int itemIndex = 0; itemIndex < items.Count; itemIndex++)
+            for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
             {
                 var item = items[itemIndex];
 
@@ -448,14 +373,15 @@ public class Cells : ICell
         if (cell?.Row == toRow && cell?.Column == toColumn)
             return;
 
-        if(_cellStore.ContainsKey(toRow))
+        if (_cellStore.ContainsKey(toRow))
         {
-            if(cell == null)
+            if (cell == null)
+            {
                 _cellStore[toRow].Remove(toColumn);
+            }
             else
             {
-                if (_cellStore[toRow].ContainsKey(toColumn))
-                    _cellStore[toRow].Remove(toColumn);
+                _cellStore[toRow].Remove(toColumn);
 
                 _cellStore[toRow].Add(toColumn, cell);
             }
@@ -529,9 +455,9 @@ public class Cells : ICell
     /// <param name="action"></param>
     private void ApplyToRange(Action<ICell> action)
     {
-        for (int row = Row; row < Row + RowCount; row++)
+        for (var row = Row; row < Row + RowCount; row++)
         {
-            for (int column = Column; column < Column + ColumnCount; column++)
+            for (var column = Column; column < Column + ColumnCount; column++)
             {
                 var cell = GetCell(row, column, true);
                 action(cell);
@@ -541,6 +467,7 @@ public class Cells : ICell
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         ClearCellStore();
         _cellStore = null;
     }

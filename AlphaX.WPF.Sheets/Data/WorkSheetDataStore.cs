@@ -89,10 +89,10 @@ internal class WorkSheetDataStore : IDisposable
         if (sheetColumn == null)
             return _cells.GetCellValues(column);
 
-        if (sheetColumn != null && sheetColumn.DataMap != null)
+        if (sheetColumn?.DataMap != null)
         {
             var items = new List<KeyValuePair<int, object>>();
-            for (int row = 0; row < _collection.Count; row++)
+            for (var row = 0; row < _collection.Count; row++)
             {
                 var value = GetValue(row, column);
 
@@ -109,11 +109,11 @@ internal class WorkSheetDataStore : IDisposable
     {
         var cell = _cells.GetCell(row, column, false);
 
-        if (cell != null && _unboundValues.ContainsKey(cell))
+        if (cell != null && _unboundValues.TryGetValue(cell, out var value))
         {
-            return _unboundValues[cell];
+            return value;
         }
-        else if (cell != null && cell.Formula != null)
+        else if (cell?.Formula != null)
         {
             var result = _workBook.CalcEngine.GetValue(_workSheet.Name, row, column) as CalcValue;
 
@@ -154,7 +154,7 @@ internal class WorkSheetDataStore : IDisposable
             cell.Formula = null;
 
         var sheetColumn = _columns.GetItem(column, false);
-        IDataMap? dataMap = cell.DataMap != null ? cell.DataMap : sheetColumn?.DataMap;
+        IDataMap? dataMap = cell.DataMap ?? (sheetColumn?.DataMap);
 
         if (_collection != null && row >= _collection.Count)
             dataMap = null;
@@ -164,11 +164,11 @@ internal class WorkSheetDataStore : IDisposable
         if (oldValue == value)
             return;
 
-        if (dataMap != null && dataMap is PropertyDataMap propertyDataMap)
+        if (dataMap is not null and PropertyDataMap propertyDataMap)
         {
             SetPropertyValue(row, column, propertyDataMap, value);
         }
-        else if (dataMap != null && dataMap is DataColumnDataMap dataColumnMap)
+        else if (dataMap is not null and DataColumnDataMap dataColumnMap)
         {
             SetDataTableCellValue(row, column, dataColumnMap, value);
         }
@@ -194,7 +194,7 @@ internal class WorkSheetDataStore : IDisposable
     /// <param name="value"></param>
     private void SetUnboundCellValue(Cell cell, object value)
     {
-        if (_unboundValues.ContainsKey(cell))
+        if (!_unboundValues.TryAdd(cell, value))
         {
             if (value == null)
                 _unboundValues.Remove(cell);
@@ -203,7 +203,6 @@ internal class WorkSheetDataStore : IDisposable
         }
         else if (value != null)
         {
-            _unboundValues.Add(cell, value);
         }
     }
 

@@ -45,7 +45,7 @@ internal class ColumnResizeManager(AlphaXSpread spread) : ResizeManagerBase(spre
     {
         _resizingColumn = -1;
         _columnLocation = -1;
-         ResizeLine.Visibility = Visibility.Collapsed;
+        ResizeLine.Visibility = Visibility.Collapsed;
         Spread.SheetViews.ActiveSheetView.Invalidate();
         Spread.SheetTabControl.UpdateScrollbars();
     }

@@ -4,8 +4,8 @@ internal delegate Parser ChainDelegate(ParserResult result);
 
 internal class ChainedParser(Parser parser, ChainDelegate chainFn) : Parser
 {
-    private Parser Parser { get; set; } = parser;
-    private ChainDelegate ChainFn { get; set; } = chainFn;
+    private Parser Parser { get; } = parser;
+    private ChainDelegate ChainFn { get; } = chainFn;
 
     public override ParserState Parse(ParserState state)
     {

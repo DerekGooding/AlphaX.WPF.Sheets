@@ -12,9 +12,7 @@ namespace AlphaX.WPF.Sheets;
 public partial class AlphaXFormulaTextBox : UserControl
 {
     public AlphaXSpread Spread
-    {
-        get { return (AlphaXSpread)GetValue(SpreadProperty); }
-        set { SetValue(SpreadProperty, value); }
+    { get => (AlphaXSpread)GetValue(SpreadProperty); set => SetValue(SpreadProperty, value);
     }
 
     public static readonly DependencyProperty SpreadProperty =
@@ -49,7 +47,7 @@ public partial class AlphaXFormulaTextBox : UserControl
         if (Spread == null)
             return;
 
-        if(e.Key == Key.Enter)
+        if (e.Key == Key.Enter)
         {
             CommitCommand.Execute(null);
             var activeSheetView = Spread.SheetViews.ActiveSheetView;
@@ -62,7 +60,7 @@ public partial class AlphaXFormulaTextBox : UserControl
         var workSheet = e.SheetView.WorkSheet;
         var cell = workSheet.Cells.GetCell(e.SheetView.ActiveRow, e.SheetView.ActiveColumn, false);
 
-        if(cell == null)
+        if (cell == null)
         {
             var dataStore = workSheet.DataStore;
             var value = dataStore.GetValue(e.SheetView.ActiveRow, e.SheetView.ActiveColumn);

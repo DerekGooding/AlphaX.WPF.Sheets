@@ -1,6 +1,3 @@
 ﻿namespace AlphaX.Sheets.Interfaces;
 
-public interface ITopLeft : IStyledObject
-{
-
-}
+public interface ITopLeft : IStyledObject;

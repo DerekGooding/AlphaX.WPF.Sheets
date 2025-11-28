@@ -5,7 +5,7 @@
 /// </summary>
 public partial class SamplesSideBar : UserControl
 {
-    private Dictionary<string, Type> _samples;
+    private readonly Dictionary<string, Type> _samples;
 
     public event EventHandler<SampleSelectedEventArgs> SampleSelected;
 

@@ -4,8 +4,8 @@ namespace AlphaX.Sheets.Filtering;
 
 public class FilterProvider : IFilterProvider
 {
-    private WorkSheet _workSheet;
-    private Dictionary<int, object> _filteredRows;
+    private readonly WorkSheet _workSheet;
+    private readonly Dictionary<int, object> _filteredRows;
 
     internal IReadOnlyDictionary<int, object> FilteredRows => _filteredRows;
 
@@ -22,15 +22,15 @@ public class FilterProvider : IFilterProvider
     {
         CurrentFilter = filter;
         FilterRange = range;
-        for(int col = range.LeftColumn; col <= range.RightColumn; col++)
+        for (var col = range.LeftColumn; col <= range.RightColumn; col++)
         {
-            for(int row = range.TopRow ; row <= range.BottomRow; row++)
+            for (var row = range.TopRow; row <= range.BottomRow; row++)
             {
                 if (_filteredRows.ContainsKey(row))
                     continue;
 
                 var value = _workSheet.DataStore.GetValue(row, col);
-                if(!filter.PassesFilter(value))
+                if (!filter.PassesFilter(value))
                 {
                     _filteredRows.Add(row, null);
                 }

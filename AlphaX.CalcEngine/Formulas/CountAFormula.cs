@@ -4,15 +4,15 @@ namespace AlphaX.CalcEngine.Formulas;
 
 public class CountAFormula : Formula
 {
-    public CountAFormula():base("COUNTA")
+    public CountAFormula() : base("COUNTA")
     {
         MinArgs = 0;
         MaxArgs = int.MaxValue;
     }
     public override CalcValue Calculate(params CalcValue[] values)
     {
-        int count = 0;
-        for (int i = 0; i < values.Length; i++)
+        var count = 0;
+        for (var i = 0; i < values.Length; i++)
         {
             var calcValue = values[i];
             switch (calcValue.Kind)
@@ -20,8 +20,8 @@ public class CountAFormula : Formula
                 case CalcValueKind.Array:
                     foreach (var numValue in (object[,])calcValue.Value)
                     {
-                        if(numValue !=null )
-                        count++;
+                        if (numValue != null)
+                            count++;
                     }
                     break;
 
@@ -29,8 +29,8 @@ public class CountAFormula : Formula
                 case CalcValueKind.Float:
                 case CalcValueKind.String:
                 case CalcValueKind.Date:
-                    if(calcValue.Value != null)
-                    count++;
+                    if (calcValue.Value != null)
+                        count++;
                     break;
 
                 case CalcValueKind.Error:

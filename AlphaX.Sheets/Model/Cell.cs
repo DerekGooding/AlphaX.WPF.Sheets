@@ -6,16 +6,10 @@ namespace AlphaX.Sheets.Model;
 
 public class Cell : ICell
 {
-    private object _value;
-    private string _styleName;
-
     public IFormatter Formatter { get; set; }
     public object Value
     {
-        get
-        {
-            return Parent.Parent is WorkSheet worksheet ? worksheet.DataStore.GetValue(Row, Column) : _value;
-        }
+        get => Parent.Parent is WorkSheet worksheet ? worksheet.DataStore.GetValue(Row, Column) : field;
         set
         {
             if (Parent.Parent is WorkSheet worksheet)
@@ -38,15 +32,12 @@ public class Cell : ICell
                 return;
             }
 
-            _value = value;
+            field = value;
         }
     }
     public string Formula
     {
-        get
-        {
-            return Parent.Parent is WorkSheet worksheet ? worksheet.WorkBook.CalcEngine.GetFormula(worksheet.Name, Row, Column) : null;
-        }
+        get => Parent.Parent is WorkSheet worksheet ? worksheet.WorkBook.CalcEngine.GetFormula(worksheet.Name, Row, Column) : null;
         set
         {
             if (Parent.Parent is WorkSheet worksheet)
@@ -71,29 +62,23 @@ public class Cell : ICell
     }
     public string StyleName
     {
-        get
-        {
-            return _styleName;
-        }
+        get;
         set
         {
-            if(_styleName != value)
+            if (field != value && Parent.Parent is WorkSheet worksheet)
             {
-                if (Parent.Parent is WorkSheet worksheet)
+                worksheet.OnCellChanged(new CellChangedEventArgs()
                 {
-                    worksheet.OnCellChanged(new CellChangedEventArgs()
-                    {
-                        Row = Row,
-                        OldValue = _styleName,
-                        NewValue = value,
-                        Column = Column,
-                        ChangeType = ChangeType.Style,
-                        Action = SheetAction.None
-                    });
-                }
+                    Row = Row,
+                    OldValue = field,
+                    NewValue = value,
+                    Column = Column,
+                    ChangeType = ChangeType.Style,
+                    Action = SheetAction.None
+                });
             }
 
-            _styleName = value;
+            field = value;
         }
     }
 
@@ -120,6 +105,7 @@ public class Cell : ICell
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         Value = null;
         Formula = null;
         Formatter = null;

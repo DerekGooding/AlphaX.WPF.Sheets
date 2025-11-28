@@ -10,6 +10,4 @@ public class DataColumnDataMap(string columnName) : DataMap
     public string ColumnName { get; } = columnName;
 }
 
-public abstract class DataMap : IDataMap
-{
-}
+public abstract class DataMap : IDataMap;

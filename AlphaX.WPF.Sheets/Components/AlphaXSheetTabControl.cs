@@ -9,8 +9,6 @@ public class AlphaXSheetTabControl : Control, IDisposable
 {
     static AlphaXSheetTabControl() => DefaultStyleKeyProperty.OverrideMetadata(typeof(AlphaXSheetTabControl), new FrameworkPropertyMetadata(typeof(AlphaXSheetTabControl)));
 
-    private ScrollBar _hScrollBar;
-    private ScrollBar _vScrollBar;
     private ListBox _sheetsListBox;
     private RepeatButton _nextButton;
     private RepeatButton _previousButton;
@@ -19,8 +17,8 @@ public class AlphaXSheetTabControl : Control, IDisposable
     private Grid _root;
     private bool _eventsRegistered;
 
-    internal ScrollBar HScrollBar => _hScrollBar;
-    internal ScrollBar VScrollBar => _vScrollBar;
+    internal ScrollBar HScrollBar { get; private set; }
+    internal ScrollBar VScrollBar { get; private set; }
     internal AlphaXSpread Spread { get; private set; }
 
     public override void OnApplyTemplate()
@@ -32,8 +30,8 @@ public class AlphaXSheetTabControl : Control, IDisposable
         _sheetViewPaneBorder.Child = Spread.SheetViewPane;
         _sheetViewPaneBorder.BorderBrush = Spread.BorderBrush;
         _sheetViewPaneBorder.BorderThickness = new Thickness(0, 0, 0.75, 0.75);
-        _hScrollBar = GetTemplateChild("_hScrollBar").As<ScrollBar>();
-        _vScrollBar = GetTemplateChild("_vScrollBar").As<ScrollBar>();
+        HScrollBar = GetTemplateChild("_hScrollBar").As<ScrollBar>();
+        VScrollBar = GetTemplateChild("_vScrollBar").As<ScrollBar>();
         _sheetsListBox = GetTemplateChild("_sheetsListBox").As<ListBox>();
         _previousButton = GetTemplateChild("_btnPrevious").As<RepeatButton>();
         _nextButton = GetTemplateChild("_btnNext").As<RepeatButton>();
@@ -49,8 +47,8 @@ public class AlphaXSheetTabControl : Control, IDisposable
         Spread.SheetViewPane.AttachSheet(sheetView);
         Spread.RenderEngine.SetRenderSheet(sheetView);
         UpdateScrollbars();
-        _hScrollBar.Value = sheetView.ScrollPosition.X;
-        _vScrollBar.Value = sheetView.ScrollPosition.Y;
+        HScrollBar.Value = sheetView.ScrollPosition.X;
+        VScrollBar.Value = sheetView.ScrollPosition.Y;
         sheetView.ScrollToHorizontalOffset(sheetView.ScrollPosition.X);
         sheetView.ScrollToVerticalOffset(sheetView.ScrollPosition.Y);
     }
@@ -95,8 +93,8 @@ public class AlphaXSheetTabControl : Control, IDisposable
         if (_eventsRegistered)
             return;
 
-        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.AddHandler(_hScrollBar, "ValueChanged", OnHorizontalScrollBarValueChanged);
-        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.AddHandler(_vScrollBar, "ValueChanged", OnVerticalScrollBarValueChanged);
+        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.AddHandler(HScrollBar, "ValueChanged", OnHorizontalScrollBarValueChanged);
+        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.AddHandler(VScrollBar, "ValueChanged", OnVerticalScrollBarValueChanged);
         WeakEventManager<Button, RoutedEventArgs>.AddHandler(_addButton, "Click", OnAddSheetClick);
         WeakEventManager<RepeatButton, RoutedEventArgs>.AddHandler(_nextButton, "Click", OnNextSheetClick);
         WeakEventManager<RepeatButton, RoutedEventArgs>.AddHandler(_previousButton, "Click", OnPreviousSheetClick);
@@ -104,8 +102,8 @@ public class AlphaXSheetTabControl : Control, IDisposable
 
         Dispatcher.BeginInvoke(new Action(() =>
         {
-            WeakEventManager<Thumb, DragCompletedEventArgs>.AddHandler(_hScrollBar.Track.Thumb, "DragCompleted", OnHorizontalScrollDragCompleted);
-            WeakEventManager<Thumb, DragCompletedEventArgs>.AddHandler(_vScrollBar.Track.Thumb, "DragCompleted", OnVerticalScrollDragCompleted);
+            WeakEventManager<Thumb, DragCompletedEventArgs>.AddHandler(HScrollBar.Track.Thumb, "DragCompleted", OnHorizontalScrollDragCompleted);
+            WeakEventManager<Thumb, DragCompletedEventArgs>.AddHandler(VScrollBar.Track.Thumb, "DragCompleted", OnVerticalScrollDragCompleted);
         }), DispatcherPriority.Loaded);
 
         _eventsRegistered = true;
@@ -119,10 +117,10 @@ public class AlphaXSheetTabControl : Control, IDisposable
         if (!_eventsRegistered)
             return;
 
-        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.RemoveHandler(_hScrollBar, "ValueChanged", OnHorizontalScrollBarValueChanged);
-        WeakEventManager<Thumb, DragCompletedEventArgs>.RemoveHandler(_hScrollBar.Track.Thumb, "DragCompleted", OnHorizontalScrollDragCompleted);
-        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.RemoveHandler(_vScrollBar, "ValueChanged", OnVerticalScrollBarValueChanged);
-        WeakEventManager<Thumb, DragCompletedEventArgs>.RemoveHandler(_vScrollBar.Track.Thumb, "DragCompleted", OnVerticalScrollDragCompleted);
+        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.RemoveHandler(HScrollBar, "ValueChanged", OnHorizontalScrollBarValueChanged);
+        WeakEventManager<Thumb, DragCompletedEventArgs>.RemoveHandler(HScrollBar.Track.Thumb, "DragCompleted", OnHorizontalScrollDragCompleted);
+        WeakEventManager<ScrollBar, RoutedPropertyChangedEventArgs<double>>.RemoveHandler(VScrollBar, "ValueChanged", OnVerticalScrollBarValueChanged);
+        WeakEventManager<Thumb, DragCompletedEventArgs>.RemoveHandler(VScrollBar.Track.Thumb, "DragCompleted", OnVerticalScrollDragCompleted);
         WeakEventManager<Button, RoutedEventArgs>.RemoveHandler(_addButton, "Click", OnAddSheetClick);
         WeakEventManager<ListBox, SelectionChangedEventArgs>.RemoveHandler(_sheetsListBox, "SelectionChanged", OnSheetSelectionChanged);
         WeakEventManager<RepeatButton, RoutedEventArgs>.RemoveHandler(_nextButton, "Click", OnNextSheetClick);
@@ -138,44 +136,44 @@ public class AlphaXSheetTabControl : Control, IDisposable
         var sheet = Spread.SheetViews.ActiveSheetView.WorkSheet;
         var columns = sheet.Columns;
         var rows = sheet.Rows;
-        _hScrollBar.ViewportSize = Spread.SheetViewPane.CellsRegion.ActualWidth;
-        _hScrollBar.Maximum = _hScrollBar.Minimum = _vScrollBar.Maximum = _vScrollBar.Minimum = 0;
+        HScrollBar.ViewportSize = Spread.SheetViewPane.CellsRegion.ActualWidth;
+        HScrollBar.Maximum = HScrollBar.Minimum = VScrollBar.Maximum = VScrollBar.Minimum = 0;
         var lastColumnLocation = columns.GetLocation(sheet.ColumnCount - 1);
 
-        for (int column = sheet.ColumnCount - 1; column >= 0; column--)
+        for (var column = sheet.ColumnCount - 1; column >= 0; column--)
         {
             var location = columns.GetLocation(column);
 
-            if (_hScrollBar.ViewportSize != 0 && lastColumnLocation - location >= _hScrollBar.ViewportSize)
+            if (HScrollBar.ViewportSize != 0 && lastColumnLocation - location >= HScrollBar.ViewportSize)
             {
-                _hScrollBar.Maximum = columns.GetLocation(column + 3);
+                HScrollBar.Maximum = columns.GetLocation(column + 3);
                 break;
             }
         }
 
-        _vScrollBar.ViewportSize = Spread.SheetViewPane.CellsRegion.ActualHeight;
+        VScrollBar.ViewportSize = Spread.SheetViewPane.CellsRegion.ActualHeight;
         var lastRowLocation = rows.GetLocation(sheet.RowCount - 1);
 
-        for (int row = sheet.RowCount - 1; row >= 0; row--)
+        for (var row = sheet.RowCount - 1; row >= 0; row--)
         {
             var location = rows.GetLocation(row);
 
-            if (_vScrollBar.ViewportSize != 0 && lastRowLocation - location >= _vScrollBar.ViewportSize)
+            if (VScrollBar.ViewportSize != 0 && lastRowLocation - location >= VScrollBar.ViewportSize)
             {
-                _vScrollBar.Maximum = rows.GetLocation(row + 3);
+                VScrollBar.Maximum = rows.GetLocation(row + 3);
                 break;
             }
         }
 
-        _vScrollBar.Visibility = _vScrollBar.Maximum == _vScrollBar.Minimum ? Visibility.Hidden : Visibility.Visible;
+        VScrollBar.Visibility = VScrollBar.Maximum == VScrollBar.Minimum ? Visibility.Hidden : Visibility.Visible;
 
-        _hScrollBar.Visibility = _hScrollBar.Maximum == _hScrollBar.Minimum ? Visibility.Hidden : Visibility.Visible;
+        HScrollBar.Visibility = HScrollBar.Maximum == HScrollBar.Minimum ? Visibility.Hidden : Visibility.Visible;
     }
 
     #region Scrolling
     private void OnVerticalScrollBarValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (_vScrollBar.Track.Thumb.IsDragging && Spread.ScrollMode == SheetScrollMode.Deferred)
+        if (VScrollBar.Track.Thumb.IsDragging && Spread.ScrollMode == SheetScrollMode.Deferred)
             return;
 
         Spread.SheetViews.ActiveSheetView.ScrollToVerticalOffset(e.NewValue);
@@ -183,7 +181,7 @@ public class AlphaXSheetTabControl : Control, IDisposable
 
     private void OnHorizontalScrollBarValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (_hScrollBar.Track.Thumb.IsDragging && Spread.ScrollMode == SheetScrollMode.Deferred)
+        if (HScrollBar.Track.Thumb.IsDragging && Spread.ScrollMode == SheetScrollMode.Deferred)
             return;
 
         Spread.SheetViews.ActiveSheetView.ScrollToHorizontalOffset(e.NewValue);
@@ -193,7 +191,7 @@ public class AlphaXSheetTabControl : Control, IDisposable
     {
         if (Spread.ScrollMode == SheetScrollMode.Deferred)
         {
-            Spread.SheetViews.ActiveSheetView.ScrollToHorizontalOffset(_hScrollBar.Value);
+            Spread.SheetViews.ActiveSheetView.ScrollToHorizontalOffset(HScrollBar.Value);
         }
     }
 
@@ -201,18 +199,19 @@ public class AlphaXSheetTabControl : Control, IDisposable
     {
         if (Spread.ScrollMode == SheetScrollMode.Deferred)
         {
-            Spread.SheetViews.ActiveSheetView.ScrollToVerticalOffset(_vScrollBar.Value);
+            Spread.SheetViews.ActiveSheetView.ScrollToVerticalOffset(VScrollBar.Value);
         }
     }
     #endregion
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         UnRegisterInternalEventHandlers();
         _sheetsListBox.ItemsSource = null;
         _root.Children.Clear();
-        _hScrollBar = null;
-        _vScrollBar = null;
+        HScrollBar = null;
+        VScrollBar = null;
         _sheetsListBox = null;
         _nextButton = null;
         _previousButton = null;

@@ -35,7 +35,7 @@ public class WorkSheetDataStore : IDisposable
         IsValid = false;
         _collection = new AlphaXDataCollection(dataSource);
 
-        if(_collection.DataSourceType != DataSourceType.NotSupported)
+        if (_collection.DataSourceType != DataSourceType.NotSupported)
         {
             IsValid = true;
             _workSheet.RowCount = _collection.Count;
@@ -49,11 +49,11 @@ public class WorkSheetDataStore : IDisposable
     {
         var cell = _workSheet.Cells.GetCell(row, column, false);
 
-        if (cell != null && _unboundValues.ContainsKey(cell))
+        if (cell != null && _unboundValues.TryGetValue(cell, out var value))
         {
-            return _unboundValues[cell];
+            return value;
         }
-        else if (cell != null && cell.Formula != null)
+        else if (cell?.Formula != null)
         {
             var result = _workSheet.WorkBook.CalcEngine.GetValue(_workSheet.Name, row, column) as CalcValue;
 
@@ -99,7 +99,7 @@ public class WorkSheetDataStore : IDisposable
             cell.Formula = null;
 
         var sheetColumn = _workSheet.Columns.GetItem(column, false);
-        var dataMap = cell.DataMap != null ? cell.DataMap : sheetColumn?.DataMap;
+        var dataMap = cell.DataMap ?? (sheetColumn?.DataMap);
 
         if (_collection != null && row >= _collection.Count)
             dataMap = null;
@@ -133,7 +133,7 @@ public class WorkSheetDataStore : IDisposable
     /// <param name="value"></param>
     private void SetUnboundCellValue(Cell cell, object value)
     {
-        if (_unboundValues.ContainsKey(cell))
+        if (!_unboundValues.TryAdd(cell, value))
         {
             if (value == null)
                 _unboundValues.Remove(cell);
@@ -142,7 +142,6 @@ public class WorkSheetDataStore : IDisposable
         }
         else if (value != null)
         {
-            _unboundValues.Add(cell, value);
         }
     }
 

@@ -6,7 +6,7 @@ namespace AlphaX.CalcEngine.Parsers.Calc;
 internal class CalcParser
 {
     // operator priority
-    private Dictionary<string, int> _operatorPriority;
+    private readonly Dictionary<string, int> _operatorPriority;
 
     public CalcParser() => _operatorPriority = new Dictionary<string, int>()
         {
@@ -32,7 +32,8 @@ internal class CalcParser
         if (infix.IsError)
         {
             throw new Exception(string.Format(ExceptionMessages.Invalid_Equation, infix.Error));
-        }else if (infix.Index < equation.Length)
+        }
+        else if (infix.Index < equation.Length)
         {
             throw new Exception(string.Format(ExceptionMessages.Invalid_Equation, "Expected end of input"));
         }
@@ -48,24 +49,21 @@ internal class CalcParser
         var pendingNodes = new Stack<CalcParserResult>();
         CalcParserResult root = null;
 
-        for(var i = 0; i < prefix.Length; i++)
+        for (var i = 0; i < prefix.Length; i++)
         {
-            if(root == null)
-            {
-                root = prefix[i];
-            }
+            root ??= prefix[i];
 
-            if(pendingNodes.Count > 0)
+            if (pendingNodes.Count > 0)
             {
                 var lastPending = pendingNodes.Peek();
                 lastPending.AddChild(prefix[i]);
-                if(lastPending.Childs.Length == 2)
+                if (lastPending.Childs.Length == 2)
                 {
                     pendingNodes.Pop();
                 }
             }
 
-            if(prefix[i].Kind == CalcParserResultKind.Operator)
+            if (prefix[i].Kind == CalcParserResultKind.Operator)
             {
                 pendingNodes.Push(prefix[i]);
             }
@@ -77,16 +75,14 @@ internal class CalcParser
     // convert CalcParseResult array to prefix form
     private CalcParserResult[] InfixToPrefix(CalcParserResult[] parserResult)
     {
-        var reverse = parserResult.Reverse().Select((el) => {
-            switch (el.Kind)
+        var reverse = parserResult.Reverse().Select((el) => el.Kind switch
             {
-                case CalcParserResultKind.OpenParan: return new CalcParserResult(CalcParserResultKind.CloseParan, ParserTokens.CloseBracket);
-                case CalcParserResultKind.CloseParan: return new CalcParserResult(CalcParserResultKind.OpenParan, ParserTokens.OpenBracket); 
-                default: return el;
-            }
-        }).ToArray();
+                CalcParserResultKind.OpenParan => new CalcParserResult(CalcParserResultKind.CloseParan, ParserTokens.CloseBracket),
+                CalcParserResultKind.CloseParan => new CalcParserResult(CalcParserResultKind.OpenParan, ParserTokens.OpenBracket),
+                _ => el,
+            }).ToArray();
 
-        return InfixToPostfix(reverse).Reverse().ToArray();
+        return [.. InfixToPostfix(reverse).Reverse()];
     }
 
     // convert CalcParseResult array to postfix form
@@ -113,7 +109,7 @@ internal class CalcParser
                     break;
 
                 case CalcParserResultKind.Operator:
-                    int c = operatorStack.Count;
+                    var c = operatorStack.Count;
                     // stack is empty, push operator
                     if (c == 0)
                     {
@@ -150,12 +146,12 @@ internal class CalcParser
 
         }
 
-        
+
         while (operatorStack.Count > 0)
         {
             outputList.Add(operatorStack.Pop());
         }
 
-        return outputList.ToArray();
+        return [.. outputList];
     }
 }

@@ -48,7 +48,7 @@ public class Style : NamedStyle
 
     public void SetFontWeight(AlphaX.Sheets.Drawing.FontWeight fontWeight)
     {
-        switch(fontWeight)
+        switch (fontWeight)
         {
             case AlphaX.Sheets.Drawing.FontWeight.Bold:
                 WpfFontWeight = FontWeights.Bold;
@@ -87,8 +87,8 @@ public class Style : NamedStyle
     private void CreateTypeFace(bool createGlyph = true)
     {
         _typeFace = new Typeface(WpfFontFamily, WpfFontStyle, WpfFontWeight, FontStretches.Normal, new FontFamily("Arial"));
-        
-        if(createGlyph)
+
+        if (createGlyph)
             _typeFace.TryGetGlyphTypeface(out _glyphTypeface);
     }
 
@@ -96,7 +96,7 @@ public class Style : NamedStyle
     {
         base.OnPropertyChanged(propertyName);
 
-        switch(propertyName)
+        switch (propertyName)
         {
             case "ForeColor":
                 SetForeground(ForeColor);

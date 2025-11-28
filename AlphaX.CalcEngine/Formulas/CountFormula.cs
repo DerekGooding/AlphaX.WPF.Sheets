@@ -12,8 +12,8 @@ public class CountFormula : Formula
 
     public override CalcValue Calculate(params CalcValue[] values)
     {
-        int count = 0;
-        for (int i = 0; i < values.Length; i++)
+        var count = 0;
+        for (var i = 0; i < values.Length; i++)
         {
             var calcValue = values[i];
             switch (calcValue.Kind)

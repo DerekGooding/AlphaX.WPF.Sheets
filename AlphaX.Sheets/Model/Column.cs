@@ -7,8 +7,6 @@ namespace AlphaX.Sheets.Model;
 public class Column : IColumn
 {
     private int _width;
-    private DataMap _dataMap;
-    private string _styleName;
 
     public IFormatter Formatter { get; set; }
 
@@ -42,7 +40,7 @@ public class Column : IColumn
                 throw new ArgumentException("Column width can't be negative.");
 
             double oldWidth = Width;
-            
+
             if (Parent.Parent is WorkSheet workSheet)
             {
                 workSheet.Columns.UpdateColumnsLocation(Index + 1, value - Width);
@@ -67,20 +65,17 @@ public class Column : IColumn
 
     public string StyleName
     {
-        get
-        {
-            return _styleName;
-        }
+        get;
         set
         {
-            if (_styleName != value)
+            if (field != value)
             {
                 if (Parent.Parent is WorkSheet worksheet)
                 {
                     worksheet.OnColumnsChanged(new ColumnChangedEventArgs()
                     {
                         Index = Index,
-                        OldValue = _styleName,
+                        OldValue = field,
                         NewValue = value,
                         Count = 1,
                         ChangeType = ChangeType.Style,
@@ -89,20 +84,17 @@ public class Column : IColumn
                 }
             }
 
-            _styleName = value;
+            field = value;
         }
     }
 
     public Columns Parent { get; private set; }
     public DataMap DataMap
     {
-        get
-        {
-            return _dataMap;
-        }
+        get;
         set
         {
-            _dataMap = value;
+            field = value;
             OnDataMapChanged();
         }
     }
@@ -119,7 +111,7 @@ public class Column : IColumn
 
     private void OnDataMapChanged()
     {
-        if(Parent.Parent is WorkSheet worksheet)
+        if (Parent.Parent is WorkSheet worksheet)
         {
             worksheet.Cells.ClearColumnCells(Parent.GetColumnIndex(this));
         }
@@ -127,6 +119,7 @@ public class Column : IColumn
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         StyleName = null;
         CellType = null;
         DataMap = null;

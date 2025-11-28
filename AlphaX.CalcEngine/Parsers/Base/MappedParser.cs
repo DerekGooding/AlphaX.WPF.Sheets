@@ -6,9 +6,9 @@ internal delegate ParserError ErrorMapDelegate(ParserError input);
 internal class MappedParser(Parser parser, MapDelegate mapFn = null, ErrorMapDelegate errorMapFn = null) : Parser
 {
 
-    private Parser Parser { get; set; } = parser;
-    private MapDelegate MapFn { get; set; } = mapFn;
-    private ErrorMapDelegate ErrorMapFn { get; set; } = errorMapFn;
+    private Parser Parser { get; } = parser;
+    private MapDelegate MapFn { get; } = mapFn;
+    private ErrorMapDelegate ErrorMapFn { get; } = errorMapFn;
 
     public override ParserState Parse(ParserState state)
     {

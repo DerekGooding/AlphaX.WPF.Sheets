@@ -7,13 +7,7 @@ public class Rows : CollectionBase<Row>, IRows
 {
     private Dictionary<int, double> _locationMap;
 
-    protected override int Count
-    {
-        get
-        {
-            return GetCount();
-        }
-    }
+    protected override int Count => GetCount();
 
     internal Rows(object parent) : base(parent) => _locationMap = [];
 
@@ -26,14 +20,14 @@ public class Rows : CollectionBase<Row>, IRows
     /// <returns></returns>
     internal override double GetLocation(int row, bool recalculate = false)
     {
-        if (_locationMap.ContainsKey(row) && !recalculate)
-            return _locationMap[row];
+        if (_locationMap.TryGetValue(row, out var value) && !recalculate)
+            return value;
 
         double yLocation = 0;
         double deltaHeight = 0;
-        int count = 0;
+        var count = 0;
 
-        for(int index = row - 1; index >= 0; index--)
+        for (var index = row - 1; index >= 0; index--)
         {
             InternalCollection.TryGetValue(index, out var sheetRow);
 
@@ -42,9 +36,9 @@ public class Rows : CollectionBase<Row>, IRows
             else
                 count++;
 
-            if (_locationMap.ContainsKey(index))
+            if (_locationMap.TryGetValue(index, out var value2))
             {
-                yLocation = _locationMap[index];   
+                yLocation = value2;
                 break;
             }
         }
@@ -69,9 +63,7 @@ public class Rows : CollectionBase<Row>, IRows
 
         var location = yLocation + (count * defaultRowHeight) + deltaHeight - sum;
 
-        if (!_locationMap.ContainsKey(row))
-            _locationMap.Add(row, location);
-        else
+        if (!_locationMap.TryAdd(row, location))
             _locationMap[row] = location;
 
         return location;
@@ -79,17 +71,19 @@ public class Rows : CollectionBase<Row>, IRows
 
     internal void UpdateRowsLocation(int fromRow, double offset)
     {
-        for(int index = fromRow; index < Count; index++)
+        for (var index = fromRow; index < Count; index++)
         {
-            if(_locationMap.ContainsKey(index))
+            if (_locationMap.ContainsKey(index))
                 _locationMap[index] += offset;
         }
     }
 
     protected override Row CreateItem(int index)
     {
-        var row =  new Row(this);
-        row.Index = index;
+        var row = new Row(this)
+        {
+            Index = index
+        };
         return row;
     }
 
@@ -156,7 +150,7 @@ public class Rows : CollectionBase<Row>, IRows
         {
             var items = InternalCollection.ToList();
 
-            for (int itemIndex = items.Count - 1; itemIndex >= 0; itemIndex--)
+            for (var itemIndex = items.Count - 1; itemIndex >= 0; itemIndex--)
             {
                 var item = items[itemIndex];
 
@@ -169,19 +163,19 @@ public class Rows : CollectionBase<Row>, IRows
 
             workSheet.Cells.InsertRows(index, count);
             workSheet.RowCount += count;
-            workSheet.OnRowsChanged(new RowChangedEventArgs() 
-            { 
-                Index = index, 
+            workSheet.OnRowsChanged(new RowChangedEventArgs()
+            {
+                Index = index,
                 Count = count,
                 Action = SheetAction.Added,
-                ChangeType = ChangeType.Count 
+                ChangeType = ChangeType.Count
             });
         }
     }
 
     public override void Add(int count)
     {
-        if(Parent is WorkSheet workSheet)
+        if (Parent is WorkSheet workSheet)
         {
             workSheet.RowCount += count;
         }
@@ -193,7 +187,7 @@ public class Rows : CollectionBase<Row>, IRows
         {
             var items = InternalCollection.ToList();
 
-            for (int itemIndex = 0; itemIndex < items.Count - 1; itemIndex++)
+            for (var itemIndex = 0; itemIndex < items.Count - 1; itemIndex++)
             {
                 var item = items[itemIndex];
 
@@ -201,7 +195,7 @@ public class Rows : CollectionBase<Row>, IRows
                 {
                     InternalCollection.Remove(item.Key);
                 }
-                else if(item.Key >= index + count)
+                else if (item.Key >= index + count)
                 {
                     InternalCollection.Remove(item.Key);
                     InternalCollection.Add(item.Key - count, item.Value);
