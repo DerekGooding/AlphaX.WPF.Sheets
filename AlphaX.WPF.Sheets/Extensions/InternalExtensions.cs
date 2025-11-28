@@ -1,5 +1,8 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Core;
 using AlphaX.Sheets.Formatters;
+using AlphaX.Sheets.Rows;
+using AlphaX.Sheets.Workbook;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using AlphaX.WPF.Sheets.UI.Interaction;
 using System.Windows;
 

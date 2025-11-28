@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlphaX.CalcEngine.Parsers.Base;
 using AlphaX.CalcEngine.Resources;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Calc
 {
     internal class CalcParser
     {

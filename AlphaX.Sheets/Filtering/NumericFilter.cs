@@ -1,4 +1,6 @@
-﻿namespace AlphaX.Sheets.Filtering
+﻿using AlphaX.Sheets.Core;
+
+namespace AlphaX.Sheets.Filtering
 {
     public enum NumericFilterCriteria
     {

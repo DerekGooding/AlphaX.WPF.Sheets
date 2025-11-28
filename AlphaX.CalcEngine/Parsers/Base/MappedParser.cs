@@ -1,4 +1,4 @@
-﻿namespace AlphaX.CalcEngine.Parsers
+﻿namespace AlphaX.CalcEngine.Parsers.Base
 {
     internal delegate ParserResult MapDelegate(ParserResult input);
     internal delegate ParserError ErrorMapDelegate(ParserError input);

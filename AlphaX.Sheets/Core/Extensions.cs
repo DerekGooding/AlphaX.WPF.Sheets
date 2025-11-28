@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AlphaX.Sheets.Cells;
+using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Core
 {
     internal static class Extensions
     {

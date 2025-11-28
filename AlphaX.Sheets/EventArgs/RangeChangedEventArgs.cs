@@ -1,6 +1,8 @@
-﻿using System;
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.Enums;
+using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.EventArgs
 {
     public class RangeChangedEventArgs : BaseEventArgs
     {

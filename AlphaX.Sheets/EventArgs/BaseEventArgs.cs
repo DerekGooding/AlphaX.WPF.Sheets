@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AlphaX.Sheets.Enums;
+using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.EventArgs
 {
     public abstract class BaseEventArgs : EventArgs
     {

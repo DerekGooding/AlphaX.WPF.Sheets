@@ -1,4 +1,6 @@
-﻿namespace AlphaX.Sheets
+﻿using AlphaX.Sheets.Workbook;
+
+namespace AlphaX.Sheets.Core
 {
     public interface IStyleProvider
     {

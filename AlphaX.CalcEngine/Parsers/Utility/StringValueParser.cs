@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using AlphaX.CalcEngine.Parsers.Base;
+using System.Text;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Utility
 {
     internal class StringValueParser : Parser
     {

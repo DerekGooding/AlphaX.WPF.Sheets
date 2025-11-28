@@ -1,4 +1,4 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Enums;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;

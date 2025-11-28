@@ -1,9 +1,10 @@
-﻿using AlphaX.CalcEngine.Resources;
+﻿using AlphaX.CalcEngine.Parsers.Base;
+using AlphaX.CalcEngine.Resources;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Calc
 {
     internal static class ParserProvider
     {

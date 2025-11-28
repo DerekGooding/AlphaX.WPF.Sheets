@@ -1,4 +1,8 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Columns;
+using AlphaX.Sheets.Enums;
+using AlphaX.Sheets.Rows;
+using AlphaX.Sheets.Workbook;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using AlphaX.WPF.Sheets.Components;
 using AlphaX.WPF.Sheets.Rendering;
 using AlphaX.WPF.Sheets.UI.Managers;

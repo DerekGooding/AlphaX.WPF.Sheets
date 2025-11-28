@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using AlphaX.CalcEngine.Parsers.Base;
+using System.Collections.Generic;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Utility
 {
     internal class ManyParser : Parser
     {

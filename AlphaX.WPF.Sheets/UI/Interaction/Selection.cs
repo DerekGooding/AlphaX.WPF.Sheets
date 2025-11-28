@@ -1,4 +1,4 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Cells;
 using System.Collections.Generic;
 
 namespace AlphaX.WPF.Sheets.UI.Interaction

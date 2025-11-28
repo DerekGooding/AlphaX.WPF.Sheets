@@ -1,4 +1,4 @@
-﻿namespace AlphaX.CalcEngine.Parsers
+﻿namespace AlphaX.CalcEngine.Parsers.Base
 {
     internal class ParserState
     {

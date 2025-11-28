@@ -1,5 +1,5 @@
 ﻿using AlphaX.CalcEngine.Parsers;
-using AlphaX.Sheets;
+using AlphaX.Sheets.Cells;
 using AlphaX.WPF.Sheets.UI.Editors;
 using AlphaX.WPF.Sheets.UI.Managers;
 using System;

@@ -1,4 +1,4 @@
-﻿namespace AlphaX.Sheets
+﻿namespace AlphaX.Sheets.Core
 {
     public abstract class FilterBase
     {

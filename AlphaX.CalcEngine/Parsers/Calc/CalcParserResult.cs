@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AlphaX.CalcEngine.Parsers.Base;
+using System;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Calc
 {
     public class CalcParserResult : ParserResult
     {

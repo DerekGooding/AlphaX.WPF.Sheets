@@ -1,5 +1,4 @@
-﻿using AlphaX.Sheets;
-
+﻿using AlphaX.Sheets.Core;
 using AlphaX.WPF.Sheets.UI;
 using System.Windows;
 using System.Windows.Media;

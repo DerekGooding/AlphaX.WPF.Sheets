@@ -1,4 +1,7 @@
-﻿namespace AlphaX.Sheets.Filtering
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.Core;
+
+namespace AlphaX.Sheets.Filtering
 {
     public interface IFilterProvider
     {

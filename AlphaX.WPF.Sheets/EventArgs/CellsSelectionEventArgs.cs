@@ -1,4 +1,4 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Cells;
 using System;
 
 namespace AlphaX.WPF.Sheets

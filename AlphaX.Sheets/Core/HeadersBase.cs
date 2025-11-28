@@ -1,4 +1,6 @@
-﻿namespace AlphaX.Sheets
+﻿using AlphaX.Sheets.Workbook.WorkSheet;
+
+namespace AlphaX.Sheets.Core
 {
     public abstract class HeadersBase : IHeaders
     {

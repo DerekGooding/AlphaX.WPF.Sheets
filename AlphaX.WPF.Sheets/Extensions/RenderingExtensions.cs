@@ -1,6 +1,4 @@
-﻿using AlphaX.Sheets;
-
-using AlphaX.WPF.Sheets.CellTypes;
+﻿using AlphaX.WPF.Sheets.CellTypes;
 using System;
 using System.Windows;
 

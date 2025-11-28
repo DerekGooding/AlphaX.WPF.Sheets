@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.EventArgs
 {
     public class CellChangedEventArgs : BaseEventArgs
     {

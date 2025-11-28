@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Core
 {
     public interface IEnumerableEx<T>
     {

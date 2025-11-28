@@ -1,4 +1,6 @@
-﻿namespace AlphaX.Sheets
+﻿using AlphaX.Sheets.Workbook.WorkSheet;
+
+namespace AlphaX.Sheets.TopLeft
 {
     public class TopLeft : ITopLeft
     {

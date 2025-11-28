@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using AlphaX.CalcEngine.Evaluator;
+using System.Collections.Generic;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Calc
 {
     internal class CalcCellMetaInfo
     {

@@ -1,6 +1,8 @@
-﻿using System.Text.RegularExpressions;
+﻿using AlphaX.CalcEngine.Parsers.Base;
+using AlphaX.CalcEngine.Parsers.Calc;
+using System.Text.RegularExpressions;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Utility
 {
     internal class BoolValueParser : Parser
     {

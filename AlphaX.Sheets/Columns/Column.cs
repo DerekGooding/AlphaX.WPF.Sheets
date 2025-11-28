@@ -1,8 +1,11 @@
-﻿using AlphaX.Sheets.Data;
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.Data;
+using AlphaX.Sheets.Enums;
 using AlphaX.Sheets.Formatters;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Columns
 {
     public class Column : IColumn
     {

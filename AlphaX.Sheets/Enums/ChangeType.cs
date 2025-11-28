@@ -1,4 +1,4 @@
-﻿namespace AlphaX.Sheets
+﻿namespace AlphaX.Sheets.Enums
 {
     public enum ChangeType
     {

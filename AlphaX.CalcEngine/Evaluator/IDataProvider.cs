@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlphaX.CalcEngine
+namespace AlphaX.CalcEngine.Evaluator
 {
     public delegate void ValueChangedEventHandler(ValueChangedEventArgs args);
     public interface IDataProvider

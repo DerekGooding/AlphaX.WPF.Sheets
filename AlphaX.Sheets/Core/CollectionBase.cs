@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Core
 {
     public abstract class CollectionBase<T> where T : class
     {

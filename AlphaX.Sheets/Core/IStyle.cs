@@ -1,7 +1,8 @@
 ﻿using AlphaX.Sheets.Drawing;
+using AlphaX.Sheets.Enums;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Core
 {
     public interface IStyle : IDisposable, ICloneable<IStyle>
     {

@@ -1,4 +1,4 @@
-﻿namespace AlphaX.CalcEngine
+﻿namespace AlphaX.CalcEngine.Evaluator
 {
     public class CalcError
     {

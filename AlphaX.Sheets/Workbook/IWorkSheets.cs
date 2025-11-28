@@ -1,7 +1,8 @@
-﻿using System;
+﻿using AlphaX.Sheets.EventArgs;
+using System;
 using System.Collections.Generic;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Workbook
 {
     public interface IWorkSheets : IEnumerable<WorkSheet>, IDisposable
     {

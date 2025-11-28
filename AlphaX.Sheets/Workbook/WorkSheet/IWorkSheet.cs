@@ -1,7 +1,9 @@
-﻿using AlphaX.Sheets.Filtering;
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.EventArgs;
+using AlphaX.Sheets.Filtering;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Workbook.WorkSheet
 {
     public enum WorkSheetClearMode
     {

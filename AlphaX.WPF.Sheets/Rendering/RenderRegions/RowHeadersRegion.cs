@@ -1,4 +1,6 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Columns;
+using AlphaX.Sheets.Rows;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using AlphaX.WPF.Sheets.UI;
 using System.Windows;
 using System.Windows.Media;

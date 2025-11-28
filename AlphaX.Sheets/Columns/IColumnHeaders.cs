@@ -1,4 +1,6 @@
-﻿namespace AlphaX.Sheets
+﻿using AlphaX.Sheets.Core;
+
+namespace AlphaX.Sheets.Columns.Columns
 {
     public interface IColumnHeaders : IHeaders
     {

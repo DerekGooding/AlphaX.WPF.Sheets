@@ -1,4 +1,7 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.Columns;
+using AlphaX.Sheets.Rows;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using System;
 using System.Windows;
 

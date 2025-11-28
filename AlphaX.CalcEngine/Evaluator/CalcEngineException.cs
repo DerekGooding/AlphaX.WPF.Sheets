@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlphaX.CalcEngine
+namespace AlphaX.CalcEngine.Evaluator
 {
     public class CalcEngineException : Exception
     {

@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Enums;
+using AlphaX.Sheets.Workbook.WorkSheet;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Rows
 {
     public class Rows : CollectionBase<Row>, IRows
     {

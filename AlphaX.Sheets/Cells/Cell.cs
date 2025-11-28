@@ -1,7 +1,9 @@
 ﻿using AlphaX.Sheets.Data;
+using AlphaX.Sheets.Enums;
 using AlphaX.Sheets.Formatters;
+using AlphaX.Sheets.Workbook.WorkSheet;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Cells
 {
     public class Cell : ICell
     {

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Workbook.WorkSheet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Columns
 {
     public class Columns : CollectionBase<Column>, IColumns
     {

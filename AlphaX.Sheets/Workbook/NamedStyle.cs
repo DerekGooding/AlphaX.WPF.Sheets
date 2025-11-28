@@ -1,7 +1,9 @@
-﻿using AlphaX.Sheets.Drawing;
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Drawing;
+using AlphaX.Sheets.Enums;
 using System.ComponentModel;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Workbook
 {
     public class NamedStyle : IStyle, INotifyPropertyChanged
     {

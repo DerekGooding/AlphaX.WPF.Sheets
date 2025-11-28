@@ -1,4 +1,4 @@
-﻿namespace AlphaX.CalcEngine.Parsers
+﻿namespace AlphaX.CalcEngine.Parsers.Calc
 {
     public enum CalcParserResultKind
     {

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AlphaX.Sheets.Core;
+using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Rows.Rows
 {
     public interface IRows : IEnumerableEx<Row>, IDisposable
     {

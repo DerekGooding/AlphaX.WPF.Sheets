@@ -1,4 +1,4 @@
-﻿namespace AlphaX.Sheets
+﻿namespace AlphaX.Sheets.Cells
 {
     public interface ICellType
     {

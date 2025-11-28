@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AlphaX.CalcEngine.Parsers
+namespace AlphaX.CalcEngine.Parsers.Calc
 {
     internal class CellRangeRef
     {

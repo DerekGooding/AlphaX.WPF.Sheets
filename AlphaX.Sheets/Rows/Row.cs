@@ -1,7 +1,9 @@
-﻿using AlphaX.Sheets.Formatters;
+﻿using AlphaX.Sheets.Enums;
+using AlphaX.Sheets.Formatters;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Rows.Rows
 {
     public class Row : IRow
     {

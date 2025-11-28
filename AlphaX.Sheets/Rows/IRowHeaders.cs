@@ -1,4 +1,6 @@
-﻿namespace AlphaX.Sheets
+﻿using AlphaX.Sheets.Core;
+
+namespace AlphaX.Sheets.Rows.Rows
 {
     public interface IRowHeaders : IHeaders
     {

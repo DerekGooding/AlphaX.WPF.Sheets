@@ -1,13 +1,16 @@
 ﻿using AlphaX.CalcEngine.Parsers;
+using AlphaX.Sheets.Core;
 using AlphaX.Sheets.Data;
+using AlphaX.Sheets.Enums;
 using AlphaX.Sheets.Formatters;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Cells
 {
     public class Cells : ICell
     {

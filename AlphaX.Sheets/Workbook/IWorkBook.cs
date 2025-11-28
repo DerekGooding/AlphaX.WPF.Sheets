@@ -1,7 +1,9 @@
 ﻿using AlphaX.CalcEngine;
+using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Workbook.WorkSheet;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Workbook
 {
     public interface IWorkBook : IDisposable, IStyleProvider
     {

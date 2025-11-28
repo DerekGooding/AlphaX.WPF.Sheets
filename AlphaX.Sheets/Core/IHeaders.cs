@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AlphaX.Sheets.Workbook.WorkSheet;
+using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Core
 {
     public interface IHeaders : IDisposable
     {

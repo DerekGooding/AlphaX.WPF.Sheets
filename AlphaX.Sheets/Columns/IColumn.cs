@@ -1,8 +1,10 @@
-﻿using AlphaX.Sheets.Data;
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Data;
 using AlphaX.Sheets.Formatters;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Columns.Columns
 {
     public interface IColumn : IDisposable, IStyledObject
     {

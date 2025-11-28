@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlphaX.Sheets.Core;
+using System;
 
 namespace AlphaX.Sheets.Filtering
 {

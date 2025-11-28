@@ -1,8 +1,9 @@
-﻿using AlphaX.Sheets.Data;
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Data;
 using AlphaX.Sheets.Formatters;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Cells.Cells
 {
     public interface ICell : IDisposable, IStyledObject
     {

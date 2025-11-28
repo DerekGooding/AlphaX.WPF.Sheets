@@ -1,4 +1,5 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Workbook;
 using System.Windows;
 using System.Windows.Media;
 

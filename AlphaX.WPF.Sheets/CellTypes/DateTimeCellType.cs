@@ -1,4 +1,4 @@
-﻿using AlphaX.Sheets;
+﻿using AlphaX.Sheets.Enums;
 using AlphaX.Sheets.Formatters;
 using AlphaX.WPF.Sheets.UI.Editors;
 using System;

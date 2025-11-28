@@ -1,4 +1,6 @@
-﻿namespace AlphaX.CalcEngine.Formulas
+﻿using AlphaX.CalcEngine.Evaluator;
+
+namespace AlphaX.CalcEngine.Formulas
 {
     public class CountAFormula : Formula
     {

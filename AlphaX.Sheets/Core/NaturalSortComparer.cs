@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AlphaX.Sheets.Cells;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Core
 {
     internal class NaturalSortComparer : IComparer<KeyValuePair<int, Cell>>
     {

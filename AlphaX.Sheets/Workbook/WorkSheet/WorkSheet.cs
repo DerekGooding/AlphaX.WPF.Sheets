@@ -1,8 +1,12 @@
-﻿using AlphaX.Sheets.Data;
+﻿using AlphaX.Sheets.Cells;
+using AlphaX.Sheets.Data;
+using AlphaX.Sheets.Enums;
+using AlphaX.Sheets.EventArgs;
 using AlphaX.Sheets.Filtering;
+using AlphaX.Sheets.Workbook;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Workbook.WorkSheet
 {
     public interface IUpdateProvider
     {

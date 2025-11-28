@@ -1,4 +1,6 @@
-﻿namespace AlphaX.CalcEngine.Parsers
+﻿using AlphaX.CalcEngine.Parsers.Base;
+
+namespace AlphaX.CalcEngine.Parsers.Utility
 {
     internal class StringParser : Parser
     {

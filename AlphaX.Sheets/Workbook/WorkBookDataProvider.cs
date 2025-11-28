@@ -1,7 +1,7 @@
-﻿using AlphaX.CalcEngine;
+﻿using AlphaX.CalcEngine.Evaluator;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Workbook
 {
     public class WorkBookDataProvider : IDataProvider, IDisposable
     {

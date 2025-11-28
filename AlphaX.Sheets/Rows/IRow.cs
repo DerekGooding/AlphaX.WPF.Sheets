@@ -1,7 +1,8 @@
-﻿using AlphaX.Sheets.Formatters;
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Formatters;
 using System;
 
-namespace AlphaX.Sheets
+namespace AlphaX.Sheets.Rows
 {
     public interface IRow : IDisposable, IStyledObject
     {

@@ -1,4 +1,4 @@
-﻿namespace AlphaX.Sheets
+﻿namespace AlphaX.Sheets.Cells
 {
     /// <summary>
     /// Represents a cell range in worbook

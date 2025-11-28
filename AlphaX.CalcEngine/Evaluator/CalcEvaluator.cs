@@ -1,11 +1,11 @@
 ﻿using AlphaX.CalcEngine.Formulas;
-using AlphaX.CalcEngine.Parsers;
+using AlphaX.CalcEngine.Parsers.Calc;
 using AlphaX.CalcEngine.Resources;
 using AlphaX.CalcEngine.Utils;
 using System;
 using System.Collections.Generic;
 
-namespace AlphaX.CalcEngine
+namespace AlphaX.CalcEngine.Evaluator
 {
     internal class CalcEvaluator
     {

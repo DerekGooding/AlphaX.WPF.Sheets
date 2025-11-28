@@ -1,4 +1,7 @@
-﻿namespace AlphaX.Sheets
+﻿using AlphaX.Sheets.Core;
+using AlphaX.Sheets.Workbook.WorkSheet;
+
+namespace AlphaX.Sheets.Columns.Columns
 {
     public class ColumnHeaders : HeadersBase, IColumnHeaders
     {
