@@ -1,20 +1,19 @@
 ﻿using AlphaX.CalcEngine.Parsers.Base;
 using System.Text.RegularExpressions;
 
-namespace AlphaX.CalcEngine.Parsers.Utility
+namespace AlphaX.CalcEngine.Parsers.Utility;
+
+internal class LettersParser : RegexParser
 {
-    internal class LettersParser : RegexParser
+    static string _lettersRegex = "^[a-zA-Z]+";
+
+    public LettersParser() : base(new Regex(_lettersRegex))
     {
-        static string _lettersRegex = "^[a-zA-Z]+";
 
-        public LettersParser() : base(new Regex(_lettersRegex))
-        {
+    }
 
-        }
-
-        protected override ParserError InternalErrorMap(ParserState state, ParserError error)
-        {
-            return new ParserError($"Error at index {state.Index}, Expected letters");
-        }
+    protected override ParserError InternalErrorMap(ParserState state, ParserError error)
+    {
+        return new ParserError($"Error at index {state.Index}, Expected letters");
     }
 }

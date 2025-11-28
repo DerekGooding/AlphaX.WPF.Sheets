@@ -1,14 +1,13 @@
-﻿namespace AlphaX.CalcEngine.Evaluator
+﻿namespace AlphaX.CalcEngine.Evaluator;
+
+public enum CalcValueKind
 {
-    public enum CalcValueKind
-    {
-        Number,
-        Float,
-        Bool,
-        Unknown,
-        Date,
-        String,
-        Error,
-        Array
-    }
+    Number,
+    Float,
+    Bool,
+    Unknown,
+    Date,
+    String,
+    Error,
+    Array
 }

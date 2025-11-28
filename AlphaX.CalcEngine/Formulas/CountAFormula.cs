@@ -1,56 +1,55 @@
 ﻿using AlphaX.CalcEngine.Evaluator;
 
-namespace AlphaX.CalcEngine.Formulas
+namespace AlphaX.CalcEngine.Formulas;
+
+public class CountAFormula : Formula
 {
-    public class CountAFormula : Formula
+    public CountAFormula():base("COUNTA")
     {
-        public CountAFormula():base("COUNTA")
+        this.MinArgs = 0;
+        this.MaxArgs = int.MaxValue;
+    }
+    public override CalcValue Calculate(params CalcValue[] values)
+    {
+        int count = 0;
+        for (int i = 0; i < values.Length; i++)
         {
-            this.MinArgs = 0;
-            this.MaxArgs = int.MaxValue;
-        }
-        public override CalcValue Calculate(params CalcValue[] values)
-        {
-            int count = 0;
-            for (int i = 0; i < values.Length; i++)
+            var calcValue = values[i];
+            switch (calcValue.Kind)
             {
-                var calcValue = values[i];
-                switch (calcValue.Kind)
-                {
-                    case CalcValueKind.Array:
-                        foreach (var numValue in (object[,])calcValue.Value)
-                        {
-                            if(numValue !=null )
-                            count++;
-                        }
-                        break;
-
-                    case CalcValueKind.Number:
-                    case CalcValueKind.Float:
-                    case CalcValueKind.String:
-                    case CalcValueKind.Date:
-                        if(calcValue.Value != null)
+                case CalcValueKind.Array:
+                    foreach (var numValue in (object[,])calcValue.Value)
+                    {
+                        if(numValue !=null )
                         count++;
-                        break;
+                    }
+                    break;
 
-                    case CalcValueKind.Error:
-                        break;
+                case CalcValueKind.Number:
+                case CalcValueKind.Float:
+                case CalcValueKind.String:
+                case CalcValueKind.Date:
+                    if(calcValue.Value != null)
+                    count++;
+                    break;
 
-                    default:
-                        throw new CalcEngineException("Invalid argument for formula.");
-                }
+                case CalcValueKind.Error:
+                    break;
+
+                default:
+                    throw new CalcEngineException("Invalid argument for formula.");
             }
-
-            return new CalcValue()
-            {
-                Kind = CalcValueKind.Number,
-                Value = count
-            };
         }
 
-        public override string GetDescription()
+        return new CalcValue()
         {
-            return "Counts the number of cells in a range that are not empty";
-        }
+            Kind = CalcValueKind.Number,
+            Value = count
+        };
+    }
+
+    public override string GetDescription()
+    {
+        return "Counts the number of cells in a range that are not empty";
     }
 }

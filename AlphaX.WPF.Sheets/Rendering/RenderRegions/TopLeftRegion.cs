@@ -1,7 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Media;
-
-namespace AlphaX.WPF.Sheets.Rendering
+﻿namespace AlphaX.WPF.Sheets.Rendering
 {
     internal class TopLeftRegion : AlphaXSheetViewRegion
     {

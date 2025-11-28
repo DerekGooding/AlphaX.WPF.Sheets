@@ -1,7 +1,5 @@
 ﻿using AlphaX.WPF.Sheets.Commands;
 using AlphaX.WPF.Sheets.UI.Editors;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace AlphaX.WPF.Sheets

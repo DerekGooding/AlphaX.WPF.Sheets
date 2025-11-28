@@ -1,7 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-
-namespace AlphaX.WPF.Sheets.Components
+﻿namespace AlphaX.WPF.Sheets.Components
 {
     public class SuggestionListBox : ListBox
     {

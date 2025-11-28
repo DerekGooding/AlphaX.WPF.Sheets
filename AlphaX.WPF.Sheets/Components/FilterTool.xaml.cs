@@ -1,5 +1,4 @@
 ﻿using AlphaX.Sheets.Filtering;
-using System.Windows.Controls;
 
 namespace AlphaX.WPF.Sheets.Components
 {

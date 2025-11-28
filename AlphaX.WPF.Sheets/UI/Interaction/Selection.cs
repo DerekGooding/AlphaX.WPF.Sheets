@@ -1,7 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using System.Collections.Generic;
-
-namespace AlphaX.WPF.Sheets.UI.Interaction
+﻿namespace AlphaX.WPF.Sheets.UI.Interaction
 {
     public class Selection
     {

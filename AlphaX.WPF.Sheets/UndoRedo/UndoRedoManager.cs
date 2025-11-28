@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets
 {
     public class UndoRedoManager
     {

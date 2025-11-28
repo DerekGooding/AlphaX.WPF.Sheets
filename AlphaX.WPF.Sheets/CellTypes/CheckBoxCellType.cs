@@ -1,9 +1,4 @@
-﻿using AlphaX.Sheets;
-using AlphaX.Sheets.Formatters;
-using AlphaX.WPF.Sheets.UI.Editors;
-using System;
-using System.Windows;
-using System.Windows.Media;
+﻿using AlphaX.WPF.Sheets.UI.Editors;
 
 namespace AlphaX.WPF.Sheets.CellTypes
 {

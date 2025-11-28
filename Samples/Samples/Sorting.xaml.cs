@@ -1,7 +1,4 @@
-﻿using AlphaX.Sheets.Drawing;
-using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace AlphaXSpreadSamplesExplorer.Samples
 {

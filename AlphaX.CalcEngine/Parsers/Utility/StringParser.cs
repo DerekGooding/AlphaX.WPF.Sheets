@@ -1,39 +1,38 @@
 ﻿using AlphaX.CalcEngine.Parsers.Base;
 
-namespace AlphaX.CalcEngine.Parsers.Utility
+namespace AlphaX.CalcEngine.Parsers.Utility;
+
+internal class StringParser : Parser
 {
-    internal class StringParser : Parser
+    public string Value { get; set; }
+
+    public StringParser(string value)
     {
-        public string Value { get; set; }
+        Value = value;
+    }
 
-        public StringParser(string value)
+    public override ParserState Parse(ParserState state)
+    {
+
+        if (state.IsError)
         {
-            Value = value;
+            return state;
         }
 
-        public override ParserState Parse(ParserState state)
+        var str = state.InputString.Substring(state.Index);
+
+        if(str.Length < Value.Length)
         {
-
-            if (state.IsError)
-            {
-                return state;
-            }
-
-            var str = state.InputString.Substring(state.Index);
-
-            if(str.Length < Value.Length)
-            {
-                return UpdateError(state, new ParserError($"Unexpected end of input, expected ${Value}, found end of input"));
-            }
-
-            if (str.StartsWith(Value))
-            {
-                return UpdateState(state, state.Index + Value.Length, new StringResult(Value));
-            }
-
-            
-            return UpdateError(state, new ParserError ($"No match found, expected {Value} but got {str}" ));
-            
+            return UpdateError(state, new ParserError($"Unexpected end of input, expected ${Value}, found end of input"));
         }
+
+        if (str.StartsWith(Value))
+        {
+            return UpdateState(state, state.Index + Value.Length, new StringResult(Value));
+        }
+
+        
+        return UpdateError(state, new ParserError ($"No match found, expected {Value} but got {str}" ));
+        
     }
 }

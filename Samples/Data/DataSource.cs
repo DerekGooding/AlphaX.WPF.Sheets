@@ -1,6 +1,5 @@
 ﻿using AlphaXSpreadSamplesExplorer.Models;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 
@@ -13,8 +12,7 @@ namespace AlphaXSpreadSamplesExplorer.Data
 
         public static IEnumerable<Customer> GetCustomers()
         {
-            if(_customers == null)
-                _customers = JsonConvert.DeserializeObject<List<Customer>>(File.ReadAllText("Data\\Customers.json"));
+            _customers ??= JsonConvert.DeserializeObject<List<Customer>>(File.ReadAllText("Data\\Customers.json"));
 
             return _customers;
         }

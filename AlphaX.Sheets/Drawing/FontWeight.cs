@@ -1,9 +1,8 @@
-﻿namespace AlphaX.Sheets.Drawing
+﻿namespace AlphaX.Sheets.Drawing;
+
+public enum FontWeight
 {
-    public enum FontWeight
-    {
-        Normal,
-        Regular,
-        Bold
-    }
+    Normal,
+    Regular,
+    Bold
 }

@@ -1,8 +1,5 @@
 ﻿using AlphaX.WPF.Sheets.CellTypes;
 using AlphaX.WPF.Sheets.UI;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace AlphaX.WPF.Sheets.Rendering
 {

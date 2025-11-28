@@ -1,32 +1,31 @@
-﻿namespace AlphaX.CalcEngine.Parsers.Base
+﻿namespace AlphaX.CalcEngine.Parsers.Base;
+
+internal class ParserState
 {
-    internal class ParserState
+    public string InputString { get; set; }
+    public int Index { get; set; }
+    public ParserResult Result { get; set; }
+    public bool IsError { get; set; } = false;
+    public ParserError Error { get; set; }
+
+    public ParserState()
     {
-        public string InputString { get; set; }
-        public int Index { get; set; }
-        public ParserResult Result { get; set; }
-        public bool IsError { get; set; } = false;
-        public ParserError Error { get; set; }
+        Result = new ParserResult();
+        InputString = string.Empty;
+    }
 
-        public ParserState()
+    public ParserState Clone()
+    {
+        var state = this;
+
+        var newState = new ParserState
         {
-            Result = new ParserResult();
-            InputString = string.Empty;
-        }
-
-        public ParserState Clone()
-        {
-            var state = this;
-
-            var newState = new ParserState
-            {
-                InputString = state.InputString,
-                Index = state.Index,
-                Result = state.Result,
-                IsError = state.IsError,
-                Error = state.Error
-            };
-            return newState;
-        }
+            InputString = state.InputString,
+            Index = state.Index,
+            Result = state.Result,
+            IsError = state.IsError,
+            Error = state.Error
+        };
+        return newState;
     }
 }

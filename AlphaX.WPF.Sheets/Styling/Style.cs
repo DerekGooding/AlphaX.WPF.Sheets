@@ -1,9 +1,4 @@
-﻿using AlphaX.Sheets.Core;
-using AlphaX.Sheets.Workbook;
-using System.Windows;
-using System.Windows.Media;
-
-namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets
 {
     public class Style : NamedStyle
     {

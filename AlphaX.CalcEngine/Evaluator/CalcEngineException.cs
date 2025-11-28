@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace AlphaX.CalcEngine.Evaluator;
 
-namespace AlphaX.CalcEngine.Evaluator
+public class CalcEngineException : Exception
 {
-    public class CalcEngineException : Exception
+    public CalcEngineException(string msg) : base(msg)
     {
-        public CalcEngineException(string msg) : base(msg)
-        {
 
-        }
     }
 }

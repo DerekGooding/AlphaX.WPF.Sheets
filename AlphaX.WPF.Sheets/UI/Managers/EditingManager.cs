@@ -1,10 +1,6 @@
 ﻿using AlphaX.CalcEngine.Evaluator;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using AlphaX.WPF.Sheets.CellTypes;
 using AlphaX.WPF.Sheets.UI.Editors;
 using AlphaX.WPF.Sheets.UI.Interaction;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace AlphaX.WPF.Sheets.UI.Managers

@@ -1,12 +1,11 @@
-﻿namespace AlphaX.Sheets.Enums
+﻿namespace AlphaX.Sheets.Enums;
+
+public enum ChangeType
 {
-    public enum ChangeType
-    {
-        None,
-        Value,
-        Formula,
-        Style,
-        Size,
-        Count
-    }
+    None,
+    Value,
+    Formula,
+    Style,
+    Size,
+    Count
 }

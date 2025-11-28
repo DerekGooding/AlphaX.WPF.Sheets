@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Controls;
-
-namespace AlphaXSpreadSamplesExplorer
+﻿namespace AlphaXSpreadSamplesExplorer
 {
     /// <summary>
     /// Interaction logic for SamplesSideBar.xaml

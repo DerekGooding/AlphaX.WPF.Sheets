@@ -1,9 +1,4 @@
-﻿using AlphaX.Sheets.Workbook.WorkSheet;
-using AlphaX.WPF.Sheets.UI.Interaction;
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using AlphaX.WPF.Sheets.UI.Interaction;
 
 namespace AlphaX.WPF.Sheets.Rendering
 {

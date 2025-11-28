@@ -1,10 +1,5 @@
-﻿using AlphaX.Sheets.Enums;
-using AlphaX.Sheets.Formatters;
-using AlphaX.WPF.Sheets.Rendering;
+﻿using AlphaX.WPF.Sheets.Rendering;
 using AlphaX.WPF.Sheets.UI.Editors;
-using System;
-using System.Windows;
-using System.Windows.Media;
 
 namespace AlphaX.WPF.Sheets.CellTypes
 {

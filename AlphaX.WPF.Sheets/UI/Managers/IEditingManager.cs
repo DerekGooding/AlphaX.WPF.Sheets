@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-
-namespace AlphaX.WPF.Sheets.UI.Managers
+﻿namespace AlphaX.WPF.Sheets.UI.Managers
 {
     public interface IEditingManager
     {

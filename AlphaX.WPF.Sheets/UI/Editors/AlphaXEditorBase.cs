@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace AlphaX.WPF.Sheets.UI.Editors
+﻿namespace AlphaX.WPF.Sheets.UI.Editors
 {
     public class AlphaXEditorBase : TextBox, IEditorInfo
     {

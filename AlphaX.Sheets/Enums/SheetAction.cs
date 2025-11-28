@@ -1,11 +1,10 @@
-﻿namespace AlphaX.Sheets.Enums
+﻿namespace AlphaX.Sheets.Enums;
+
+public enum SheetAction
 {
-    public enum SheetAction
-    {
-        None,
-        Added,
-        Removed,
-        Sort,
-        Merge
-    }
+    None,
+    Added,
+    Removed,
+    Sort,
+    Merge
 }

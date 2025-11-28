@@ -1,10 +1,9 @@
-﻿namespace AlphaX.Sheets.Enums
+﻿namespace AlphaX.Sheets.Enums;
+
+public enum AlphaXHorizontalAlignment
 {
-    public enum AlphaXHorizontalAlignment
-    {
-        Auto,
-        Left,
-        Right,
-        Center
-    }
+    Auto,
+    Left,
+    Right,
+    Center
 }

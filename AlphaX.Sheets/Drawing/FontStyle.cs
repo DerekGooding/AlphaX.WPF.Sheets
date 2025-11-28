@@ -1,9 +1,8 @@
-﻿namespace AlphaX.Sheets.Drawing
+﻿namespace AlphaX.Sheets.Drawing;
+
+public enum FontStyle
 {
-    public enum FontStyle
-    {
-        Normal,
-        Oblique,
-        Italic
-    }
+    Normal,
+    Oblique,
+    Italic
 }

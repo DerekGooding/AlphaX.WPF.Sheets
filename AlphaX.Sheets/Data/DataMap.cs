@@ -1,26 +1,25 @@
-﻿namespace AlphaX.Sheets.Data
+﻿namespace AlphaX.Sheets.Data;
+
+public class PropertyDataMap : DataMap
 {
-    public class PropertyDataMap : DataMap
+    public string PropertyName { get; }
+
+    public PropertyDataMap(string propertyName)
     {
-        public string PropertyName { get; }
-
-        public PropertyDataMap(string propertyName)
-        {
-            PropertyName = propertyName;
-        }
+        PropertyName = propertyName;
     }
+}
 
-    public class DataColumnDataMap : DataMap
+public class DataColumnDataMap : DataMap
+{
+    public string ColumnName { get; }
+
+    public DataColumnDataMap(string columnName)
     {
-        public string ColumnName { get; }
-
-        public DataColumnDataMap(string columnName)
-        {
-            ColumnName = columnName;
-        }
+        ColumnName = columnName;
     }
+}
 
-    public abstract class DataMap
-    {
-    }
+public abstract class DataMap : IDataMap
+{
 }

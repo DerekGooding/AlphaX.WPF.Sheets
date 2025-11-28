@@ -1,11 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using AlphaX.Sheets.Columns;
-using AlphaX.Sheets.Rows;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using System;
-using System.Windows;
-
-namespace AlphaX.WPF.Sheets.UI
+﻿namespace AlphaX.WPF.Sheets.UI
 {
     internal class ViewPort : IViewPort
     {

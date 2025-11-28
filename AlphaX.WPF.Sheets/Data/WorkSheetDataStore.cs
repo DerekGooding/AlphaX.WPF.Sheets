@@ -1,14 +1,9 @@
-﻿using GrapeCity.CalcEngine;
-using GrapeCity.Sheets.Model;
-using System;
+﻿using AlphaX.CalcEngine.Evaluator;
+using AlphaX.WPF.Sheets;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Threading;
 
 namespace GrapeCity.WPF.Sheets.Data
 {
@@ -130,7 +125,7 @@ namespace GrapeCity.WPF.Sheets.Data
             else if (IsValid && ActualDataSource != null && row <= _collection.Count - 1)
             {
                 var sheetColumn = _columns.GetItem(column, false);
-                var dataMap = cell?.DataMap != null ? cell.DataMap : sheetColumn?.DataMap;
+                IDataMap? dataMap = cell?.DataMap != null ? cell.DataMap : sheetColumn?.DataMap;
                 if (dataMap != null && dataMap is PropertyDataMap propertyDataMap
                     && !string.IsNullOrEmpty(propertyDataMap.PropertyName))
                 {
@@ -162,7 +157,7 @@ namespace GrapeCity.WPF.Sheets.Data
                 cell.Formula = null;
 
             var sheetColumn = _columns.GetItem(column, false);
-            var dataMap = cell.DataMap != null ? cell.DataMap : sheetColumn?.DataMap;
+            IDataMap? dataMap = cell.DataMap != null ? cell.DataMap : sheetColumn?.DataMap;
 
             if (_collection != null && row >= _collection.Count)
                 dataMap = null;

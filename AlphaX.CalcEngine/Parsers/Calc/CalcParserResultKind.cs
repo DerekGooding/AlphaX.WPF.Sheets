@@ -1,17 +1,16 @@
-﻿namespace AlphaX.CalcEngine.Parsers.Calc
+﻿namespace AlphaX.CalcEngine.Parsers.Calc;
+
+public enum CalcParserResultKind
 {
-    public enum CalcParserResultKind
-    {
-        Number,
-        Float,
-        VarName,
-        CellRef,
-        CellRangeRef,
-        Operator,
-        OpenParan,
-        CloseParan,
-        Formula,
-        String,
-        Bool
-    }
+    Number,
+    Float,
+    VarName,
+    CellRef,
+    CellRangeRef,
+    Operator,
+    OpenParan,
+    CloseParan,
+    Formula,
+    String,
+    Bool
 }

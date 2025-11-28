@@ -1,8 +1,5 @@
 ﻿
 using AlphaX.WPF.Sheets.UI;
-using System;
-using System.Windows;
-using System.Windows.Media;
 
 namespace AlphaX.WPF.Sheets.Rendering
 {

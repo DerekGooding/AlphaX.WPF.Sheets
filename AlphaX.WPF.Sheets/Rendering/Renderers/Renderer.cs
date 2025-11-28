@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace AlphaX.WPF.Sheets.Rendering
+﻿namespace AlphaX.WPF.Sheets.Rendering
 {
     /// <summary>
     /// This is an abstract base class for sheet component renderers.

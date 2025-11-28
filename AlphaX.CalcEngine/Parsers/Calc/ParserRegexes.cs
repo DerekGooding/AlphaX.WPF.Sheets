@@ -1,20 +1,19 @@
-﻿namespace AlphaX.CalcEngine.Parsers.Calc
+﻿namespace AlphaX.CalcEngine.Parsers.Calc;
+
+internal static class ParserRegexes
 {
-    internal static class ParserRegexes
+    public static string GetFloatParserRegex()
     {
-        public static string GetFloatParserRegex()
-        {
-            return @"^\d*\.\d+";
-        }
+        return @"^\d*\.\d+";
+    }
 
-        public static string GetFormulaParserRegex()
-        {
-            return @"^\s*,\s*";
-        }
+    public static string GetFormulaParserRegex()
+    {
+        return @"^\s*,\s*";
+    }
 
-        public static string GetVarParserRegex()
-        {
-            return @"^[a-zA-Z]+[\w\d]*";
-        }
+    public static string GetVarParserRegex()
+    {
+        return @"^[a-zA-Z]+[\w\d]*";
     }
 }

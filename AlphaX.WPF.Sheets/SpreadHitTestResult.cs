@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets
 {
     public class SpreadHitTestResult
     {

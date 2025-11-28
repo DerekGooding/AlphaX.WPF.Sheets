@@ -1,49 +1,47 @@
 ﻿using AlphaX.CalcEngine.Parsers.Base;
-using System;
 
-namespace AlphaX.CalcEngine.Parsers.Utility
+namespace AlphaX.CalcEngine.Parsers.Utility;
+
+internal class ChoiceParser : Parser
 {
-    internal class ChoiceParser : Parser
+    private Parser[] _parsers;
+    private Lazy<Parser[]> _lazyParsers;
+    private int _minCount = -1;
+
+    public ChoiceParser(Parser[] parsers, int minCount = -1)
     {
-        private Parser[] _parsers;
-        private Lazy<Parser[]> _lazyParsers;
-        private int _minCount = -1;
+        _parsers = parsers;
+        _minCount = minCount;
+    }
 
-        public ChoiceParser(Parser[] parsers, int minCount = -1)
+    // lazy version
+    public ChoiceParser(Lazy<Parser[]> lazyParserFactory)
+    {
+        _lazyParsers = lazyParserFactory;
+    }
+
+    public override ParserState Parse(ParserState state)
+    {
+        if (state.IsError)
         {
-            _parsers = parsers;
-            _minCount = minCount;
+            return state;
         }
 
-        // lazy version
-        public ChoiceParser(Lazy<Parser[]> lazyParserFactory)
+        var parsers = _parsers;
+        if(_lazyParsers != null)
         {
-            _lazyParsers = lazyParserFactory;
+            parsers = _lazyParsers.Value;
         }
 
-        public override ParserState Parse(ParserState state)
+        foreach (var p in parsers)
         {
-            if (state.IsError)
+            var nextState = p.Parse(state);
+            if (!nextState.IsError)
             {
-                return state;
+                return nextState;
             }
-
-            var parsers = _parsers;
-            if(_lazyParsers != null)
-            {
-                parsers = _lazyParsers.Value;
-            }
-
-            foreach (var p in parsers)
-            {
-                var nextState = p.Parse(state);
-                if (!nextState.IsError)
-                {
-                    return nextState;
-                }
-            }
-
-            return UpdateError(state, new ParserError($"Unable to match with any parser at index { state.Index}"));
         }
+
+        return UpdateError(state, new ParserError($"Unable to match with any parser at index { state.Index}"));
     }
 }

@@ -1,12 +1,6 @@
-﻿using AlphaXSpreadSamplesExplorer.Data;
-using AlphaX.Sheets.Data;
-using AlphaX.Sheets.Drawing;
+﻿using AlphaX.Sheets.Data;
 using AlphaX.WPF.Sheets;
-using System;
-using System.Linq;
-using System.Windows.Controls;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using AlphaX.Sheets.Enums;
+using AlphaXSpreadSamplesExplorer.Data;
 
 namespace AlphaXSpreadSamplesExplorer.Samples
 {

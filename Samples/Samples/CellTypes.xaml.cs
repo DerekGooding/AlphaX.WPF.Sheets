@@ -1,7 +1,5 @@
 ﻿using AlphaX.WPF.Sheets;
 using AlphaX.WPF.Sheets.CellTypes;
-using System;
-using System.Windows.Controls;
 
 namespace AlphaXSpreadSamplesExplorer.Samples
 {

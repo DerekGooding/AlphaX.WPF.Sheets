@@ -1,11 +1,4 @@
-﻿using AlphaX.Sheets.Enums;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-
-namespace AlphaX.WPF.Sheets.Rendering
+﻿namespace AlphaX.WPF.Sheets.Rendering
 {
     internal static class TextRenderingExtensions
     {

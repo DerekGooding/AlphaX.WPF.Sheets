@@ -1,28 +1,27 @@
-﻿namespace AlphaX.CalcEngine.Parsers.Base
+﻿namespace AlphaX.CalcEngine.Parsers.Base;
+
+internal delegate Parser ChainDelegate(ParserResult result);
+
+internal class ChainedParser : Parser
 {
-    internal delegate Parser ChainDelegate(ParserResult result);
+    private Parser Parser { get; set; }
+    private ChainDelegate ChainFn { get; set; }
 
-    internal class ChainedParser : Parser
+    public ChainedParser(Parser parser, ChainDelegate chainFn)
     {
-        private Parser Parser { get; set; }
-        private ChainDelegate ChainFn { get; set; }
+        Parser = parser;
+        ChainFn = chainFn;
+    }
 
-        public ChainedParser(Parser parser, ChainDelegate chainFn)
+    public override ParserState Parse(ParserState state)
+    {
+        var newState = Parser.Parse(state);
+        if (newState.IsError)
         {
-            Parser = parser;
-            ChainFn = chainFn;
+            return newState;
         }
 
-        public override ParserState Parse(ParserState state)
-        {
-            var newState = Parser.Parse(state);
-            if (newState.IsError)
-            {
-                return newState;
-            }
-
-            var newParser = ChainFn(newState.Result);
-            return newParser.Parse(newState);
-        }
+        var newParser = ChainFn(newState.Result);
+        return newParser.Parse(newState);
     }
 }

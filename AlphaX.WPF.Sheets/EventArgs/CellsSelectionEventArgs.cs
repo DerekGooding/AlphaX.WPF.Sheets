@@ -1,7 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using System;
-
-namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets
 {
     public class CellsSelectionEventArgs : EventArgs
     {

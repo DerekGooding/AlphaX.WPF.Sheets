@@ -1,9 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using AlphaX.Sheets.Enums;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using System;
-
-namespace AlphaX.WPF.Sheets.UI.Managers
+﻿namespace AlphaX.WPF.Sheets.UI.Managers
 {
     public class UIUpdateProvider : IUpdateProvider
     {

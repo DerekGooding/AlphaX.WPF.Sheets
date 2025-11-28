@@ -1,7 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using AlphaX.WPF.Sheets.UI;
-using System.Windows;
+﻿using AlphaX.WPF.Sheets.UI;
 
 namespace AlphaX.WPF.Sheets
 {

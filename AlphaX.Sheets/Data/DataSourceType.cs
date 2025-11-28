@@ -1,10 +1,9 @@
-﻿namespace AlphaX.Sheets.Data
+﻿namespace AlphaX.Sheets.Data;
+
+internal enum DataSourceType
 {
-    internal enum DataSourceType
-    {
-        IList,
-        IEnumerable,
-        DataTable,
-        NotSupported
-    }
+    IList,
+    IEnumerable,
+    DataTable,
+    NotSupported
 }

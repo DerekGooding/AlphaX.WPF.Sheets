@@ -1,8 +1,4 @@
-﻿using AlphaX.Sheets.Workbook.WorkSheet;
-using System;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 
 namespace AlphaX.WPF.Sheets.Rendering
 {

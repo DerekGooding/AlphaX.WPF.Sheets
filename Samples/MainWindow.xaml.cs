@@ -1,5 +1,4 @@
 ﻿using AlphaXSpreadSamplesExplorer.Samples;
-using System;
 using System.Windows;
 
 namespace AlphaXSpreadSamplesExplorer

@@ -1,12 +1,11 @@
-﻿namespace AlphaX.Sheets.Drawing
-{
-    public class FontFamily
-    {
-        public string FamilyName { get; }
+﻿namespace AlphaX.Sheets.Drawing;
 
-        public FontFamily(string familyName)
-        {
-            FamilyName = familyName;
-        }
+public class FontFamily
+{
+    public string FamilyName { get; }
+
+    public FontFamily(string familyName)
+    {
+        FamilyName = familyName;
     }
 }

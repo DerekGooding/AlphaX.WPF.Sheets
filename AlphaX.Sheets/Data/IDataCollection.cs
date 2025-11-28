@@ -1,12 +1,10 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace AlphaX.Sheets.Data
+namespace AlphaX.Sheets.Data;
+
+public interface IDataCollection : IDisposable
 {
-    public interface IDataCollection : IDisposable
-    {
-        int Count { get; }
-        object GetItemAt(int index);
-        PropertyInfo GetPropertyInfo(string name);
-    }
+    int Count { get; }
+    object GetItemAt(int index);
+    PropertyInfo GetPropertyInfo(string name);
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlphaX.WPF.Sheets
+﻿namespace AlphaX.WPF.Sheets
 {
     internal class ClipboardPasteAction : SheetAction
     {

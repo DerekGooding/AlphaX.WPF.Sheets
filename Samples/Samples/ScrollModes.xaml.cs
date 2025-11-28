@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace AlphaXSpreadSamplesExplorer.Samples
+﻿namespace AlphaXSpreadSamplesExplorer.Samples
 {
     /// <summary>
     /// Interaction logic for ScrollModes.xaml

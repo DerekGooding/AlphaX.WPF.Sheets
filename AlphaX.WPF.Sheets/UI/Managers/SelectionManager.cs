@@ -1,6 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-
-namespace AlphaX.WPF.Sheets.UI.Managers
+﻿namespace AlphaX.WPF.Sheets.UI.Managers
 {
     internal class SelectionManager : UIManager, ISelectionManager
     {

@@ -1,10 +1,9 @@
-﻿namespace AlphaX.Sheets.Enums
+﻿namespace AlphaX.Sheets.Enums;
+
+public enum AlphaXVerticalAlignment
 {
-    public enum AlphaXVerticalAlignment
-    {
-        Auto,
-        Top,
-        Bottom,
-        Center
-    }
+    Auto,
+    Top,
+    Bottom,
+    Center
 }

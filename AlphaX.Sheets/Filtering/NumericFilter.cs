@@ -1,24 +1,23 @@
-﻿using AlphaX.Sheets.Core;
+﻿using AlphaX.Sheets.Abstractions;
 
-namespace AlphaX.Sheets.Filtering
+namespace AlphaX.Sheets.Filtering;
+
+public enum NumericFilterCriteria
 {
-    public enum NumericFilterCriteria
-    {
-        Equals,
-        GreaterThan,
-        LessThan,
-        LessThanOrEquals,
-        GreaterThanOrEquals,
-    }
+    Equals,
+    GreaterThan,
+    LessThan,
+    LessThanOrEquals,
+    GreaterThanOrEquals,
+}
 
-    public class NumericFilter : FilterBase
-    {
-        public object[] Values { get; set; }
-        public NumericFilterCriteria Criteria { get; set; }
+public class NumericFilter : FilterBase
+{
+    public object[] Values { get; set; }
+    public NumericFilterCriteria Criteria { get; set; }
 
-        protected override bool Filter(object value)
-        {
-            return true;
-        }
+    protected override bool Filter(object value)
+    {
+        return true;
     }
 }

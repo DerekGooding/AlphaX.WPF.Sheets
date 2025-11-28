@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace AlphaX.WPF.Sheets.UI.Managers
+﻿namespace AlphaX.WPF.Sheets.UI.Managers
 {
     internal class ColumnResizeManager : ResizeManagerBase
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 
 namespace AlphaX.WPF.Sheets.Components
 {
@@ -26,11 +22,6 @@ namespace AlphaX.WPF.Sheets.Components
         internal ScrollBar HScrollBar => _hScrollBar;
         internal ScrollBar VScrollBar => _vScrollBar;
         internal AlphaXSpread Spread { get; private set; }
-
-        public AlphaXSheetTabControl()
-        {
-
-        }
 
         public override void OnApplyTemplate()
         {

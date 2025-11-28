@@ -1,16 +1,7 @@
-﻿using AlphaX.Sheets.Columns;
-using AlphaX.Sheets.Enums;
-using AlphaX.Sheets.Rows;
-using AlphaX.Sheets.Workbook;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using AlphaX.WPF.Sheets.Components;
+﻿using AlphaX.WPF.Sheets.Components;
 using AlphaX.WPF.Sheets.Rendering;
 using AlphaX.WPF.Sheets.UI.Managers;
-using System;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace AlphaX.WPF.Sheets
 {
@@ -350,7 +341,7 @@ namespace AlphaX.WPF.Sheets
                         break;
 
                     case Key.A:
-                        SelectionManager.SelectRange(activeSheetView.WorkSheet.Cells.AsCellRange());
+                        SelectionManager.SelectRange(activeSheetView.WorkSheet.Cells.As<CellRange>());
                         break;
 
                     case Key.V:

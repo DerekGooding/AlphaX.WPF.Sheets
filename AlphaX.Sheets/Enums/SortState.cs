@@ -1,9 +1,8 @@
-﻿namespace AlphaX.Sheets.Enums
+﻿namespace AlphaX.Sheets.Enums;
+
+public enum SortState
 {
-    public enum SortState
-    {
-        None,
-        Ascending,
-        Descending
-    }
+    None,
+    Ascending,
+    Descending
 }

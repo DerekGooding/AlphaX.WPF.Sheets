@@ -1,7 +1,6 @@
-﻿namespace AlphaX.Sheets.Formatters
+﻿namespace AlphaX.Sheets.Formatters;
+
+public interface IFormatter
 {
-    public interface IFormatter
-    {
-        string Format(object value);
-    }
+    string Format(object value);
 }

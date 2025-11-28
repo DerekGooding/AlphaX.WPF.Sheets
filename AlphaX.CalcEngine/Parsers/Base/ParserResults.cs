@@ -1,24 +1,23 @@
-﻿namespace AlphaX.CalcEngine.Parsers.Base
+﻿namespace AlphaX.CalcEngine.Parsers.Base;
+
+public class ParserResult { }
+
+class StringResult : ParserResult
 {
-    public class ParserResult { }
+    public string Value { get; set; } = "";
 
-    class StringResult : ParserResult
+    public StringResult(string value)
     {
-        public string Value { get; set; } = "";
-
-        public StringResult(string value)
-        {
-            Value = value;
-        }
+        Value = value;
     }
+}
 
-    class ArrayResult : ParserResult
+class ArrayResult : ParserResult
+{
+    public ParserResult[] Value { get; set; } = new ParserResult[] { };
+
+    public ArrayResult(ParserResult[] value)
     {
-        public ParserResult[] Value { get; set; } = new ParserResult[] { };
-
-        public ArrayResult(ParserResult[] value)
-        {
-            Value = value;
-        }
+        Value = value;
     }
 }

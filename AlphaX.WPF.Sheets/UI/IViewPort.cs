@@ -1,7 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using System.Windows;
-
-namespace AlphaX.WPF.Sheets.UI
+﻿namespace AlphaX.WPF.Sheets.UI
 {
     public interface IViewPort
     {

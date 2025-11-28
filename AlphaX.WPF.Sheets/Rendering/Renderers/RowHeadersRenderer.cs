@@ -1,11 +1,4 @@
-﻿using AlphaX.Sheets.Cells;
-using AlphaX.Sheets.Columns;
-using AlphaX.Sheets.Core;
-using AlphaX.Sheets.Rows;
-using AlphaX.Sheets.Workbook.WorkSheet;
-using AlphaX.WPF.Sheets.UI;
-using System.Windows;
-using System.Windows.Media;
+﻿using AlphaX.WPF.Sheets.UI;
 
 namespace AlphaX.WPF.Sheets.Rendering
 {

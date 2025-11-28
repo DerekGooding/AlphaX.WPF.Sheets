@@ -1,12 +1,11 @@
-﻿namespace AlphaX.CalcEngine.Parsers.Calc
+﻿namespace AlphaX.CalcEngine.Parsers.Calc;
+
+public enum CalcOperators
 {
-    public enum CalcOperators
-    {
-        Plus,
-        Minus,
-        Multiply,
-        Divide,
-        ConcateString,
-        Unknown
-    }
+    Plus,
+    Minus,
+    Multiply,
+    Divide,
+    ConcateString,
+    Unknown
 }

@@ -1,12 +1,6 @@
 ﻿using AlphaX.CalcEngine.Formulas;
 using AlphaX.WPF.Sheets.Components;
-using System;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace AlphaX.WPF.Sheets.UI.Editors
 {

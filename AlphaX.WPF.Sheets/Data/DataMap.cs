@@ -1,11 +1,4 @@
-﻿using GrapeCity.Sheets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GrapeCity.WPF.Sheets.Data
+﻿namespace GrapeCity.WPF.Sheets.Data
 {
     public class PropertyDataMap : DataMap
     {
